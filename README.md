@@ -1,11 +1,32 @@
-# project-brain
+# Project Brain
 
-CLI-first developer intelligence tool.
+CLI tool to understand any codebase instantly.
 
-## Installation
+## 🚀 Install
 
 ```bash
-git clone <repo>
-cd project-brain
 pip install -e .
-# project-brain
+🧠 Commands
+brain init
+brain analyze .
+brain summary
+brain diff HEAD~1 HEAD
+brain explain-diff HEAD~1 HEAD
+brain doctor
+🎯 What it does
+Analyzes project structure
+Generates summaries
+Shows diffs between versions
+Explains changes
+⚡ Why
+
+Understanding codebases manually is slow.
+Project Brain makes it fast and structured.
+
+
+Then:
+
+```bash
+git add README.md
+git commit -m "docs: update README for v0.1.0"
+git push

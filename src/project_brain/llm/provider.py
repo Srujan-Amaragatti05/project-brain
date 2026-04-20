@@ -9,7 +9,9 @@ def call_ollama(model: str, prompt: str) -> str:
             ["ollama", "run", model],
             input=prompt,
             text=True,
-            capture_output=True
+            capture_output=True,
+            encoding="utf-8",
+            errors="ignore"
         )
         return proc.stdout.strip()
     except Exception:
@@ -35,8 +37,13 @@ def call_openai(model: str, prompt: str) -> str:
             },
             timeout=30
         )
+
+        if response.status_code != 200:
+            return ""
+
         data = response.json()
         return data["choices"][0]["message"]["content"]
+
     except Exception:
         return ""
 

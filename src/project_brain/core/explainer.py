@@ -1,6 +1,7 @@
 from pathlib import Path
 import hashlib
 import json
+import yaml
 
 from project_brain.core.differ import (
     compute_diff,
@@ -8,7 +9,6 @@ from project_brain.core.differ import (
     extract_functions
 )
 from project_brain.llm.provider import generate_explanation
-import yaml
 
 
 def load_config(root: Path):
@@ -22,8 +22,8 @@ def load_config(root: Path):
         return {"llm": {"provider": "none", "model": ""}}
 
 
-def hash_pair(old: str, new: str) -> str:
-    return hashlib.sha256((old + new).encode()).hexdigest()
+def hash_pair(old: str, new: str, fn: str) -> str:
+    return hashlib.sha256((old + new + fn).encode()).hexdigest()
 
 
 def load_cache(cache_dir: Path, key: str):
@@ -42,20 +42,29 @@ def save_cache(cache_dir: Path, key: str, data: dict):
     path.write_text(json.dumps(data, indent=2))
 
 
-def build_prompt(old_code: str, new_code: str) -> str:
+def build_prompt(old_code: str, new_code: str, fn: str) -> str:
     return f"""
+Function: {fn}
+
 Old Code:
 {old_code}
 
 New Code:
 {new_code}
 
-Explain:
-- What changed
-- Why it matters
-- Impact on system
-- Risks
+Explain clearly:
+1. What changed
+2. Why it matters
+3. Impact on system
+4. Risks
 """.strip()
+
+
+def safe_extract(source: str):
+    try:
+        return extract_functions(source)
+    except Exception:
+        return {}
 
 
 def explain_diff(from_ref: str, to_ref: str, root: Path):
@@ -76,8 +85,8 @@ def explain_diff(from_ref: str, to_ref: str, root: Path):
         old_src = get_file_from_ref(from_ref, file, root) or ""
         new_src = get_file_from_ref(to_ref, file, root) or ""
 
-        old_funcs = extract_functions(old_src)
-        new_funcs = extract_functions(new_src)
+        old_funcs = safe_extract(old_src)
+        new_funcs = safe_extract(new_src)
 
         changed_funcs = (
             set(fd["added"]) |
@@ -86,7 +95,10 @@ def explain_diff(from_ref: str, to_ref: str, root: Path):
         )
 
         for fn in changed_funcs:
-            key = hash_pair(old_src, new_src)
+            old_code = old_funcs.get(fn, "")
+            new_code = new_funcs.get(fn, "")
+
+            key = hash_pair(old_code, new_code, fn)
             cached = load_cache(cache_dir, key)
 
             if cached:
@@ -97,11 +109,12 @@ def explain_diff(from_ref: str, to_ref: str, root: Path):
                 })
                 continue
 
+            # No LLM configured
             if provider == "none":
                 data = {
-                    "change": "Function changed",
-                    "impact": "Unknown",
-                    "risk": "Unknown"
+                    "change": f"{fn} was modified",
+                    "impact": "Code behavior may have changed",
+                    "risk": "Review required"
                 }
                 results.append({
                     "file": file,
@@ -110,17 +123,16 @@ def explain_diff(from_ref: str, to_ref: str, root: Path):
                 })
                 continue
 
-            prompt = build_prompt(old_src, new_src)
+            prompt = build_prompt(old_code, new_code, fn)
             response = generate_explanation(provider, model, prompt)
 
             if not response:
                 data = {
-                    "change": "LLM failed",
+                    "change": "LLM failed to generate explanation",
                     "impact": "Unknown",
                     "risk": "Unknown"
                 }
             else:
-                # simple parsing fallback
                 data = {
                     "change": response.strip(),
                     "impact": "",

@@ -160,7 +160,7 @@ def diff(from_ref: str, to_ref: str):
         typer.echo("")
 
 
-@app.command()
+@app.command(name="explain-diff")
 def explain_diff_cmd(from_ref: str, to_ref: str):
     """
     Explain code changes using LLM
@@ -174,11 +174,11 @@ def explain_diff_cmd(from_ref: str, to_ref: str):
         raise typer.Exit(code=1)
 
     for item in results:
-        typer.echo(f"\nFile: {item['file']}")
-        typer.echo(f"Function: {item['function']}")
-        typer.echo(f"Change: {item['change']}")
-        typer.echo(f"Impact: {item['impact']}")
-        typer.echo(f"Risk: {item['risk']}")
+        typer.echo(f"\n📄 File: {item['file']}")
+        typer.echo(f"🔧 Function: {item['function']}")
+        typer.echo(f"🧠 Change: {item['change']}")
+        typer.echo(f"⚡ Impact: {item['impact']}")
+        typer.echo(f"⚠️ Risk: {item['risk']}")
 
 def main():
     app()

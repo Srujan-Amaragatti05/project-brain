@@ -1,6 +1,6 @@
 llm:
-  provider: none
-  model: ''
+  provider: ollama
+  model: 'phi3'
 analysis:
   depth: fast
 diff:

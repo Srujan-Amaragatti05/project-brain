@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "project-brain"
+version = "0.1.0"
+description = "CLI-first developer intelligence tool"
+authors = [
+    { name = "Your Name" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "typer[all]",
+    "PyYAML"
+]
+
+[project.scripts]
+project-brain = "project_brain.cli:app"
+brain = "project_brain.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]

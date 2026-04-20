@@ -1,0 +1,8 @@
+Metadata-Version: 2.4
+Name: project-brain
+Version: 0.1.0
+Summary: CLI-first developer intelligence tool
+Author: Your Name
+Requires-Python: >=3.10
+Requires-Dist: typer[all]
+Requires-Dist: PyYAML

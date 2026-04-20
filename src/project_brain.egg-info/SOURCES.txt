@@ -1,0 +1,15 @@
+README.md
+pyproject.toml
+src/project_brain/__init__.py
+src/project_brain/cli.py
+src/project_brain.egg-info/PKG-INFO
+src/project_brain.egg-info/SOURCES.txt
+src/project_brain.egg-info/dependency_links.txt
+src/project_brain.egg-info/entry_points.txt
+src/project_brain.egg-info/requires.txt
+src/project_brain.egg-info/top_level.txt
+src/project_brain/config/__init__.py
+src/project_brain/core/__init__.py
+src/project_brain/core/analyzer.py
+src/project_brain/storage/__init__.py
+src/project_brain/storage/storage.py

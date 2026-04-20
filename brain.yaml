@@ -1,0 +1,9 @@
+llm:
+  provider: none
+  model: ''
+analysis:
+  depth: fast
+diff:
+  mode: function
+output:
+  format: text

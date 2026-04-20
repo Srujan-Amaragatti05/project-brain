@@ -7,6 +7,8 @@ from project_brain.core.analyzer import analyze_project
 from project_brain.storage.storage import save_data
 from project_brain.core.summarizer import load_data, format_summary
 from project_brain.core.differ import compute_diff, is_git_repo
+from project_brain.core.explainer import explain_diff
+from project_brain.core.doctor import run_doctor
 
 app = typer.Typer(help="project-brain CLI")
 
@@ -157,6 +159,44 @@ def diff(from_ref: str, to_ref: str):
             typer.echo("* None")
 
         typer.echo("")
+
+
+@app.command(name="explain-diff")
+def explain_diff_cmd(from_ref: str, to_ref: str):
+    """
+    Explain code changes using LLM
+    """
+    root = Path.cwd()
+
+    results = explain_diff(from_ref, to_ref, root)
+
+    if not results:
+        typer.echo("❌ Failed to compute explain-diff")
+        raise typer.Exit(code=1)
+
+    for item in results:
+        typer.echo(f"\n📄 File: {item['file']}")
+        typer.echo(f"🔧 Function: {item['function']}")
+        typer.echo(f"🧠 Change: {item['change']}")
+        typer.echo(f"⚡ Impact: {item['impact']}")
+        typer.echo(f"⚠️ Risk: {item['risk']}")
+
+
+@app.command()
+def doctor():
+    """
+    Validate project setup and environment
+    """
+    root = Path.cwd()
+
+    results, final_status = run_doctor(root)
+
+    typer.echo("\nProject Brain Doctor Report\n")
+
+    for line in results:
+        typer.echo(line)
+
+    typer.echo(f"\nStatus: {final_status}")
 
 def main():
     app()

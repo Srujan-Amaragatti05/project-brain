@@ -3,25 +3,35 @@ from pathlib import Path
 import ast
 
 
-def run_git_command(args, cwd: Path):
+# -----------------------------
+# Git Utilities (SAFE)
+# -----------------------------
+def run_git_command(args: list[str], cwd: Path) -> str | None:
     try:
         result = subprocess.run(
             ["git"] + args,
             cwd=cwd,
             capture_output=True,
             text=True,
+            encoding="utf-8",      # 🔥 CRITICAL FIX
+            errors="ignore",       # 🔥 PREVENT CRASH
             check=True
         )
-        return result.stdout
+        return result.stdout.strip()
+    except subprocess.CalledProcessError:
+        return None
     except Exception:
         return None
 
 
 def is_git_repo(path: Path) -> bool:
     result = run_git_command(["rev-parse", "--is-inside-work-tree"], path)
-    return result is not None and result.strip() == "true"
+    return result == "true"
 
 
+# -----------------------------
+# Diff Parsing
+# -----------------------------
 def parse_name_status(output: str):
     added, modified, deleted = [], [], []
 
@@ -29,7 +39,11 @@ def parse_name_status(output: str):
         if not line.strip():
             continue
 
-        status, file = line.split(maxsplit=1)
+        parts = line.split(maxsplit=1)
+        if len(parts) != 2:
+            continue  # 🔥 safe guard
+
+        status, file = parts
 
         if status == "A":
             added.append(file)
@@ -41,44 +55,69 @@ def parse_name_status(output: str):
     return added, modified, deleted
 
 
-def get_file_from_ref(ref: str, file: str, cwd: Path):
-    content = run_git_command(["show", f"{ref}:{file}"], cwd)
-    return content
+# -----------------------------
+# File Content Retrieval
+# -----------------------------
+def get_file_from_ref(ref: str, file: str, cwd: Path) -> str | None:
+    return run_git_command(["show", f"{ref}:{file}"], cwd)
 
 
+# -----------------------------
+# AST Function Extraction
+# -----------------------------
 def extract_functions(source: str):
-    names = set()
+    """
+    Returns dict:
+    {
+        "function_name": "function_source_code"
+    }
+    """
+    functions = {}
 
     try:
         tree = ast.parse(source)
     except Exception:
-        return names
+        return functions  # 🔥 invalid python safety
 
     for node in ast.walk(tree):
         if isinstance(node, ast.FunctionDef):
-            names.add(node.name)
+            try:
+                code = ast.get_source_segment(source, node) or ""
+            except Exception:
+                code = ""
 
-    return names
+            functions[node.name] = code
+
+    return functions
 
 
+# -----------------------------
+# Function Diff Logic
+# -----------------------------
 def diff_functions(old_src: str, new_src: str):
     old_funcs = extract_functions(old_src or "")
     new_funcs = extract_functions(new_src or "")
 
-    added = sorted(list(new_funcs - old_funcs))
-    removed = sorted(list(old_funcs - new_funcs))
-    modified = sorted(list(old_funcs & new_funcs))
+    old_set = set(old_funcs.keys())
+    new_set = set(new_funcs.keys())
+
+    added = sorted(new_set - old_set)
+    removed = sorted(old_set - new_set)
+    modified = sorted(old_set & new_set)  # simple heuristic
 
     return added, removed, modified
 
 
+# -----------------------------
+# Main Diff Engine
+# -----------------------------
 def compute_diff(from_ref: str, to_ref: str, root: Path):
     diff_output = run_git_command(
         ["diff", "--name-status", from_ref, to_ref],
         root
     )
 
-    if diff_output is None:
+    if not diff_output:
         return None
 
     added, modified, deleted = parse_name_status(diff_output)

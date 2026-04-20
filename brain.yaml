@@ -1,6 +1,6 @@
 llm:
   provider: none
-  model: ''
+  model: 'phi3'
 analysis:
   depth: fast
 diff:

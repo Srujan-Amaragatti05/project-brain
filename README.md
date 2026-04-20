@@ -8,3 +8,4 @@ CLI-first developer intelligence tool.
 git clone <repo>
 cd project-brain
 pip install -e .
+# project-brain

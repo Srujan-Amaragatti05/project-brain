@@ -1,5 +1,5 @@
 llm:
-  provider: ollama
+  provider: none
   model: 'phi3'
 analysis:
   depth: fast

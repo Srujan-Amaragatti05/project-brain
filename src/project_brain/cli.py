@@ -8,6 +8,7 @@ from project_brain.storage.storage import save_data
 from project_brain.core.summarizer import load_data, format_summary
 from project_brain.core.differ import compute_diff, is_git_repo
 from project_brain.core.explainer import explain_diff
+from project_brain.core.doctor import run_doctor
 
 app = typer.Typer(help="project-brain CLI")
 
@@ -179,6 +180,23 @@ def explain_diff_cmd(from_ref: str, to_ref: str):
         typer.echo(f"🧠 Change: {item['change']}")
         typer.echo(f"⚡ Impact: {item['impact']}")
         typer.echo(f"⚠️ Risk: {item['risk']}")
+
+
+@app.command()
+def doctor():
+    """
+    Validate project setup and environment
+    """
+    root = Path.cwd()
+
+    results, final_status = run_doctor(root)
+
+    typer.echo("\nProject Brain Doctor Report\n")
+
+    for line in results:
+        typer.echo(line)
+
+    typer.echo(f"\nStatus: {final_status}")
 
 def main():
     app()

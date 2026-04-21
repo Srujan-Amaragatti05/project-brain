@@ -1,5 +1,8 @@
 from pathlib import Path
 import yaml
+import ast
+import hashlib
+from project_brain.core.differ import compute_diff, get_file_from_ref
 
 EXCLUDE_DIRS = {".brain", ".git", "node_modules", "venv", ".venv", "__pycache__", "*.egg-info", ".env", "env"}
 EXCLUDE_FILES = {".env", ".gitignore", "README.md", "LICENSE", "CHANGELOG.md"}
@@ -206,3 +209,138 @@ def add_code_dir(root: Path, target: Path):
                 continue
 
     return count, output_path, None
+
+
+def _extract_functions_with_code(source: str):
+    result = {}
+
+    try:
+        tree = ast.parse(source)
+    except Exception:
+        return result
+
+    lines = source.splitlines()
+
+    for node in ast.walk(tree):
+        if isinstance(node, ast.FunctionDef):
+            start = node.lineno - 1
+            end = getattr(node, "end_lineno", start + 1)
+
+            code = "\n".join(lines[start:end])
+            body_hash = hashlib.sha256(code.encode()).hexdigest()
+
+            result[node.name] = {
+                "code": code,
+                "hash": body_hash,
+                "line": node.lineno
+            }
+
+    return result
+
+
+def export_code_changes(root: Path, from_ref: str, to_ref: str):
+    config = load_config(root)
+    changes_cfg = config.get("export", {}).get("changes", {})
+
+    mode = changes_cfg.get("mode", "function")
+    include_context = changes_cfg.get("include_context", True)
+
+    export_dir = root / ".brain" / "exports"
+    export_dir.mkdir(parents=True, exist_ok=True)
+
+    output_path = export_dir / "code_changes.txt"
+
+    diff = compute_diff(from_ref, to_ref, root)
+    if not diff:
+        return 0, output_path
+
+    files_processed = 0
+
+    with output_path.open("w", encoding="utf-8") as out:
+
+        # ADDED FILES
+        for file in diff["added"]:
+            new_src = get_file_from_ref(to_ref, file, root)
+            if not new_src:
+                continue
+
+            out.write(f"=== FILE: {file} (ADDED) ===\n")
+            out.write(new_src)
+            out.write("\n\n")
+
+            files_processed += 1
+
+        # DELETED FILES
+        for file in diff["deleted"]:
+            old_src = get_file_from_ref(from_ref, file, root)
+            if not old_src:
+                continue
+
+            out.write(f"=== FILE: {file} (DELETED) ===\n")
+            out.write(old_src)
+            out.write("\n\n")
+
+            files_processed += 1
+
+        # MODIFIED FILES
+        for file in diff["modified"]:
+            if not file.endswith(".py"):
+                continue
+
+            old_src = get_file_from_ref(from_ref, file, root)
+            new_src = get_file_from_ref(to_ref, file, root)
+
+            if not old_src or not new_src:
+                continue
+
+            if mode == "file":
+                out.write(f"=== FILE: {file} (MODIFIED) ===\n")
+                out.write("OLD:\n")
+                out.write(old_src)
+                out.write("\n\nNEW:\n")
+                out.write(new_src)
+                out.write("\n\n")
+                files_processed += 1
+                continue
+
+            old_funcs = _extract_functions_with_code(old_src)
+            new_funcs = _extract_functions_with_code(new_src)
+
+            all_funcs = set(old_funcs) | set(new_funcs)
+
+            out.write(f"=== FILE: {file} ===\n\n")
+
+            for fn in all_funcs:
+                old_f = old_funcs.get(fn)
+                new_f = new_funcs.get(fn)
+
+                if old_f and not new_f:
+                    out.write(f"--- FUNCTION: {fn} (REMOVED) ---\n")
+                    if include_context:
+                        out.write(f"# line: {old_f['line']}\n")
+                    out.write("OLD:\n")
+                    out.write(old_f["code"])
+                    out.write("\n\n")
+
+                elif new_f and not old_f:
+                    out.write(f"--- FUNCTION: {fn} (ADDED) ---\n")
+                    if include_context:
+                        out.write(f"# line: {new_f['line']}\n")
+                    out.write("NEW:\n")
+                    out.write(new_f["code"])
+                    out.write("\n\n")
+
+                elif old_f and new_f:
+                    if old_f["hash"] != new_f["hash"]:
+                        out.write(f"--- FUNCTION: {fn} (UPDATED) ---\n")
+                        if include_context:
+                            out.write(f"# old line: {old_f['line']}, new line: {new_f['line']}\n")
+                        out.write("OLD:\n")
+                        out.write(old_f["code"])
+                        out.write("\n\nNEW:\n")
+                        out.write(new_f["code"])
+                        out.write("\n\n")
+
+            files_processed += 1
+
+    return files_processed, output_path

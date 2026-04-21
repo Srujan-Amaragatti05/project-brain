@@ -1,9 +1,14 @@
 llm:
   provider: none
-  model: 'phi3'
+  model: ''
 analysis:
   depth: fast
 diff:
   mode: function
+export:
+  full_code:
+    max_file_size_kb: 200
+  manual_add:
+    allow_duplicates: true
 output:
   format: text

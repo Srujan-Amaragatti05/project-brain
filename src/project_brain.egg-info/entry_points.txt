@@ -1,3 +1,0 @@
-[console_scripts]
-brain = project_brain.cli:app
-project-brain = project_brain.cli:app

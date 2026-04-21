@@ -9,7 +9,7 @@ from project_brain.core.summarizer import load_data, format_summary
 from project_brain.core.differ import compute_diff, is_git_repo
 from project_brain.core.explainer import explain_diff
 from project_brain.core.doctor import run_doctor
-from project_brain.core.exporter import export_full_code
+from project_brain.core.exporter import add_code_file, add_code_dir, export_full_code
 
 app = typer.Typer(help="project-brain CLI")
 
@@ -23,6 +23,14 @@ DEFAULT_CONFIG = {
     },
     "diff": {
         "mode": "function"
+    },
+    "export": {
+        "full_code": {
+            "max_file_size_kb": 200
+        },
+        "manual_add": {
+            "allow_duplicates": True
+        }
     },
     "output": {
         "format": "text"
@@ -210,6 +218,44 @@ def full_code():
     count, output_path = export_full_code(root)
 
     typer.echo(f"📦 Files exported: {count}")
+    typer.echo(f"📄 Output: {output_path}")
+
+
+add_code_app = typer.Typer()
+app.add_typer(add_code_app, name="add-code")
+
+
+@add_code_app.command("file")
+def add_code_file_cmd(path: str):
+    """
+    Manually add a single file to export
+    """
+    root = Path.cwd()
+    target = Path(path)
+
+    count, output_path, msg = add_code_file(root, target)
+
+    if msg:
+        typer.echo(msg)
+
+    typer.echo(f"📦 Files added: {count}")
+    typer.echo(f"📄 Output: {output_path}")
+
+
+@add_code_app.command("dir")
+def add_code_dir_cmd(path: str):
+    """
+    Manually add a directory to export
+    """
+    root = Path.cwd()
+    target = Path(path)
+
+    count, output_path, msg = add_code_dir(root, target)
+
+    if msg:
+        typer.echo(msg)
+
+    typer.echo(f"📦 Files added: {count}")
     typer.echo(f"📄 Output: {output_path}")
 
 def main():

@@ -4,4 +4,4 @@ __pycache__/
 env/
 brain_data/
 .brain/
-*.egg-info/
+*.egg-info/ 

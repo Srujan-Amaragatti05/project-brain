@@ -9,6 +9,7 @@ from project_brain.core.summarizer import load_data, format_summary
 from project_brain.core.differ import compute_diff, is_git_repo
 from project_brain.core.explainer import explain_diff
 from project_brain.core.doctor import run_doctor
+from project_brain.core.exporter import export_full_code
 
 app = typer.Typer(help="project-brain CLI")
 
@@ -197,6 +198,19 @@ def doctor():
         typer.echo(line)
 
     typer.echo(f"\nStatus: {final_status}")
+
+
+@app.command()
+def full_code():
+    """
+    Export entire codebase into structured file
+    """
+    root = Path.cwd()
+
+    count, output_path = export_full_code(root)
+
+    typer.echo(f"📦 Files exported: {count}")
+    typer.echo(f"📄 Output: {output_path}")
 
 def main():
     app()

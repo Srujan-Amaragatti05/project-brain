@@ -9,7 +9,7 @@ from project_brain.core.summarizer import load_data, format_summary
 from project_brain.core.differ import compute_diff, is_git_repo
 from project_brain.core.explainer import explain_diff
 from project_brain.core.doctor import run_doctor
-from project_brain.core.exporter import add_code_file, add_code_dir, export_full_code
+from project_brain.core.exporter import add_code_file, add_code_dir, export_full_code, export_code_changes
 
 app = typer.Typer(help="project-brain CLI")
 
@@ -257,6 +257,20 @@ def add_code_dir_cmd(path: str):
 
     typer.echo(f"📦 Files added: {count}")
     typer.echo(f"📄 Output: {output_path}")
+
+
+@app.command()
+def code_changes(from_ref: str, to_ref: str):
+    """
+    Export changed code between two git references
+    """
+    root = Path.cwd()
+
+    count, output_path = export_code_changes(root, from_ref, to_ref)
+
+    typer.echo(f"📦 Files processed: {count}")
+    typer.echo(f"📄 Output: {output_path}")
+    
 
 def main():
     app()

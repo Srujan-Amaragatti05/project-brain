@@ -10,27 +10,46 @@ from project_brain.core.differ import compute_diff, is_git_repo
 from project_brain.core.explainer import explain_diff
 from project_brain.core.doctor import run_doctor
 from project_brain.core.exporter import add_code_file, add_code_dir, export_full_code, export_code_changes
+from project_brain.core.explainer_file import explain_file, explain_function
 
 app = typer.Typer(help="project-brain CLI")
 
 DEFAULT_CONFIG = {
+    "version": "1.0",
     "llm": {
-        "provider": "none",
-        "model": ""
+        "provider": "none", # options: none, openai, ollama
+        "model": "" , # e.g. "gpt-4" for OpenAI or "local-model:latest" for Ollama
+        "timeout_sec": 60
+    },
+    "explain": {
+        "level": "basic",
+        "include_risks": True
     },
     "analysis": {
-        "depth": "fast"
+        "depth": "fast",
+        "include_tests": False,
+        "ignore": [".brain/", ".git/", "node_modules/", "venv/", ".venv/", "__pycache__/", "env/", ".env/", "*.egg-info/"]
     },
     "diff": {
         "mode": "function"
     },
     "export": {
         "full_code": {
+            "include_tests": False,
             "max_file_size_kb": 200
         },
         "manual_add": {
             "allow_duplicates": True
+        },
+        "changes": {
+        "mode": "function",
+        "include_context": True,
+        "output_path": ".brain/exports/code_changes.txt"
         }
+    },
+    "explain": {
+        "level": "detailed",
+        "include_risks": True
     },
     "output": {
         "format": "text"
@@ -48,6 +67,8 @@ def create_file(path: Path, content: str):
 
 @app.command()
 def init():
+    '''Initialize project-brain in the current directory
+    '''
     cwd = Path.cwd()
 
     brain_yaml = cwd / "brain.yaml"
@@ -77,6 +98,7 @@ def init():
 
 @app.command()
 def analyze(path: str = "."):
+    '''Analyze the project and extract insights'''
     target_path = Path(path).resolve()
 
     if not target_path.exists():
@@ -93,6 +115,7 @@ def analyze(path: str = "."):
 
 @app.command()
 def summary():
+    '''Summarize the analyzed data'''
     root = Path.cwd()
     data = load_data(root)
 
@@ -271,6 +294,21 @@ def code_changes(from_ref: str, to_ref: str):
     typer.echo(f"📦 Files processed: {count}")
     typer.echo(f"📄 Output: {output_path}")
     
+
+@app.command()
+def explain(target: str):
+    """
+    Explain a file or function
+    """
+    root = Path.cwd()
+
+    if ":" in target:
+        file_path, func_name = target.split(":", 1)
+        output = explain_function(root, file_path, func_name)
+    else:
+        output = explain_file(root, target)
+
+    typer.echo(output)
 
 def main():
     app()

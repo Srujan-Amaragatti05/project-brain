@@ -13,9 +13,9 @@ def run_git_command(args: list[str], cwd: Path) -> str | None:
             cwd=cwd,
             capture_output=True,
             text=True,
-            encoding="utf-8",      # 🔥 CRITICAL FIX
-            errors="ignore",       # 🔥 PREVENT CRASH
-            check=True
+            encoding="utf-8",  # 🔥 CRITICAL FIX
+            errors="ignore",  # 🔥 PREVENT CRASH
+            check=True,
         )
         return result.stdout.strip()
     except subprocess.CalledProcessError:
@@ -103,7 +103,9 @@ def diff_functions(old_src: str, new_src: str):
 
     added = sorted(new_set - old_set)
     removed = sorted(old_set - new_set)
-    modified = sorted(old_set & new_set)  # simple heuristic
+    modified = sorted(
+        [fn for fn in old_set & new_set if old_funcs.get(fn) != new_funcs.get(fn)]
+    )  # simple heuristic
 
     return added, removed, modified
 
@@ -112,13 +114,13 @@ def diff_functions(old_src: str, new_src: str):
 # Main Diff Engine
 # -----------------------------
 def compute_diff(from_ref: str, to_ref: str, root: Path):
-    diff_output = run_git_command(
-        ["diff", "--name-status", from_ref, to_ref],
-        root
-    )
+    diff_output = run_git_command(["diff", "--name-status", from_ref, to_ref], root)
 
-    if not diff_output:
-        return None
+    if diff_output is None:
+        raise RuntimeError("Git command failed")
+
+    if diff_output.strip() == "":
+        return {"added": [], "modified": [], "deleted": [], "function_diffs": []}
 
     added, modified, deleted = parse_name_status(diff_output)
 
@@ -136,16 +138,18 @@ def compute_diff(from_ref: str, to_ref: str, root: Path):
 
         fn_added, fn_removed, fn_modified = diff_functions(old_src, new_src)
 
-        function_diffs.append({
-            "file": file,
-            "added": fn_added,
-            "removed": fn_removed,
-            "modified": fn_modified
-        })
+        function_diffs.append(
+            {
+                "file": file,
+                "added": fn_added,
+                "removed": fn_removed,
+                "modified": fn_modified,
+            }
+        )
 
     return {
         "added": added,
         "modified": modified,
         "deleted": deleted,
-        "function_diffs": function_diffs
+        "function_diffs": function_diffs,
     }

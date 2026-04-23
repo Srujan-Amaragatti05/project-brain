@@ -12,6 +12,7 @@ def load_data(root: Path):
         with data_path.open("r", encoding="utf-8") as f:
             return json.load(f)
     except Exception:
+        print("❌ Corrupted data.json. Run 'brain analyze .' again.")
         return None
 
 
@@ -53,6 +54,9 @@ def generate_overview(files: list):
     if "api" in names or "routes" in names:
         parts.append("API/backend")
 
+    if "cli" in names:
+        parts.append("CLI tool")
+        
     if not parts:
         return "General purpose codebase with modular structure."
 

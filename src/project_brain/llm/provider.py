@@ -13,8 +13,12 @@ def call_ollama(model: str, prompt: str) -> str:
             encoding="utf-8",
             errors="ignore"
         )
+        if proc.returncode != 0:
+            print("❌ Ollama error:", proc.stderr)
+            return ""
         return proc.stdout.strip()
     except Exception:
+        print("❌ Error calling Ollama")
         return ""
 
 
@@ -25,15 +29,14 @@ def call_openai(model: str, prompt: str) -> str:
 
     try:
         response = requests.post(
-            "https://api.openai.com/v1/chat/completions",
+            "https://api.openai.com/v1/responses",
             headers={
                 "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json"
             },
             json={
                 "model": model,
-                "messages": [{"role": "user", "content": prompt}],
-                "temperature": 0.2
+                "input": prompt
             },
             timeout=30
         )
@@ -42,7 +45,8 @@ def call_openai(model: str, prompt: str) -> str:
             return ""
 
         data = response.json()
-        return data["choices"][0]["message"]["content"]
+
+        return data.get("output", [{}])[0].get("content", [{}])[0].get("text", "")
 
     except Exception:
         return ""

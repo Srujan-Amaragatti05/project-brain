@@ -3,6 +3,8 @@ import subprocess
 import os
 import yaml
 
+from project_brain.core.differ import is_git_repo
+
 
 def check_project_initialized(root: Path):
     return (root / ".brain").exists()
@@ -13,7 +15,7 @@ def check_analyzed(root: Path):
 
 
 def check_git(root: Path):
-    return (root / ".git").exists()
+    return is_git_repo(root)
 
 
 def load_config(root: Path):
@@ -54,6 +56,9 @@ def run_doctor(root: Path):
     else:
         results.append("❌ Project not initialized")
         status_flags.append(False)
+
+    if not (root / ".brain" / "cache").exists():
+        results.append("⚠ Cache directory missing")
 
     # Analysis
     if check_analyzed(root):

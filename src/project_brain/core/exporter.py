@@ -13,7 +13,7 @@ def should_skip(path: Path):
         return True
 
     for part in path.parts:
-        if part in EXCLUDE_DIRS:
+        if part in EXCLUDE_DIRS or part.endswith(".egg-info"):
             return True
 
     return False
@@ -285,6 +285,9 @@ def export_code_changes(root: Path, from_ref: str, to_ref: str):
         # MODIFIED FILES
         for file in diff["modified"]:
             if not file.endswith(".py"):
+                out.write(f"=== FILE: {file} (MODIFIED - NON PY) ===\n")
+                out.write("Changes not analyzed.\n\n")
+                files_processed += 1
                 continue
 
             old_src = get_file_from_ref(from_ref, file, root)

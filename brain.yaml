@@ -3,12 +3,9 @@ llm:
   provider: ollama
   model: 'phi3'
   timeout_sec: 60
-explain:
-  level: detailed
-  include_risks: true
 analysis:
   depth: fast
-  include_tests: false
+  include_tests: true
   ignore:
   - .brain/
   - .git/
@@ -19,17 +16,21 @@ analysis:
   - env/
   - .env/
   - '*.egg-info/'
+  - src/
 diff:
-  mode: function
+  mode: file
 export:
   full_code:
     include_tests: false
     max_file_size_kb: 200
   manual_add:
-    allow_duplicates: true
+    allow_duplicates: false
   changes:
-    mode: function
+    mode: file
     include_context: true
     output_path: .brain/exports/code_changes.txt
+explain:
+  level: detailed
+  include_risks: false
 output:
-  format: text
+  format: json

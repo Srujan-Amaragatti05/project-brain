@@ -21,7 +21,7 @@ def sha256_file(path: Path) -> str:
 def analyze_python_file(path: Path, rel_path: str):
     functions = []
     classes = []
-
+    
     try:
         source = path.read_text(encoding="utf-8")
         tree = ast.parse(source)
@@ -51,12 +51,20 @@ def should_skip(path: Path) -> bool:
     if path.name in EXCLUDE_FILES:
         return True
     for part in path.parts:
-        if part in EXCLUDE_DIRS:
+        if part in EXCLUDE_DIRS or part.endswith(".egg-info"):
             return True
     return False
 
 
-def analyze_project(root_path: Path):
+def is_binary(path: Path):
+    try:
+        with open(path, 'rb') as f:
+            return b'\0' in f.read(1024)
+    except:
+        return True
+
+
+def analyze_project(root_path: Path, ignore_patterns=None):
     root_path = root_path.resolve()
 
     files_data = []
@@ -69,7 +77,10 @@ def analyze_project(root_path: Path):
 
         if should_skip(path):
             continue
-
+        
+        if is_binary(path):
+            continue
+        
         try:
             rel_path = str(path.relative_to(root_path))
             stat = path.stat()

@@ -2,7 +2,9 @@ import typer
 from pathlib import Path
 import yaml
 import json
+from collections import defaultdict
 
+from project_brain import config
 from project_brain.core.analyzer import analyze_project
 from project_brain.storage.storage import save_data
 from project_brain.core.summarizer import load_data, format_summary
@@ -20,10 +22,6 @@ DEFAULT_CONFIG = {
         "provider": "none", # options: none, openai, ollama
         "model": "" , # e.g. "gpt-4" for OpenAI or "local-model:latest" for Ollama
         "timeout_sec": 60
-    },
-    "explain": {
-        "level": "basic",
-        "include_risks": True
     },
     "analysis": {
         "depth": "fast",
@@ -107,7 +105,12 @@ def analyze(path: str = "."):
 
     typer.echo(f"🔍 Analyzing: {target_path}")
 
-    data = analyze_project(target_path)
+    root= Path.cwd()
+
+    config = yaml.safe_load((root / "brain.yaml").read_text())
+    ignore = config.get("analysis", {}).get("ignore", [])
+    data = analyze_project(target_path, ignore)
+    # data = analyze_project(target_path)
     save_data(data, target_path)
 
     typer.echo("✅ Analysis complete. Data saved to .brain/data.json")
@@ -137,8 +140,29 @@ def diff(from_ref: str, to_ref: str):
     if not is_git_repo(root):
         typer.echo("❌ Not a git repository")
         raise typer.Exit(code=1)
+    
+    def validate_ref(ref: str):
+        import subprocess
+        try:
+            subprocess.run(
+                ["git", "rev-parse", ref],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=True
+            )
+            return True
+        except:
+            return False
+        
+    if not validate_ref(from_ref) or not validate_ref(to_ref):
+        typer.echo("❌ Invalid git reference provided")
+        raise typer.Exit(code=1)
 
-    result = compute_diff(from_ref, to_ref, root)
+    try:
+        result = compute_diff(from_ref, to_ref, root)
+    except Exception as e:
+        typer.echo(f"❌ Diff failed: {str(e)}")
+        raise typer.Exit(code=1)
 
     if result is None:
         typer.echo("❌ Failed to compute diff")
@@ -200,18 +224,28 @@ def explain_diff_cmd(from_ref: str, to_ref: str):
     """
     root = Path.cwd()
 
+    if not is_git_repo(root):
+        typer.echo("❌ Not a git repository")
+        raise typer.Exit(code=1)
     results = explain_diff(from_ref, to_ref, root)
 
     if not results:
         typer.echo("❌ Failed to compute explain-diff")
         raise typer.Exit(code=1)
 
+    grouped = defaultdict(list)
+
     for item in results:
-        typer.echo(f"\n📄 File: {item['file']}")
-        typer.echo(f"🔧 Function: {item['function']}")
-        typer.echo(f"🧠 Change: {item['change']}")
-        typer.echo(f"⚡ Impact: {item['impact']}")
-        typer.echo(f"⚠️ Risk: {item['risk']}")
+        grouped[item["file"]].append(item)
+
+    for file, items in grouped.items():
+        typer.echo(f"\n📄 File: {file}\n")
+
+        for item in items:
+            typer.echo(f"🔧 Function: {item['function']}")
+            typer.echo(f"🧠 Change: {item['change']}")
+            typer.echo(f"⚡ Impact: {item['impact']}")
+            typer.echo(f"⚠️ Risk: {item['risk']}\n")
 
 
 @app.command()

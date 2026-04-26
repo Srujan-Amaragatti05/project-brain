@@ -5,3 +5,7 @@ env/
 brain_data/
 .brain/
 *.egg-info/ 
+test.txt
+.brainmain/
+mainbrain.yaml
+brain.yaml

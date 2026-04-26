@@ -4,17 +4,20 @@ import ast
 import hashlib
 from project_brain.core.differ import compute_diff, get_file_from_ref
 
-EXCLUDE_DIRS = {".brain", ".git", "node_modules", "venv", ".venv", "__pycache__", "*.egg-info", ".env", "env"}
-EXCLUDE_FILES = {".env", ".gitignore", "README.md", "LICENSE", "CHANGELOG.md"}
 
+def should_skip(path: Path, ignore_patterns):
+    path_str = str(path)
 
-def should_skip(path: Path):
-    if path.name in EXCLUDE_FILES:
-        return True
-
-    for part in path.parts:
-        if part in EXCLUDE_DIRS:
-            return True
+    for pattern in ignore_patterns:
+        if pattern.endswith("/"):
+            if pattern.rstrip("/") in path_str:
+                return True
+        elif pattern.startswith("*."):
+            if path.name.endswith(pattern.replace("*", "")):
+                return True
+        else:
+            if pattern in path.parts:
+                return True
 
     return False
 
@@ -85,6 +88,7 @@ def export_full_code(root: Path):
     export_cfg = config.get("export", {}).get("full_code", {})
     include_tests = export_cfg.get("include_tests", False)
     max_kb = export_cfg.get("max_file_size_kb", 200)
+    ignore_paths = config.get("export", {}).get("ignore", [])
 
     export_dir = root / ".brain" / "exports"
     export_dir.mkdir(parents=True, exist_ok=True)
@@ -92,6 +96,7 @@ def export_full_code(root: Path):
     output_path = export_dir / "full_code.txt"
 
     files_exported = 0
+    file_paths = []
 
     with output_path.open("w", encoding="utf-8") as out:
 
@@ -99,7 +104,7 @@ def export_full_code(root: Path):
             if path.is_dir():
                 continue
 
-            if should_skip(path):
+            if should_skip(path, ignore_paths):
                 continue
 
             if not include_tests and is_test_file(path):
@@ -119,17 +124,19 @@ def export_full_code(root: Path):
                 out.write("\n\n")
 
                 files_exported += 1
+                file_paths.append(rel_path)
 
             except Exception:
                 continue  # skip unreadable safely
 
-    return files_exported, output_path
+    return files_exported, output_path, file_paths
 
 
 def add_code_file(root: Path, target: Path):
     config = load_config(root)
     max_kb = config["export"]["full_code"]["max_file_size_kb"]
     allow_dup = config["export"]["manual_add"]["allow_duplicates"]
+    ingore_paths = config.get("export", {}).get("ignore", [])
 
     export_dir = root / ".brain" / "exports"
     export_dir.mkdir(parents=True, exist_ok=True)
@@ -139,7 +146,7 @@ def add_code_file(root: Path, target: Path):
     if not target.exists():
         return 0, output_path, "❌ File not found"
 
-    if should_skip(target):
+    if should_skip(target, ingore_paths):
         return 0, output_path, "⚠ Skipped (ignored path)"
 
     existing = _read_existing_entries(output_path) if not allow_dup else set()
@@ -169,6 +176,7 @@ def add_code_dir(root: Path, target: Path):
     config = load_config(root)
     max_kb = config["export"]["full_code"]["max_file_size_kb"]
     allow_dup = config["export"]["manual_add"]["allow_duplicates"]
+    ignore_paths = config.get("export", {}).get("ignore", [])
 
     export_dir = root / ".brain" / "exports"
     export_dir.mkdir(parents=True, exist_ok=True)
@@ -187,7 +195,7 @@ def add_code_dir(root: Path, target: Path):
             if path.is_dir():
                 continue
 
-            if should_skip(path):
+            if should_skip(path, ignore_paths):
                 continue
 
             try:
@@ -285,6 +293,9 @@ def export_code_changes(root: Path, from_ref: str, to_ref: str):
         # MODIFIED FILES
         for file in diff["modified"]:
             if not file.endswith(".py"):
+                out.write(f"=== FILE: {file} (MODIFIED - NON PY) ===\n")
+                out.write("Changes not analyzed.\n\n")
+                files_processed += 1
                 continue
 
             old_src = get_file_from_ref(from_ref, file, root)

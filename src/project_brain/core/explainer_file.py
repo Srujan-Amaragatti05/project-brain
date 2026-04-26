@@ -2,7 +2,7 @@ from pathlib import Path
 import ast
 import yaml
 
-from project_brain.llm.provider import generate_explanation
+from project_brain.llm.provider import generate_explanation  # type: ignore
 
 
 def load_config(root: Path):
@@ -68,6 +68,7 @@ def explain_file(root: Path, file_path: str):
     config = load_config(root)
     provider = config["llm"]["provider"]
     model = config["llm"]["model"]
+    api_key = config["llm"]["api_key"]
 
     path = root / file_path
     if not path.exists():
@@ -99,7 +100,7 @@ Explain this file: purpose, main components, data flow, key risks.
 {source}
 """.strip()
 
-    response = generate_explanation(provider, model, prompt)
+    response = generate_explanation(provider, model, prompt, api_key)
 
     return f"File: {file_path}\n\nSummary:\n{response.strip()}"
 
@@ -108,6 +109,7 @@ def explain_function(root: Path, file_path: str, func_name: str):
     config = load_config(root)
     provider = config["llm"]["provider"]
     model = config["llm"]["model"]
+    api_key = config["llm"]["api_key"]
     include_risks = config.get("explain", {}).get("include_risks", True)
 
     path = root / file_path
@@ -138,6 +140,6 @@ Explain this function: purpose, inputs, outputs, logic{risk_part}.
 {fn['code']}
 """.strip()
 
-    response = generate_explanation(provider, model, prompt)
+    response = generate_explanation(provider, model, prompt, api_key)
 
     return f"Function: {fn['name']}\n\n{response.strip()}"

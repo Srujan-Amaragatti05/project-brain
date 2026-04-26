@@ -13,7 +13,9 @@ def load_config(root: Path):
         return {"llm": {"provider": "none", "model": ""}}
 
     try:
-        return yaml.safe_load(config_path.read_text())
+        return yaml.safe_load(config_path.read_text()) or {
+            "llm": {"provider": "none", "model": ""}
+        }
     except Exception:
         return {"llm": {"provider": "none", "model": ""}}
 
@@ -28,6 +30,7 @@ def load_cache(cache_dir: Path, key: str):
         try:
             return json.loads(path.read_text())
         except Exception:
+            print(f"⚠️ Corrupted cache ignored: {path}")
             return None
     return None
 
@@ -36,7 +39,7 @@ def cleanup_cache(cache_dir: Path, max_files=1000):
     files = sorted(cache_dir.glob("*.json"), key=lambda f: f.stat().st_mtime)
 
     if len(files) > max_files:
-        for f in files[:len(files) - max_files]:
+        for f in files[: len(files) - max_files]:
             f.unlink()
 
 
@@ -49,6 +52,34 @@ def save_cache(cache_dir: Path, key: str, data: dict):
 
 def build_prompt(old_code: str, new_code: str, fn: str) -> str:
     return f"""
+You are a senior software engineer performing a code review.
+
+Analyze the function change and return STRICT JSON ONLY.
+
+DO NOT use markdown.
+DO NOT add text outside JSON.
+
+Return EXACTLY:
+
+{{
+  "fast": {{
+    "change": "(1-2 lines) short line summary",
+    "impact": "(1-2 lines) short line impact",
+    "risk": "low | medium | high"
+  }},
+  "detailed": {{
+    "change": "Explain what changed at logic level (4-6 lines)",
+    "impact": "Explain system-level impact and behavior changes (4-6 lines)",
+    "risk": "Explain actual risk reasoning + severity (2-3 lines, end with low|medium|high)"
+  }}
+}}
+
+Rules:
+- fast = minimal summary only
+- detailed MUST include reasoning, not just description
+- DO NOT repeat fast output in detailed
+- risk must still end with one of: low, medium, high
+
 Function: {fn}
 
 Old Code:
@@ -56,12 +87,6 @@ Old Code:
 
 New Code:
 {new_code}
-
-Explain clearly:
-1. What changed
-2. Why it matters
-3. Impact on system
-4. Risks
 """.strip()
 
 
@@ -74,8 +99,11 @@ def safe_extract(source: str):
 
 def explain_diff(from_ref: str, to_ref: str, root: Path):
     config = load_config(root)
-    provider = config.get("llm", {}).get("provider", "none")
-    model = config.get("llm", {}).get("model", "")
+    llm_cfg = config.get("llm", {})
+
+    provider = llm_cfg.get("provider", "none")
+    model = llm_cfg.get("model", "")
+    api_key = llm_cfg.get("api_key", "")
 
     diff = compute_diff(from_ref, to_ref, root)
     if not diff:
@@ -108,7 +136,26 @@ def explain_diff(from_ref: str, to_ref: str, root: Path):
             cached = load_cache(cache_dir, key)
 
             if cached:
-                results.append({"file": file, "function": fn, **cached})
+                # Case 1: new structured cache
+                if "fast" in cached and "detailed" in cached:
+                    data = select_output(cached, config)
+                    results.append({"file": file, "function": fn, **data})
+                    continue
+                
+                # Case 2: old cache → migrate
+                normalized = normalize_cached_data(cached, provider, model, api_key)
+
+                # convert normalized → full structure
+                parsed = {
+                    "fast": normalized,
+                    "detailed": normalized
+                }
+
+                save_cache(cache_dir, key, parsed)
+
+                data = select_output(parsed, config)
+
+                results.append({"file": file, "function": fn, **data})
                 continue
 
             # No LLM configured
@@ -116,25 +163,188 @@ def explain_diff(from_ref: str, to_ref: str, root: Path):
                 data = {
                     "change": f"Function '{fn}' has code-level changes",
                     "impact": "Behavior may differ depending on logic changes",
-                    "risk": "Review required before deployment",
+                    "risk": "medium",
                 }
                 results.append({"file": file, "function": fn, **data})
                 continue
 
             prompt = build_prompt(old_code, new_code, fn)
-            response = generate_explanation(provider, model, prompt)
-
-            if not response:
-                data = {
-                    "change": "LLM failed to generate explanation",
-                    "impact": "Unknown",
-                    "risk": "Unknown",
-                }
+            response = generate_explanation(provider, model, prompt, api_key)
+            
+            parsed = parse_llm_json(response)
+            
+            # retry if parsing failed
+            if not parsed:
+                fix_prompt = f"""
+            Convert this into the required JSON structure:
+            
+            {response}
+            
+            Return ONLY:
+            {{
+              "fast": {{ "change": "...", "impact": "...", "risk": "low|medium|high" }},
+              "detailed": {{ "change": "...", "impact": "...", "risk": "low|medium|high" }}
+            }}
+            """
+                response = generate_explanation(provider, model, fix_prompt, api_key)
+                parsed = parse_llm_json(response)
+            
+            if parsed:
+                data = select_output(parsed, config)
             else:
-                data = {"change": response.strip(), "impact": "", "risk": ""}
+                data = {
+                    "change": "Failed to generate structured output",
+                    "impact": "Unknown",
+                    "risk": "high"
+                }
 
-            save_cache(cache_dir, key, data)
+            save_cache(cache_dir, key, parsed)
 
             results.append({"file": file, "function": fn, **data})
+    explain_cfg = config.get("explain", {})
+    include_risks = explain_cfg.get("include_risks", True)
 
+    if not include_risks:
+        for result in results:
+            result["risk"] = ""
     return results
+
+
+def parse_llm_json(response: str):
+    import json
+
+    try:
+        data = json.loads(response)
+
+        if not all(k in data for k in ["fast", "detailed"]):
+            raise ValueError("Missing structure")
+
+        return data
+
+    except Exception:
+        return None
+
+
+def is_structured(data: object) -> bool:
+    return (
+        isinstance(data, dict)
+        and "change" in data
+        and "impact" in data
+        and "risk" in data
+        and data["risk"] in ["low", "medium", "high"]
+    )
+
+
+def normalize_cached_data(cached, provider, model, api_key):
+    # Already structured
+    if is_structured(cached):
+        return cached
+
+    # Try JSON parse (maybe partially structured)
+    if isinstance(cached, dict) and "change" in cached:
+        parsed = parse_llm_json(cached["change"])
+        if is_structured(parsed):
+            return parsed
+
+        # 🔥 NEW: extract from old text
+        extracted = extract_from_old_text(cached["change"])
+        if extracted["change"]:
+            return extracted
+
+    # LAST fallback → use LLM
+    raw_text = str(cached)
+
+    fix_prompt = f"""
+Convert this into STRICT JSON:
+
+{raw_text}
+
+Return ONLY:
+{{
+  "change": "...",
+  "impact": "...",
+  "risk": "low|medium|high"
+}}
+"""
+
+    response = generate_explanation(provider, model, fix_prompt, api_key)
+    parsed = parse_llm_json(response)
+
+    if parsed and "fast" in parsed:
+        return parsed["detailed"]  # prefer detailed for recovery
+    
+    return {
+        "change": "Failed to normalize cached data",
+        "impact": "Unknown",
+        "risk": "medium"
+    }
+
+
+import re
+
+
+def extract_from_old_text(text: str):
+    sections = {"change": "", "impact": "", "risk": ""}
+
+    # Normalize
+    text = text.replace("\r", "").strip()
+
+    # Patterns
+    change_match = re.search(
+        r"(?:What changed|### 1\..*?changed)(.*?)(?:###|$)", text, re.S | re.I
+    )
+    impact_match = re.search(
+        r"(?:Why it matters|Impact|### 2\..*?|### 3\..*?)(.*?)(?:###|$)",
+        text,
+        re.S | re.I,
+    )
+    risk_match = re.search(r"(?:Risk|### 4\..*?risk)(.*?)(?:###|$)", text, re.S | re.I)
+
+    if change_match:
+        sections["change"] = change_match.group(1).strip()
+
+    if impact_match:
+        sections["impact"] = impact_match.group(1).strip()
+
+    if risk_match:
+        sections["risk"] = risk_match.group(1).strip()
+
+    # Normalize risk
+    r = sections["risk"].lower()
+    if "high" in r:
+        sections["risk"] = "high"
+    elif "medium" in r:
+        sections["risk"] = "medium"
+    else:
+        sections["risk"] = "low"
+
+    return sections
+
+def select_output(parsed: dict, config: dict):
+    explain_cfg = config.get("explain", {})
+
+    level = explain_cfg.get("level", "detailed")
+    include_risks = explain_cfg.get("include_risks", True)
+
+    selected = parsed.get(level, {})
+
+    # ensure fields exist
+    change = selected.get("change", "")
+    impact = selected.get("impact", "")
+    risk = selected.get("risk", "medium")
+
+    if risk not in ["low", "medium", "high"]:
+        risk = "medium"
+
+    if not include_risks:
+        return {
+            "change": change,
+            "impact": impact,
+            "risk": ""
+        }
+
+    return {
+        "change": change,
+        "impact": impact,
+        "risk": risk
+    }

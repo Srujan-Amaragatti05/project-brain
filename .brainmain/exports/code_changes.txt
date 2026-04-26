@@ -1,0 +1,1366 @@
+=== FILE: .gitignore (MODIFIED - NON PY) ===
+Changes not analyzed.
+
+=== FILE: brain.yaml (MODIFIED - NON PY) ===
+Changes not analyzed.
+
+=== FILE: pyproject.toml (MODIFIED - NON PY) ===
+Changes not analyzed.
+
+=== FILE: src/project_brain/cli.py ===
+
+--- FUNCTION: analyze (UPDATED) ---
+# old line: 100, new line: 98
+OLD:
+def analyze(path: str = "."):
+    '''Analyze the project and extract insights'''
+    target_path = Path(path).resolve()
+
+    if not target_path.exists():
+        typer.echo("❌ Path does not exist")
+        raise typer.Exit(code=1)
+
+    typer.echo(f"🔍 Analyzing: {target_path}")
+
+    data = analyze_project(target_path)
+    save_data(data, target_path)
+
+    typer.echo("✅ Analysis complete. Data saved to .brain/data.json")
+
+NEW:
+def analyze(path: str = "."):
+    '''Analyze the project and extract insights'''
+    target_path = Path(path).resolve()
+
+    if not target_path.exists():
+        typer.echo("❌ Path does not exist")
+        raise typer.Exit(code=1)
+
+    typer.echo(f"🔍 Analyzing: {target_path}")
+
+    root= Path.cwd()
+
+    config = yaml.safe_load((root / "brain.yaml").read_text())
+    ignore = config.get("analysis", {}).get("ignore", [])
+    data = analyze_project(target_path, ignore)
+    # data = analyze_project(target_path)
+    save_data(data, target_path)
+
+    typer.echo("✅ Analysis complete. Data saved to .brain/data.json")
+
+--- FUNCTION: validate_ref (ADDED) ---
+# line: 144
+NEW:
+    def validate_ref(ref: str):
+        import subprocess
+        try:
+            subprocess.run(
+                ["git", "rev-parse", ref],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=True
+            )
+            return True
+        except:
+            return False
+
+--- FUNCTION: diff (UPDATED) ---
+# old line: 131, new line: 134
+OLD:
+def diff(from_ref: str, to_ref: str):
+    """
+    Show git-based diff with function-level insights
+    """
+    root = Path.cwd()
+
+    if not is_git_repo(root):
+        typer.echo("❌ Not a git repository")
+        raise typer.Exit(code=1)
+
+    result = compute_diff(from_ref, to_ref, root)
+
+    if result is None:
+        typer.echo("❌ Failed to compute diff")
+        raise typer.Exit(code=1)
+
+    added = result["added"]
+    modified = result["modified"]
+    deleted = result["deleted"]
+
+    typer.echo(f"Files Changed: {len(added) + len(modified) + len(deleted)}\n")
+
+    typer.echo("Modified:\n")
+    for f in modified:
+        typer.echo(f"* {f}")
+    if not modified:
+        typer.echo("* None")
+
+    typer.echo("\nAdded:\n")
+    for f in added:
+        typer.echo(f"* {f}")
+    if not added:
+        typer.echo("* None")
+
+    typer.echo("\nDeleted:\n")
+    for f in deleted:
+        typer.echo(f"* {f}")
+    if not deleted:
+        typer.echo("* None")
+
+    # Function-level diff
+    for fd in result["function_diffs"]:
+        typer.echo(f"\nFile: {fd['file']}\n")
+
+        typer.echo("Functions Added:\n")
+        for fn in fd["added"]:
+            typer.echo(f"* {fn}")
+        if not fd["added"]:
+            typer.echo("* None")
+
+        typer.echo("\nFunctions Removed:\n")
+        for fn in fd["removed"]:
+            typer.echo(f"* {fn}")
+        if not fd["removed"]:
+            typer.echo("* None")
+
+        typer.echo("\nFunctions Modified:\n")
+        for fn in fd["modified"]:
+            typer.echo(f"* {fn}")
+        if not fd["modified"]:
+            typer.echo("* None")
+
+        typer.echo("")
+
+NEW:
+def diff(from_ref: str, to_ref: str):
+    """
+    Show git-based diff with function-level insights
+    """
+    root = Path.cwd()
+
+    if not is_git_repo(root):
+        typer.echo("❌ Not a git repository")
+        raise typer.Exit(code=1)
+    
+    def validate_ref(ref: str):
+        import subprocess
+        try:
+            subprocess.run(
+                ["git", "rev-parse", ref],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=True
+            )
+            return True
+        except:
+            return False
+        
+    if not validate_ref(from_ref) or not validate_ref(to_ref):
+        typer.echo("❌ Invalid git reference provided")
+        raise typer.Exit(code=1)
+
+    try:
+        result = compute_diff(from_ref, to_ref, root)
+    except Exception as e:
+        typer.echo(f"❌ Diff failed: {str(e)}")
+        raise typer.Exit(code=1)
+
+    if result is None:
+        typer.echo("❌ Failed to compute diff")
+        raise typer.Exit(code=1)
+
+    added = result["added"]
+    modified = result["modified"]
+    deleted = result["deleted"]
+
+    typer.echo(f"Files Changed: {len(added) + len(modified) + len(deleted)}\n")
+
+    typer.echo("Modified:\n")
+    for f in modified:
+        typer.echo(f"* {f}")
+    if not modified:
+        typer.echo("* None")
+
+    typer.echo("\nAdded:\n")
+    for f in added:
+        typer.echo(f"* {f}")
+    if not added:
+        typer.echo("* None")
+
+    typer.echo("\nDeleted:\n")
+    for f in deleted:
+        typer.echo(f"* {f}")
+    if not deleted:
+        typer.echo("* None")
+
+    # Function-level diff
+    for fd in result["function_diffs"]:
+        typer.echo(f"\nFile: {fd['file']}\n")
+
+        typer.echo("Functions Added:\n")
+        for fn in fd["added"]:
+            typer.echo(f"* {fn}")
+        if not fd["added"]:
+            typer.echo("* None")
+
+        typer.echo("\nFunctions Removed:\n")
+        for fn in fd["removed"]:
+            typer.echo(f"* {fn}")
+        if not fd["removed"]:
+            typer.echo("* None")
+
+        typer.echo("\nFunctions Modified:\n")
+        for fn in fd["modified"]:
+            typer.echo(f"* {fn}")
+        if not fd["modified"]:
+            typer.echo("* None")
+
+        typer.echo("")
+
+--- FUNCTION: explain_diff_cmd (UPDATED) ---
+# old line: 197, new line: 221
+OLD:
+def explain_diff_cmd(from_ref: str, to_ref: str):
+    """
+    Explain code changes using LLM
+    """
+    root = Path.cwd()
+
+    results = explain_diff(from_ref, to_ref, root)
+
+    if not results:
+        typer.echo("❌ Failed to compute explain-diff")
+        raise typer.Exit(code=1)
+
+    for item in results:
+        typer.echo(f"\n📄 File: {item['file']}")
+        typer.echo(f"🔧 Function: {item['function']}")
+        typer.echo(f"🧠 Change: {item['change']}")
+        typer.echo(f"⚡ Impact: {item['impact']}")
+        typer.echo(f"⚠️ Risk: {item['risk']}")
+
+NEW:
+def explain_diff_cmd(from_ref: str, to_ref: str):
+    """
+    Explain code changes using LLM
+    """
+    root = Path.cwd()
+
+    if not is_git_repo(root):
+        typer.echo("❌ Not a git repository")
+        raise typer.Exit(code=1)
+    results = explain_diff(from_ref, to_ref, root)
+
+    if not results:
+        typer.echo("❌ Failed to compute explain-diff")
+        raise typer.Exit(code=1)
+
+    grouped = defaultdict(list)
+
+    for item in results:
+        grouped[item["file"]].append(item)
+
+    for file, items in grouped.items():
+        typer.echo(f"\n📄 File: {file}\n")
+
+        for item in items:
+            typer.echo(f"🔧 Function: {item['function']}")
+            typer.echo(f"🧠 Change: {item['change']}")
+            typer.echo(f"⚡ Impact: {item['impact']}")
+            typer.echo(f"⚠️ Risk: {item['risk']}\n")
+
+=== FILE: src/project_brain/core/analyzer.py ===
+
+--- FUNCTION: should_skip (UPDATED) ---
+# old line: 50, new line: 50
+OLD:
+def should_skip(path: Path) -> bool:
+    if path.name in EXCLUDE_FILES:
+        return True
+    for part in path.parts:
+        if part in EXCLUDE_DIRS:
+            return True
+    return False
+
+NEW:
+def should_skip(path: Path) -> bool:
+    if path.name in EXCLUDE_FILES:
+        return True
+    for part in path.parts:
+        if part in EXCLUDE_DIRS or part.endswith(".egg-info"):
+            return True
+    return False
+
+--- FUNCTION: is_binary (ADDED) ---
+# line: 59
+NEW:
+def is_binary(path: Path):
+    try:
+        with open(path, 'rb') as f:
+            return b'\0' in f.read(1024)
+    except:
+        return True
+
+--- FUNCTION: analyze_python_file (UPDATED) ---
+# old line: 21, new line: 21
+OLD:
+def analyze_python_file(path: Path, rel_path: str):
+    functions = []
+    classes = []
+
+    try:
+        source = path.read_text(encoding="utf-8")
+        tree = ast.parse(source)
+    except Exception:
+        return functions, classes
+
+    for node in ast.walk(tree):
+        if isinstance(node, ast.FunctionDef):
+            functions.append({
+                "name": node.name,
+                "arguments": [arg.arg for arg in node.args.args],
+                "line": node.lineno,
+                "file": rel_path
+            })
+
+        elif isinstance(node, ast.ClassDef):
+            classes.append({
+                "name": node.name,
+                "line": node.lineno,
+                "file": rel_path
+            })
+
+    return functions, classes
+
+NEW:
+def analyze_python_file(path: Path, rel_path: str):
+    functions = []
+    classes = []
+    
+    try:
+        source = path.read_text(encoding="utf-8")
+        tree = ast.parse(source)
+    except Exception:
+        return functions, classes
+
+    for node in ast.walk(tree):
+        if isinstance(node, ast.FunctionDef):
+            functions.append({
+                "name": node.name,
+                "arguments": [arg.arg for arg in node.args.args],
+                "line": node.lineno,
+                "file": rel_path
+            })
+
+        elif isinstance(node, ast.ClassDef):
+            classes.append({
+                "name": node.name,
+                "line": node.lineno,
+                "file": rel_path
+            })
+
+    return functions, classes
+
+--- FUNCTION: analyze_project (UPDATED) ---
+# old line: 59, new line: 67
+OLD:
+def analyze_project(root_path: Path):
+    root_path = root_path.resolve()
+
+    files_data = []
+    functions = []
+    classes = []
+
+    for path in root_path.rglob("*"):
+        if path.is_dir():
+            continue
+
+        if should_skip(path):
+            continue
+
+        try:
+            rel_path = str(path.relative_to(root_path))
+            stat = path.stat()
+
+            file_info = {
+                "path": rel_path,
+                "size": stat.st_size,
+                "modified": datetime.fromtimestamp(stat.st_mtime).isoformat(),
+                "sha256": sha256_file(path)
+            }
+
+            files_data.append(file_info)
+
+            if path.suffix == ".py":
+                fn, cls = analyze_python_file(path, rel_path)
+                functions.extend(fn)
+                classes.extend(cls)
+
+        except Exception:
+            continue  # skip unreadable files safely
+
+    return {
+        "project": {
+            "root": str(root_path),
+            "total_files": len(files_data)
+        },
+        "files": files_data,
+        "functions": functions,
+        "classes": classes
+    }
+
+NEW:
+def analyze_project(root_path: Path, ignore_patterns=None):
+    root_path = root_path.resolve()
+
+    files_data = []
+    functions = []
+    classes = []
+
+    for path in root_path.rglob("*"):
+        if path.is_dir():
+            continue
+
+        if should_skip(path):
+            continue
+        
+        if is_binary(path):
+            continue
+        
+        try:
+            rel_path = str(path.relative_to(root_path))
+            stat = path.stat()
+
+            file_info = {
+                "path": rel_path,
+                "size": stat.st_size,
+                "modified": datetime.fromtimestamp(stat.st_mtime).isoformat(),
+                "sha256": sha256_file(path)
+            }
+
+            files_data.append(file_info)
+
+            if path.suffix == ".py":
+                fn, cls = analyze_python_file(path, rel_path)
+                functions.extend(fn)
+                classes.extend(cls)
+
+        except Exception:
+            continue  # skip unreadable files safely
+
+    return {
+        "project": {
+            "root": str(root_path),
+            "total_files": len(files_data)
+        },
+        "files": files_data,
+        "functions": functions,
+        "classes": classes
+    }
+
+=== FILE: src/project_brain/core/differ.py ===
+
+--- FUNCTION: compute_diff (UPDATED) ---
+# old line: 114, new line: 116
+OLD:
+def compute_diff(from_ref: str, to_ref: str, root: Path):
+    diff_output = run_git_command(
+        ["diff", "--name-status", from_ref, to_ref],
+        root
+    )
+
+    if not diff_output:
+        return None
+
+    added, modified, deleted = parse_name_status(diff_output)
+
+    function_diffs = []
+
+    for file in modified:
+        if not file.endswith(".py"):
+            continue
+
+        old_src = get_file_from_ref(from_ref, file, root)
+        new_src = get_file_from_ref(to_ref, file, root)
+
+        if old_src is None or new_src is None:
+            continue
+
+        fn_added, fn_removed, fn_modified = diff_functions(old_src, new_src)
+
+        function_diffs.append({
+            "file": file,
+            "added": fn_added,
+            "removed": fn_removed,
+            "modified": fn_modified
+        })
+
+    return {
+        "added": added,
+        "modified": modified,
+        "deleted": deleted,
+        "function_diffs": function_diffs
+    }
+
+NEW:
+def compute_diff(from_ref: str, to_ref: str, root: Path):
+    diff_output = run_git_command(["diff", "--name-status", from_ref, to_ref], root)
+
+    if diff_output is None:
+        raise RuntimeError("Git command failed")
+
+    if diff_output.strip() == "":
+        return {"added": [], "modified": [], "deleted": [], "function_diffs": []}
+
+    added, modified, deleted = parse_name_status(diff_output)
+
+    function_diffs = []
+
+    for file in modified:
+        if not file.endswith(".py"):
+            continue
+
+        old_src = get_file_from_ref(from_ref, file, root)
+        new_src = get_file_from_ref(to_ref, file, root)
+
+        if old_src is None or new_src is None:
+            continue
+
+        fn_added, fn_removed, fn_modified = diff_functions(old_src, new_src)
+
+        function_diffs.append(
+            {
+                "file": file,
+                "added": fn_added,
+                "removed": fn_removed,
+                "modified": fn_modified,
+            }
+        )
+
+    return {
+        "added": added,
+        "modified": modified,
+        "deleted": deleted,
+        "function_diffs": function_diffs,
+    }
+
+--- FUNCTION: run_git_command (UPDATED) ---
+# old line: 9, new line: 9
+OLD:
+def run_git_command(args: list[str], cwd: Path) -> str | None:
+    try:
+        result = subprocess.run(
+            ["git"] + args,
+            cwd=cwd,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",      # 🔥 CRITICAL FIX
+            errors="ignore",       # 🔥 PREVENT CRASH
+            check=True
+        )
+        return result.stdout.strip()
+    except subprocess.CalledProcessError:
+        return None
+    except Exception:
+        return None
+
+NEW:
+def run_git_command(args: list[str], cwd: Path) -> str | None:
+    try:
+        result = subprocess.run(
+            ["git"] + args,
+            cwd=cwd,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",  # 🔥 CRITICAL FIX
+            errors="ignore",  # 🔥 PREVENT CRASH
+            check=True,
+        )
+        return result.stdout.strip()
+    except subprocess.CalledProcessError:
+        return None
+    except Exception:
+        return None
+
+--- FUNCTION: diff_functions (UPDATED) ---
+# old line: 97, new line: 97
+OLD:
+def diff_functions(old_src: str, new_src: str):
+    old_funcs = extract_functions(old_src or "")
+    new_funcs = extract_functions(new_src or "")
+
+    old_set = set(old_funcs.keys())
+    new_set = set(new_funcs.keys())
+
+    added = sorted(new_set - old_set)
+    removed = sorted(old_set - new_set)
+    modified = sorted(old_set & new_set)  # simple heuristic
+
+    return added, removed, modified
+
+NEW:
+def diff_functions(old_src: str, new_src: str):
+    old_funcs = extract_functions(old_src or "")
+    new_funcs = extract_functions(new_src or "")
+
+    old_set = set(old_funcs.keys())
+    new_set = set(new_funcs.keys())
+
+    added = sorted(new_set - old_set)
+    removed = sorted(old_set - new_set)
+    modified = sorted(
+        [fn for fn in old_set & new_set if old_funcs.get(fn) != new_funcs.get(fn)]
+    )  # simple heuristic
+
+    return added, removed, modified
+
+=== FILE: src/project_brain/core/doctor.py ===
+
+--- FUNCTION: check_git (UPDATED) ---
+# old line: 15, new line: 17
+OLD:
+def check_git(root: Path):
+    return (root / ".git").exists()
+
+NEW:
+def check_git(root: Path):
+    return is_git_repo(root)
+
+--- FUNCTION: run_doctor (UPDATED) ---
+# old line: 46, new line: 48
+OLD:
+def run_doctor(root: Path):
+    results = []
+    status_flags = []
+
+    # Project init
+    if check_project_initialized(root):
+        results.append("✔ Project initialized")
+        status_flags.append(True)
+    else:
+        results.append("❌ Project not initialized")
+        status_flags.append(False)
+
+    # Analysis
+    if check_analyzed(root):
+        results.append("✔ Project analyzed")
+        status_flags.append(True)
+    else:
+        results.append("❌ Project not analyzed")
+        status_flags.append(False)
+
+    # Git
+    if check_git(root):
+        results.append("✔ Git repository detected")
+    else:
+        results.append("⚠ Not a git repository")
+
+    # Config
+    config = load_config(root)
+    if not config:
+        results.append("❌ Missing or invalid brain.yaml")
+        status_flags.append(False)
+        llm_provider = "none"
+    else:
+        results.append("✔ Config loaded")
+        llm_provider = config.get("llm", {}).get("provider", "none")
+
+    # LLM check
+    if llm_provider == "ollama":
+        if check_ollama():
+            results.append("✔ LLM: ollama available")
+        else:
+            results.append("❌ LLM: ollama not available")
+            status_flags.append(False)
+
+    elif llm_provider == "openai":
+        if check_openai():
+            results.append("✔ LLM: openai key found")
+        else:
+            results.append("❌ LLM: OPENAI_API_KEY missing")
+            status_flags.append(False)
+
+    else:
+        results.append("ℹ LLM: disabled (provider=none)")
+
+    # Final status
+    if all(status_flags):
+        final_status = "READY"
+    elif any(status_flags):
+        final_status = "PARTIAL"
+    else:
+        final_status = "NOT READY"
+
+    return results, final_status
+
+NEW:
+def run_doctor(root: Path):
+    results = []
+    status_flags = []
+
+    # Project init
+    if check_project_initialized(root):
+        results.append("✔ Project initialized")
+        status_flags.append(True)
+    else:
+        results.append("❌ Project not initialized")
+        status_flags.append(False)
+
+    if not (root / ".brain" / "cache").exists():
+        results.append("⚠ Cache directory missing")
+
+    # Analysis
+    if check_analyzed(root):
+        results.append("✔ Project analyzed")
+        status_flags.append(True)
+    else:
+        results.append("❌ Project not analyzed")
+        status_flags.append(False)
+
+    # Git
+    if check_git(root):
+        results.append("✔ Git repository detected")
+    else:
+        results.append("⚠ Not a git repository")
+
+    # Config
+    config = load_config(root)
+    if not config:
+        results.append("❌ Missing or invalid brain.yaml")
+        status_flags.append(False)
+        llm_provider = "none"
+    else:
+        results.append("✔ Config loaded")
+        llm_provider = config.get("llm", {}).get("provider", "none")
+
+    # LLM check
+    if llm_provider == "ollama":
+        if check_ollama():
+            results.append("✔ LLM: ollama available")
+        else:
+            results.append("❌ LLM: ollama not available")
+            status_flags.append(False)
+
+    elif llm_provider == "openai":
+        if check_openai():
+            results.append("✔ LLM: openai key found")
+        else:
+            results.append("❌ LLM: OPENAI_API_KEY missing")
+            status_flags.append(False)
+
+    else:
+        results.append("ℹ LLM: disabled (provider=none)")
+
+    # Final status
+    if all(status_flags):
+        final_status = "READY"
+    elif any(status_flags):
+        final_status = "PARTIAL"
+    else:
+        final_status = "NOT READY"
+
+    return results, final_status
+
+=== FILE: src/project_brain/core/explainer.py ===
+
+--- FUNCTION: save_cache (UPDATED) ---
+# old line: 39, new line: 43
+OLD:
+def save_cache(cache_dir: Path, key: str, data: dict):
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    path = cache_dir / f"{key}.json"
+    path.write_text(json.dumps(data, indent=2))
+
+NEW:
+def save_cache(cache_dir: Path, key: str, data: dict):
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    path = cache_dir / f"{key}.json"
+    path.write_text(json.dumps(data, indent=2))
+    cleanup_cache(cache_dir)
+
+--- FUNCTION: cleanup_cache (ADDED) ---
+# line: 35
+NEW:
+def cleanup_cache(cache_dir: Path, max_files=1000):
+    files = sorted(cache_dir.glob("*.json"), key=lambda f: f.stat().st_mtime)
+
+    if len(files) > max_files:
+        for f in files[:len(files) - max_files]:
+            f.unlink()
+
+--- FUNCTION: explain_diff (UPDATED) ---
+# old line: 70, new line: 75
+OLD:
+def explain_diff(from_ref: str, to_ref: str, root: Path):
+    config = load_config(root)
+    provider = config.get("llm", {}).get("provider", "none")
+    model = config.get("llm", {}).get("model", "")
+
+    diff = compute_diff(from_ref, to_ref, root)
+    if not diff:
+        return None
+
+    results = []
+    cache_dir = root / ".brain" / "cache"
+
+    for fd in diff["function_diffs"]:
+        file = fd["file"]
+
+        old_src = get_file_from_ref(from_ref, file, root) or ""
+        new_src = get_file_from_ref(to_ref, file, root) or ""
+
+        old_funcs = safe_extract(old_src)
+        new_funcs = safe_extract(new_src)
+
+        changed_funcs = (
+            set(fd["added"]) |
+            set(fd["removed"]) |
+            set(fd["modified"])
+        )
+
+        for fn in changed_funcs:
+            old_code = old_funcs.get(fn, "")
+            new_code = new_funcs.get(fn, "")
+
+            key = hash_pair(old_code, new_code, fn)
+            cached = load_cache(cache_dir, key)
+
+            if cached:
+                results.append({
+                    "file": file,
+                    "function": fn,
+                    **cached
+                })
+                continue
+
+            # No LLM configured
+            if provider == "none":
+                data = {
+                    "change": f"{fn} was modified",
+                    "impact": "Code behavior may have changed",
+                    "risk": "Review required"
+                }
+                results.append({
+                    "file": file,
+                    "function": fn,
+                    **data
+                })
+                continue
+
+            prompt = build_prompt(old_code, new_code, fn)
+            response = generate_explanation(provider, model, prompt)
+
+            if not response:
+                data = {
+                    "change": "LLM failed to generate explanation",
+                    "impact": "Unknown",
+                    "risk": "Unknown"
+                }
+            else:
+                data = {
+                    "change": response.strip(),
+                    "impact": "",
+                    "risk": ""
+                }
+
+            save_cache(cache_dir, key, data)
+
+            results.append({
+                "file": file,
+                "function": fn,
+                **data
+            })
+
+    return results
+
+NEW:
+def explain_diff(from_ref: str, to_ref: str, root: Path):
+    config = load_config(root)
+    provider = config.get("llm", {}).get("provider", "none")
+    model = config.get("llm", {}).get("model", "")
+
+    diff = compute_diff(from_ref, to_ref, root)
+    if not diff:
+        return None
+
+    results = []
+    cache_dir = root / ".brain" / "cache"
+
+    for fd in diff["function_diffs"]:
+        file = fd["file"]
+
+        old_src = get_file_from_ref(from_ref, file, root) or ""
+        new_src = get_file_from_ref(to_ref, file, root) or ""
+
+        old_funcs = safe_extract(old_src)
+        new_funcs = safe_extract(new_src)
+
+        changed_funcs = list(
+            set(fd["added"]) | set(fd["removed"]) | set(fd["modified"])
+        )
+
+        if not changed_funcs:
+            continue
+
+        for fn in changed_funcs:
+            old_code = old_funcs.get(fn, "")
+            new_code = new_funcs.get(fn, "")
+
+            key = hash_pair(old_code, new_code, fn)
+            cached = load_cache(cache_dir, key)
+
+            if cached:
+                results.append({"file": file, "function": fn, **cached})
+                continue
+
+            # No LLM configured
+            if provider == "none":
+                data = {
+                    "change": f"Function '{fn}' has code-level changes",
+                    "impact": "Behavior may differ depending on logic changes",
+                    "risk": "Review required before deployment",
+                }
+                results.append({"file": file, "function": fn, **data})
+                continue
+
+            prompt = build_prompt(old_code, new_code, fn)
+            response = generate_explanation(provider, model, prompt)
+
+            if not response:
+                data = {
+                    "change": "LLM failed to generate explanation",
+                    "impact": "Unknown",
+                    "risk": "Unknown",
+                }
+            else:
+                data = {"change": response.strip(), "impact": "", "risk": ""}
+
+            save_cache(cache_dir, key, data)
+
+            results.append({"file": file, "function": fn, **data})
+
+    return results
+
+=== FILE: src/project_brain/core/exporter.py ===
+
+--- FUNCTION: export_code_changes (UPDATED) ---
+# old line: 241, new line: 241
+OLD:
+def export_code_changes(root: Path, from_ref: str, to_ref: str):
+    config = load_config(root)
+    changes_cfg = config.get("export", {}).get("changes", {})
+
+    mode = changes_cfg.get("mode", "function")
+    include_context = changes_cfg.get("include_context", True)
+
+    export_dir = root / ".brain" / "exports"
+    export_dir.mkdir(parents=True, exist_ok=True)
+
+    output_path = export_dir / "code_changes.txt"
+
+    diff = compute_diff(from_ref, to_ref, root)
+    if not diff:
+        return 0, output_path
+
+    files_processed = 0
+
+    with output_path.open("w", encoding="utf-8") as out:
+
+        # ADDED FILES
+        for file in diff["added"]:
+            new_src = get_file_from_ref(to_ref, file, root)
+            if not new_src:
+                continue
+
+            out.write(f"=== FILE: {file} (ADDED) ===\n")
+            out.write(new_src)
+            out.write("\n\n")
+
+            files_processed += 1
+
+        # DELETED FILES
+        for file in diff["deleted"]:
+            old_src = get_file_from_ref(from_ref, file, root)
+            if not old_src:
+                continue
+
+            out.write(f"=== FILE: {file} (DELETED) ===\n")
+            out.write(old_src)
+            out.write("\n\n")
+
+            files_processed += 1
+
+        # MODIFIED FILES
+        for file in diff["modified"]:
+            if not file.endswith(".py"):
+                continue
+
+            old_src = get_file_from_ref(from_ref, file, root)
+            new_src = get_file_from_ref(to_ref, file, root)
+
+            if not old_src or not new_src:
+                continue
+
+            if mode == "file":
+                out.write(f"=== FILE: {file} (MODIFIED) ===\n")
+                out.write("OLD:\n")
+                out.write(old_src)
+                out.write("\n\nNEW:\n")
+                out.write(new_src)
+                out.write("\n\n")
+                files_processed += 1
+                continue
+
+            old_funcs = _extract_functions_with_code(old_src)
+            new_funcs = _extract_functions_with_code(new_src)
+
+            all_funcs = set(old_funcs) | set(new_funcs)
+
+            out.write(f"=== FILE: {file} ===\n\n")
+
+            for fn in all_funcs:
+                old_f = old_funcs.get(fn)
+                new_f = new_funcs.get(fn)
+
+                if old_f and not new_f:
+                    out.write(f"--- FUNCTION: {fn} (REMOVED) ---\n")
+                    if include_context:
+                        out.write(f"# line: {old_f['line']}\n")
+                    out.write("OLD:\n")
+                    out.write(old_f["code"])
+                    out.write("\n\n")
+
+                elif new_f and not old_f:
+                    out.write(f"--- FUNCTION: {fn} (ADDED) ---\n")
+                    if include_context:
+                        out.write(f"# line: {new_f['line']}\n")
+                    out.write("NEW:\n")
+                    out.write(new_f["code"])
+                    out.write("\n\n")
+
+                elif old_f and new_f:
+                    if old_f["hash"] != new_f["hash"]:
+                        out.write(f"--- FUNCTION: {fn} (UPDATED) ---\n")
+                        if include_context:
+                            out.write(f"# old line: {old_f['line']}, new line: {new_f['line']}\n")
+                        out.write("OLD:\n")
+                        out.write(old_f["code"])
+                        out.write("\n\nNEW:\n")
+                        out.write(new_f["code"])
+                        out.write("\n\n")
+
+            files_processed += 1
+
+    return files_processed, output_path
+
+NEW:
+def export_code_changes(root: Path, from_ref: str, to_ref: str):
+    config = load_config(root)
+    changes_cfg = config.get("export", {}).get("changes", {})
+
+    mode = changes_cfg.get("mode", "function")
+    include_context = changes_cfg.get("include_context", True)
+
+    export_dir = root / ".brain" / "exports"
+    export_dir.mkdir(parents=True, exist_ok=True)
+
+    output_path = export_dir / "code_changes.txt"
+
+    diff = compute_diff(from_ref, to_ref, root)
+    if not diff:
+        return 0, output_path
+
+    files_processed = 0
+
+    with output_path.open("w", encoding="utf-8") as out:
+
+        # ADDED FILES
+        for file in diff["added"]:
+            new_src = get_file_from_ref(to_ref, file, root)
+            if not new_src:
+                continue
+
+            out.write(f"=== FILE: {file} (ADDED) ===\n")
+            out.write(new_src)
+            out.write("\n\n")
+
+            files_processed += 1
+
+        # DELETED FILES
+        for file in diff["deleted"]:
+            old_src = get_file_from_ref(from_ref, file, root)
+            if not old_src:
+                continue
+
+            out.write(f"=== FILE: {file} (DELETED) ===\n")
+            out.write(old_src)
+            out.write("\n\n")
+
+            files_processed += 1
+
+        # MODIFIED FILES
+        for file in diff["modified"]:
+            if not file.endswith(".py"):
+                out.write(f"=== FILE: {file} (MODIFIED - NON PY) ===\n")
+                out.write("Changes not analyzed.\n\n")
+                files_processed += 1
+                continue
+
+            old_src = get_file_from_ref(from_ref, file, root)
+            new_src = get_file_from_ref(to_ref, file, root)
+
+            if not old_src or not new_src:
+                continue
+
+            if mode == "file":
+                out.write(f"=== FILE: {file} (MODIFIED) ===\n")
+                out.write("OLD:\n")
+                out.write(old_src)
+                out.write("\n\nNEW:\n")
+                out.write(new_src)
+                out.write("\n\n")
+                files_processed += 1
+                continue
+
+            old_funcs = _extract_functions_with_code(old_src)
+            new_funcs = _extract_functions_with_code(new_src)
+
+            all_funcs = set(old_funcs) | set(new_funcs)
+
+            out.write(f"=== FILE: {file} ===\n\n")
+
+            for fn in all_funcs:
+                old_f = old_funcs.get(fn)
+                new_f = new_funcs.get(fn)
+
+                if old_f and not new_f:
+                    out.write(f"--- FUNCTION: {fn} (REMOVED) ---\n")
+                    if include_context:
+                        out.write(f"# line: {old_f['line']}\n")
+                    out.write("OLD:\n")
+                    out.write(old_f["code"])
+                    out.write("\n\n")
+
+                elif new_f and not old_f:
+                    out.write(f"--- FUNCTION: {fn} (ADDED) ---\n")
+                    if include_context:
+                        out.write(f"# line: {new_f['line']}\n")
+                    out.write("NEW:\n")
+                    out.write(new_f["code"])
+                    out.write("\n\n")
+
+                elif old_f and new_f:
+                    if old_f["hash"] != new_f["hash"]:
+                        out.write(f"--- FUNCTION: {fn} (UPDATED) ---\n")
+                        if include_context:
+                            out.write(f"# old line: {old_f['line']}, new line: {new_f['line']}\n")
+                        out.write("OLD:\n")
+                        out.write(old_f["code"])
+                        out.write("\n\nNEW:\n")
+                        out.write(new_f["code"])
+                        out.write("\n\n")
+
+            files_processed += 1
+
+    return files_processed, output_path
+
+--- FUNCTION: should_skip (UPDATED) ---
+# old line: 11, new line: 11
+OLD:
+def should_skip(path: Path):
+    if path.name in EXCLUDE_FILES:
+        return True
+
+    for part in path.parts:
+        if part in EXCLUDE_DIRS:
+            return True
+
+    return False
+
+NEW:
+def should_skip(path: Path):
+    if path.name in EXCLUDE_FILES:
+        return True
+
+    for part in path.parts:
+        if part in EXCLUDE_DIRS or part.endswith(".egg-info"):
+            return True
+
+    return False
+
+=== FILE: src/project_brain/core/summarizer.py ===
+
+--- FUNCTION: load_data (UPDATED) ---
+# old line: 6, new line: 6
+OLD:
+def load_data(root: Path):
+    data_path = root / ".brain" / "data.json"
+    if not data_path.exists():
+        return None
+
+    try:
+        with data_path.open("r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return None
+
+NEW:
+def load_data(root: Path):
+    data_path = root / ".brain" / "data.json"
+    if not data_path.exists():
+        return None
+
+    try:
+        with data_path.open("r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        print("❌ Corrupted data.json. Run 'brain analyze .' again.")
+        return None
+
+--- FUNCTION: generate_overview (UPDATED) ---
+# old line: 44, new line: 45
+OLD:
+def generate_overview(files: list):
+    names = " ".join([f.get("path", "").lower() for f in files])
+
+    parts = []
+
+    if "auth" in names:
+        parts.append("authentication")
+    if "db" in names or "database" in names:
+        parts.append("database layer")
+    if "api" in names or "routes" in names:
+        parts.append("API/backend")
+
+    if not parts:
+        return "General purpose codebase with modular structure."
+
+    if len(parts) == 1:
+        return f"Project includes {parts[0]} functionality."
+
+    return f"Project includes {', '.join(parts[:-1])} and {parts[-1]}."
+
+NEW:
+def generate_overview(files: list):
+    names = " ".join([f.get("path", "").lower() for f in files])
+
+    parts = []
+
+    if "auth" in names:
+        parts.append("authentication")
+    if "db" in names or "database" in names:
+        parts.append("database layer")
+    if "api" in names or "routes" in names:
+        parts.append("API/backend")
+
+    if "cli" in names:
+        parts.append("CLI tool")
+        
+    if not parts:
+        return "General purpose codebase with modular structure."
+
+    if len(parts) == 1:
+        return f"Project includes {parts[0]} functionality."
+
+    return f"Project includes {', '.join(parts[:-1])} and {parts[-1]}."
+
+=== FILE: src/project_brain/llm/provider.py ===
+
+--- FUNCTION: call_openai (UPDATED) ---
+# old line: 21, new line: 25
+OLD:
+def call_openai(model: str, prompt: str) -> str:
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        return ""
+
+    try:
+        response = requests.post(
+            "https://api.openai.com/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json"
+            },
+            json={
+                "model": model,
+                "messages": [{"role": "user", "content": prompt}],
+                "temperature": 0.2
+            },
+            timeout=30
+        )
+
+        if response.status_code != 200:
+            return ""
+
+        data = response.json()
+        return data["choices"][0]["message"]["content"]
+
+    except Exception:
+        return ""
+
+NEW:
+def call_openai(model: str, prompt: str) -> str:
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        return ""
+
+    try:
+        response = requests.post(
+            "https://api.openai.com/v1/responses",
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json"
+            },
+            json={
+                "model": model,
+                "input": prompt
+            },
+            timeout=30
+        )
+
+        if response.status_code != 200:
+            return ""
+
+        data = response.json()
+
+        return data.get("output", [{}])[0].get("content", [{}])[0].get("text", "")
+
+    except Exception:
+        return ""
+
+--- FUNCTION: call_ollama (UPDATED) ---
+# old line: 6, new line: 6
+OLD:
+def call_ollama(model: str, prompt: str) -> str:
+    try:
+        proc = subprocess.run(
+            ["ollama", "run", model],
+            input=prompt,
+            text=True,
+            capture_output=True,
+            encoding="utf-8",
+            errors="ignore"
+        )
+        return proc.stdout.strip()
+    except Exception:
+        return ""
+
+NEW:
+def call_ollama(model: str, prompt: str) -> str:
+    try:
+        proc = subprocess.run(
+            ["ollama", "run", model],
+            input=prompt,
+            text=True,
+            capture_output=True,
+            encoding="utf-8",
+            errors="ignore"
+        )
+        if proc.returncode != 0:
+            print("❌ Ollama error:", proc.stderr)
+            return ""
+        return proc.stdout.strip()
+    except Exception:
+        print("❌ Error calling Ollama")
+        return ""
+

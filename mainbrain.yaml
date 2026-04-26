@@ -1,6 +1,6 @@
 version: '1.0'
 llm:
-  provider: gemini
+  provider: 'gemini'
   model: 'gemini-flash-lite-latest'
   api_key: 'AIzaSyBFeEFpWe82e7VLZUKm3susjWf70dRM6r8'
   timeout_sec: 60
@@ -9,6 +9,8 @@ analysis:
   include_tests: false
   ignore:
   - .brain/
+  - .brainmain/
+  - cache/
   - .git/
   - node_modules/
   - venv/
@@ -16,6 +18,8 @@ analysis:
   - __pycache__/
   - env/
   - .env/
+  - '*.egg-info/'
+  - tests/
   - project_brain.egg-info/
 diff:
   mode: function
@@ -29,18 +33,8 @@ export:
     mode: function
     include_context: true
     output_path: .brain/exports/code_changes.txt
-  ignore:
-  - .brain/
-  - .git/
-  - node_modules/
-  - venv/
-  - .venv/
-  - __pycache__/
-  - env/
-  - .env/
-  - project_brain.egg-info/
 explain:
-  level: fast
+  level: detailed
   include_risks: true
 output:
   format: text

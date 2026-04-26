@@ -3,8 +3,8 @@ import hashlib
 import ast
 from datetime import datetime
 
-EXCLUDE_DIRS = {".brain", ".git", "node_modules", "venv", ".venv", "__pycache__", "env", ".env", "*.egg-info"}
-EXCLUDE_FILES = {".env", ".gitignore", "README.md", "LICENSE", "CHANGELOG.md"}
+# EXCLUDE_DIRS = {".brain", ".git", "node_modules", "venv", ".venv", "__pycache__", "env", ".env", "*.egg-info"}
+# EXCLUDE_FILES = {".env", ".gitignore", "README.md", "LICENSE", "CHANGELOG.md"}
 
 
 def sha256_file(path: Path) -> str:
@@ -47,12 +47,20 @@ def analyze_python_file(path: Path, rel_path: str):
     return functions, classes
 
 
-def should_skip(path: Path) -> bool:
-    if path.name in EXCLUDE_FILES:
-        return True
-    for part in path.parts:
-        if part in EXCLUDE_DIRS or part.endswith(".egg-info"):
-            return True
+def should_skip(path: Path, ignore_patterns):
+    path_str = str(path)
+
+    for pattern in ignore_patterns:
+        if pattern.endswith("/"):
+            if pattern.rstrip("/") in path_str:
+                return True
+        elif pattern.startswith("*."):
+            if path.name.endswith(pattern.replace("*", "")):
+                return True
+        else:
+            if pattern in path.parts:
+                return True
+
     return False
 
 
@@ -64,23 +72,27 @@ def is_binary(path: Path):
         return True
 
 
-def analyze_project(root_path: Path, ignore_patterns=None):
+def analyze_project(root_path: Path, ignore_patterns=None, include_tests=False):
     root_path = root_path.resolve()
 
     files_data = []
     functions = []
     classes = []
+    files_path = []
 
     for path in root_path.rglob("*"):
         if path.is_dir():
             continue
 
-        if should_skip(path):
+        if should_skip(path, ignore_patterns):
             continue
         
         if is_binary(path):
             continue
         
+        if not include_tests and "test" in path.name.lower():
+            continue
+        # files_path.append(path)
         try:
             rel_path = str(path.relative_to(root_path))
             stat = path.stat()
@@ -93,6 +105,7 @@ def analyze_project(root_path: Path, ignore_patterns=None):
             }
 
             files_data.append(file_info)
+            files_path.append(rel_path)
 
             if path.suffix == ".py":
                 fn, cls = analyze_python_file(path, rel_path)
@@ -109,5 +122,5 @@ def analyze_project(root_path: Path, ignore_patterns=None):
         },
         "files": files_data,
         "functions": functions,
-        "classes": classes
-    }
+        "classes": classes,
+    }, files_path

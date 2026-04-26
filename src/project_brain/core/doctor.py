@@ -1,6 +1,5 @@
 from pathlib import Path
 import subprocess
-import os
 import yaml
 
 from project_brain.core.differ import is_git_repo
@@ -42,8 +41,10 @@ def check_ollama():
 
 
 def check_openai():
-    return bool(os.getenv("OPENAI_API_KEY"))
+    return bool(yaml.load(open("brain.yaml"), Loader=yaml.FullLoader).get("llm", {}).get("api_key"))
 
+def check_gemini():
+    return bool(yaml.load(open("brain.yaml"), Loader=yaml.FullLoader).get("llm", {}).get("api_key"))
 
 def run_doctor(root: Path):
     results = []
@@ -97,6 +98,13 @@ def run_doctor(root: Path):
             results.append("✔ LLM: openai key found")
         else:
             results.append("❌ LLM: OPENAI_API_KEY missing")
+            status_flags.append(False)
+    
+    elif llm_provider == "gemini":
+        if check_gemini():
+            results.append("✔ LLM: gemini available")
+        else:
+            results.append("❌ LLM: GEMINI_API_KEY missing")
             status_flags.append(False)
 
     else:

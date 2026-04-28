@@ -1,8 +1,10 @@
-from pathlib import Path
 import ast
 import hashlib
-from project_brain.core.differ import compute_diff, get_file_from_ref
+from pathlib import Path
+
 from project_brain.core.config_loader import load_config
+from project_brain.core.differ import compute_diff, get_file_from_ref
+from project_brain.core.logger import log_error
 
 
 def should_skip(path: Path, ignore_patterns):
@@ -45,7 +47,8 @@ def _read_existing_entries(output_path: Path):
                     file_name = parts.replace("===", "").strip()
                     file_name = file_name.replace("(MANUAL ADD)", "").strip()
                     existing.add(file_name)
-    except Exception:
+    except Exception as e:
+        log_error(f"Function failed: {str(e)}")
         pass
 
     return existing

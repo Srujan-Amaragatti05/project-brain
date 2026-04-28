@@ -1,26 +1,24 @@
-import typer
-from pathlib import Path
+import importlib.metadata
 import json
 import sys
-import importlib.metadata
 import webbrowser
 from datetime import datetime
+from pathlib import Path
+
+import typer
 
 from project_brain.core.analyzer import analyze_project
-from project_brain.core.summarizer import load_data, format_summary
+from project_brain.core.config_loader import (DEFAULT_CONFIG, dump_config,
+                                              load_config)
 from project_brain.core.differ import compute_diff, is_git_repo
-from project_brain.core.explainer import explain_diff
-from project_brain.llm.provider import call_llm
 from project_brain.core.doctor import run_doctor
-from project_brain.core.exporter import (
-    add_code_file,
-    add_code_dir,
-    export_full_code,
-    export_code_changes,
-)
+from project_brain.core.explainer import explain_diff
 from project_brain.core.explainer_file import explain_file, explain_function
+from project_brain.core.exporter import (add_code_dir, add_code_file,
+                                         export_code_changes, export_full_code)
 from project_brain.core.results import generate_html
-from project_brain.core.config_loader import dump_config, load_config, DEFAULT_CONFIG
+from project_brain.core.summarizer import format_summary, load_data
+from project_brain.llm.provider import call_llm
 
 
 def configure_output_encoding():
@@ -169,7 +167,6 @@ def summary():
     fmt = config.get("output", {}).get("format", "text")
 
     if fmt == "json":
-        import json
 
         typer.echo(json.dumps(data, indent=2))
         typer.echo(
@@ -310,7 +307,7 @@ def review(
         typer.echo("❌ Not a git repository")
         raise typer.Exit(code=1)
     results = explain_diff(from_ref, to_ref, root)
-    # print(results, "from explain_diff_cmd in cli.py")
+
 
     if not results:
         typer.echo("❌ Failed to compute explain-diff")

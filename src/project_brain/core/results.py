@@ -1,5 +1,6 @@
 from collections import defaultdict
 
+
 def generate_html(results):
 
     grouped = defaultdict(list)

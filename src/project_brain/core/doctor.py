@@ -1,8 +1,8 @@
-from pathlib import Path
 import subprocess
+from pathlib import Path
 
-from project_brain.core.differ import is_git_repo
 from project_brain.core.config_loader import load_config
+from project_brain.core.differ import is_git_repo
 
 
 def check_project_initialized(root: Path):

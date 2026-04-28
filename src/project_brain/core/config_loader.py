@@ -1,9 +1,9 @@
-from pathlib import Path
-import yaml
 import copy
+from pathlib import Path
+
+import yaml
 
 from project_brain.core.logger import log_warning
-
 
 DEFAULT_CONFIG = {
     "version": "1.0",

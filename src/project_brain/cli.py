@@ -10,7 +10,7 @@ import typer
 from project_brain.core.analyzer import analyze_project
 from project_brain.core.config_loader import (DEFAULT_CONFIG, dump_config,
                                               load_config)
-from project_brain.core.differ import compute_diff, is_git_repo
+from project_brain.core.differ import compute_diff, is_git_repo, run_git_command
 from project_brain.core.doctor import run_doctor
 from project_brain.core.explainer import explain_diff
 from project_brain.core.explainer_file import explain_file, explain_function
@@ -179,17 +179,21 @@ def summary():
 
 
 @diff_app.callback(invoke_without_command=True)
-def diff(
-    ctx: typer.Context,
+def diff(ctx: typer.Context):
+    """
+    Diff command group
+    """
+    if ctx.invoked_subcommand is None:
+        typer.echo("❌ Missing subcommand")
+        typer.echo("👉 Use: brain diff show or brain diff review")
+        raise typer.Exit(code=1)
+    
+
+@diff_app.command()
+def show(
     from_ref: str = typer.Argument(None),
     to_ref: str = typer.Argument(None),
 ):
-    """
-    Show git-based diff with function-level insights
-    """
-    # If subcommand used → skip
-    if ctx.invoked_subcommand:
-        return
 
     # Defaults
     if not from_ref and not to_ref:
@@ -208,18 +212,7 @@ def diff(
     mode = config.get("diff", {}).get("mode", "function")
 
     def validate_ref(ref: str):
-        import subprocess
-
-        try:
-            subprocess.run(
-                ["git", "rev-parse", "--verify", ref],
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-                check=True,
-            )
-            return True
-        except subprocess.CalledProcessError:
-            return False
+        return run_git_command(["rev-parse", "--verify", ref], root) is not None
 
     if not validate_ref(from_ref) or not validate_ref(to_ref):
         typer.echo("❌ Invalid git reference provided")
@@ -306,6 +299,14 @@ def review(
     if not is_git_repo(root):
         typer.echo("❌ Not a git repository")
         raise typer.Exit(code=1)
+    def validate_ref(ref: str):
+        return run_git_command(["rev-parse", "--verify", ref], root) is not None
+    
+    if not validate_ref(from_ref) or not validate_ref(to_ref):
+        typer.echo("❌ Invalid git reference provided")
+        typer.echo(f"   From: {from_ref}")
+        typer.echo(f"   To: {to_ref}")
+        raise typer.Exit(code=1)
     results = explain_diff(from_ref, to_ref, root)
 
 
@@ -328,6 +329,7 @@ def review(
     typer.echo(f"🌐 HTML:  {html_path}")
 
     webbrowser.open(str(html_path))
+
 
 
 @project_app.command()

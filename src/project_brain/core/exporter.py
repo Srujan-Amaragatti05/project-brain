@@ -8,17 +8,21 @@ from project_brain.core.logger import log_error
 
 
 def should_skip(path: Path, ignore_patterns):
-    path_str = str(path)
+    if not ignore_patterns:
+        return False
+
+    path_parts = set(path.parts)
 
     for pattern in ignore_patterns:
-        if pattern.endswith("/"):
-            if pattern.rstrip("/") in path_str:
-                return True
-        elif pattern.startswith("*."):
-            if path.name.endswith(pattern.replace("*", "")):
-                return True
-        else:
-            if pattern in path.parts:
+        pattern = pattern.strip().rstrip("/")
+
+        # 1. Directory match (exact)
+        if pattern in path_parts:
+            return True
+
+        # 2. Extension match (*.pyc etc.)
+        if pattern.startswith("*."):
+            if path.name.endswith(pattern[1:]):
                 return True
 
     return False

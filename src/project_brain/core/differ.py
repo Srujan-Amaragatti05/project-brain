@@ -117,7 +117,9 @@ def diff_functions(old_src: str, new_src: str):
 # Main Diff Engine
 # -----------------------------
 def compute_diff(from_ref: str, to_ref: str, root: Path):
-    diff_output = run_git_command(["diff", "--name-status", from_ref, to_ref], root)
+    diff_output = run_git_command(
+        ["log", "--name-status", "--pretty=format:", f"{from_ref}..{to_ref}"], root
+    )
 
     if diff_output is None:
         raise RuntimeError("Git command failed")

@@ -57,11 +57,13 @@ def explain_file(root: Path, file_path: str):
 
     path = root / file_path
     if not path.exists():
+        log_error(f"File not found: {file_path}")
         return "❌ File not found"
 
     try:
         source = path.read_text(encoding="utf-8", errors="ignore")
-    except Exception:
+    except Exception as e:
+        log_error(f"Unable to read file: {file_path} - {str(e)}")
         return "❌ Unable to read file"
 
     functions, classes = extract_file_structure(source)
@@ -99,15 +101,18 @@ def explain_function(root: Path, file_path: str, func_name: str):
 
     path = root / file_path
     if not path.exists():
+        log_error(f"File not found: {file_path}")
         return "❌ File not found"
 
     try:
         source = path.read_text(encoding="utf-8", errors="ignore")
-    except Exception:
+    except Exception as e:
+        log_error(f"Unable to read file: {file_path} - {str(e)}")
         return "❌ Unable to read file"
 
     fn = extract_function(source, func_name)
     if not fn:
+        log_error(f"Function not found: {func_name} in {file_path}")
         return "❌ Function not found"
 
     if provider == "none":

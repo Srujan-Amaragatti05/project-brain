@@ -1,8 +1,9 @@
-from pathlib import Path
 import ast
+from pathlib import Path
 
-from project_brain.llm.provider import call_llm
 from project_brain.core.config_loader import load_config
+from project_brain.core.logger import log_error
+from project_brain.llm.provider import call_llm
 
 
 def extract_file_structure(source: str):
@@ -26,7 +27,8 @@ def extract_file_structure(source: str):
 def extract_function(source: str, func_name: str):
     try:
         tree = ast.parse(source)
-    except Exception:
+    except Exception as e:
+        log_error(f"Function failed: {str(e)}")
         return None
 
     lines = source.splitlines()

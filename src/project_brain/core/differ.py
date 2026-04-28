@@ -1,6 +1,8 @@
+import ast
 import subprocess
 from pathlib import Path
-import ast
+
+from project_brain.core.logger import log_error
 
 
 # -----------------------------
@@ -20,7 +22,8 @@ def run_git_command(args: list[str], cwd: Path) -> str | None:
         return result.stdout.strip()
     except subprocess.CalledProcessError:
         return None
-    except Exception:
+    except Exception as e:
+        log_error(f"Function failed: {str(e)}")
         return None
 
 

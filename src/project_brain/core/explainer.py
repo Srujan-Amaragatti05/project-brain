@@ -1,11 +1,13 @@
-from pathlib import Path
 import hashlib
 import json
 import re
+from pathlib import Path
 
-from project_brain.core.differ import compute_diff, get_file_from_ref, extract_functions
-from project_brain.llm.provider import call_llm
 from project_brain.core.config_loader import load_config
+from project_brain.core.differ import (compute_diff, extract_functions,
+                                       get_file_from_ref)
+from project_brain.core.logger import log_error, log_warning
+from project_brain.llm.provider import call_llm
 
 
 def hash_pair(old: str, new: str, fn: str) -> str:
@@ -17,8 +19,8 @@ def load_cache(cache_dir: Path, key: str):
     if path.exists():
         try:
             return json.loads(path.read_text())
-        except Exception:
-            print(f"⚠️ Corrupted cache ignored: {path}")
+        except Exception as e:
+            log_warning(f"⚠️ Corrupted cache ignored: {path}")
             return None
     return None
 
@@ -31,7 +33,30 @@ def cleanup_cache(cache_dir: Path, max_files=1000):
             f.unlink()
 
 
+def is_valid_cache(data: dict) -> bool:
+    if not isinstance(data, dict):
+        return False
+
+    if "fast" not in data or "detailed" not in data:
+        return False
+
+    for section in ["fast", "detailed"]:
+        part = data.get(section)
+        if not isinstance(part, dict):
+            return False
+        if not all(k in part for k in ["change", "impact", "risk"]):
+            return False
+        if part["risk"] not in ["low", "medium", "high"]:
+            return False
+
+    return True
+
+
 def save_cache(cache_dir: Path, key: str, data: dict):
+    if not is_valid_cache(data):
+        log_warning(f"Invalid cache skipped: {key}")
+        return
+
     cache_dir.mkdir(parents=True, exist_ok=True)
     path = cache_dir / f"{key}.json"
     path.write_text(json.dumps(data, indent=2))
@@ -81,11 +106,12 @@ def build_prompt(old_code: str, new_code: str, fn: str) -> str:
 def safe_extract(source: str):
     try:
         return extract_functions(source)
-    except Exception:
+    except Exception as e:
+        log_error(f"Function failed: {str(e)}")
         return {}
 
 
-def explain_diff(from_ref: str, to_ref: str, root: Path):
+def explain_diff(from_ref: str, to_ref: str, root: Path) -> list[dict] | None:
     config = load_config(root)
     llm_cfg = config.get("llm", {})
 
@@ -123,26 +149,8 @@ def explain_diff(from_ref: str, to_ref: str, root: Path):
             key = hash_pair(old_code, new_code, fn)
             cached = load_cache(cache_dir, key)
 
-            if cached:
-                # Case 1: new structured cache
-                if "fast" in cached and "detailed" in cached:
-                    data = select_output(cached, config)
-                    results.append({"file": file, "function": fn, **data})
-                    continue
-                
-                # Case 2: old cache → migrate
-                normalized = normalize_cached_data(cached, provider, model, api_key)
-
-                # convert normalized → full structure
-                parsed = {
-                    "fast": normalized,
-                    "detailed": normalized
-                }
-
-                save_cache(cache_dir, key, parsed)
-
-                data = select_output(parsed, config)
-
+            if cached and is_valid_cache(cached):
+                data = select_output(cached, config)
                 results.append({"file": file, "function": fn, **data})
                 continue
 
@@ -158,8 +166,12 @@ def explain_diff(from_ref: str, to_ref: str, root: Path):
 
             prompt = build_prompt(old_code, new_code, fn)
             response = call_llm(provider, model, prompt, api_key)
-            
-            parsed = parse_llm_json(response["output"])
+
+            if response["error"]:
+                log_error(f"LLM error: {response['error']}")
+                parsed = None
+            else:
+                parsed = normalize_response(response["output"], provider, model, api_key)
             
             # retry if parsing failed
             if not parsed:
@@ -181,6 +193,7 @@ def explain_diff(from_ref: str, to_ref: str, root: Path):
                     parsed = parse_llm_json(response["output"])
             
             if parsed:
+                save_cache(cache_dir, key, parsed)
                 data = select_output(parsed, config)
             else:
                 data = {
@@ -188,10 +201,6 @@ def explain_diff(from_ref: str, to_ref: str, root: Path):
                     "impact": "Unknown",
                     "risk": "high"
                 }
-
-            if parsed:
-                save_cache(cache_dir, key, parsed)
-
             results.append({"file": file, "function": fn, **data})
     explain_cfg = config.get("explain", {})
     include_risks = explain_cfg.get("include_risks", True)
@@ -203,8 +212,6 @@ def explain_diff(from_ref: str, to_ref: str, root: Path):
 
 
 def parse_llm_json(response: str):
-    import json
-
     try:
         data = json.loads(response)
 
@@ -214,62 +221,49 @@ def parse_llm_json(response: str):
         return data
 
     except Exception as e:
+        log_error(f"Function failed: {str(e)}")
         return None
 
 
-def is_structured(data: object) -> bool:
-    return (
-        isinstance(data, dict)
-        and "change" in data
-        and "impact" in data
-        and "risk" in data
-        and data["risk"] in ["low", "medium", "high"]
-    )
+def normalize_response(response_text: str, provider, model, api_key):
+    # Step 1: direct parse
+    parsed = parse_llm_json(response_text)
+    if parsed and is_valid_cache(parsed):
+        return parsed
 
+    # Step 2: try extracting legacy text
+    extracted = extract_from_old_text(response_text)
+    if extracted.get("change"):
+        structured = {
+            "fast": extracted,
+            "detailed": extracted
+        }
+        if is_valid_cache(structured):
+            return structured
 
-def normalize_cached_data(cached, provider, model, api_key):
-    # Already structured
-    if is_structured(cached):
-        return cached
-
-    # Try JSON parse (maybe partially structured)
-    if isinstance(cached, dict) and "change" in cached:
-        parsed = parse_llm_json(cached["change"])
-        if is_structured(parsed):
-            return parsed
-
-        # 🔥 NEW: extract from old text
-        extracted = extract_from_old_text(cached["change"])
-        if extracted["change"]:
-            return extracted
-
-    # LAST fallback → use LLM
-    raw_text = str(cached)
-
+    # Step 3: LLM fix (last resort)
     fix_prompt = f"""
-        Convert this into STRICT JSON:
-        
-        {raw_text}
-        
-        Return ONLY:
-        {{
-          "change": "...",
-          "impact": "...",
-          "risk": "low|medium|high"
-        }}
-        """
+Convert into STRICT JSON:
+
+{response_text}
+
+Return ONLY:
+{{
+  "fast": {{ "change": "...", "impact": "...", "risk": "low|medium|high" }},
+  "detailed": {{ "change": "...", "impact": "...", "risk": "low|medium|high" }}
+}}
+"""
 
     response = call_llm(provider, model, fix_prompt, api_key)
-    parsed = parse_llm_json(response["output"])
 
-    if parsed and "fast" in parsed:
-        return parsed["detailed"]  # prefer detailed for recovery
-    
-    return {
-        "change": "Failed to normalize cached data",
-        "impact": "Unknown",
-        "risk": "medium"
-    }
+    if response["error"]:
+        return None
+
+    parsed = parse_llm_json(response["output"])
+    if parsed and is_valid_cache(parsed):
+        return parsed
+
+    return None
 
 
 def extract_from_old_text(text: str):

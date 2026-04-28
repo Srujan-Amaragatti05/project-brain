@@ -9,3 +9,4 @@ test.txt
 .brainmain/
 mainbrain.yaml
 brain.yaml
+.env

@@ -1,8 +1,9 @@
-from pathlib import Path
-import hashlib
 import ast
+import hashlib
 from datetime import datetime
+from pathlib import Path
 
+from project_brain.core.logger import log_error
 
 
 def sha256_file(path: Path) -> str:
@@ -12,7 +13,8 @@ def sha256_file(path: Path) -> str:
             for chunk in iter(lambda: f.read(8192), b""):
                 hasher.update(chunk)
         return hasher.hexdigest()
-    except Exception:
+    except Exception as e:
+        log_error(f"Function failed: {str(e)}")
         return ""
 
 
@@ -23,7 +25,8 @@ def analyze_python_file(path: Path, rel_path: str):
     try:
         source = path.read_text(encoding="utf-8")
         tree = ast.parse(source)
-    except Exception:
+    except Exception as e:
+        log_error(f"Function failed: {str(e)}")
         return functions, classes
 
     for node in ast.walk(tree):
@@ -110,7 +113,8 @@ def analyze_project(root_path: Path, ignore_patterns=None, include_tests=False):
                 functions.extend(fn)
                 classes.extend(cls)
 
-        except Exception:
+        except Exception as e:
+            log_error(f"Function failed: {str(e)}")
             continue  # skip unreadable files safely
 
     return {

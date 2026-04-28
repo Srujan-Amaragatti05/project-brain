@@ -18,8 +18,8 @@ dependencies = [
 ]
 
 [project.scripts]
-project-brain = "project_brain.cli:app"
-brain = "project_brain.cli:app"
+project-brain = "project_brain.cli:main"
+brain = "project_brain.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

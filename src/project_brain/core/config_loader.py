@@ -2,16 +2,19 @@ from pathlib import Path
 import yaml
 import copy
 
+from project_brain.core.logger import log_warning
+
+
 DEFAULT_CONFIG = {
     "version": "1.0",
     "llm": {
-        "provider": "none", # none | openai | ollama | gemini | huggingface
+        "provider": "none",
         "model": "",
         "api_key": "",
         "timeout_sec": 60,
     },
     "analysis": {
-        "depth": "fast",  # fast | full
+        "depth": "fast",
         "include_tests": False,
         "ignore": [
             ".brain/",
@@ -28,7 +31,7 @@ DEFAULT_CONFIG = {
         ],
     },
     "diff": {
-        "mode": "function",  # function | file
+        "mode": "function",
     },
     "export": {
         "full_code": {
@@ -39,7 +42,7 @@ DEFAULT_CONFIG = {
             "allow_duplicates": True,
         },
         "changes": {
-            "mode": "function",  # function | file
+            "mode": "function",
             "include_context": True,
             "output_path": ".brain/exports/code_changes.txt",
         },
@@ -62,14 +65,11 @@ DEFAULT_CONFIG = {
         "include_risks": True,
     },
     "output": {
-        "format": "text",  # text | json | markdown
+        "format": "text",
     },
 }
 
 
-# -----------------------------
-# Merge (unchanged behavior)
-# -----------------------------
 def merge(default, user):
     result = copy.deepcopy(default)
 
@@ -86,7 +86,7 @@ def merge(default, user):
 # Validation Helpers
 # -----------------------------
 def _warn(path: str, value, default):
-    print(f"[CONFIG WARNING] Invalid value for {path}='{value}', using default='{default}'")
+    log_warning(f"Invalid value for {path}='{value}', using default='{default}'")
 
 
 def _validate_enum(config, path, allowed, default):
@@ -123,7 +123,6 @@ def _validate_int_positive(config, path, default):
 def validate_config(config: dict) -> dict:
     safe = merge(DEFAULT_CONFIG, config or {})
 
-    # ---- ENUM VALIDATIONS ----
     _validate_enum(
         safe,
         "llm.provider",
@@ -159,7 +158,6 @@ def validate_config(config: dict) -> dict:
         DEFAULT_CONFIG["output"]["format"],
     )
 
-    # ---- NUMERIC VALIDATION ----
     _validate_int_positive(
         safe,
         "llm.timeout_sec",
@@ -170,7 +168,7 @@ def validate_config(config: dict) -> dict:
 
 
 # -----------------------------
-# Load Config (SAFE)
+# Load Config
 # -----------------------------
 def load_config(root: Path) -> dict:
     path = root / "brain.yaml"
@@ -181,20 +179,16 @@ def load_config(root: Path) -> dict:
     try:
         raw = yaml.safe_load(path.read_text()) or {}
     except Exception as e:
-        print(f"[CONFIG WARNING] Failed to parse YAML: {str(e)}")
+        log_warning(f"Failed to parse YAML: {str(e)}")
         return DEFAULT_CONFIG
 
     try:
         merged = merge(DEFAULT_CONFIG, raw)
-        validated = validate_config(merged)
-        return validated
+        return validate_config(merged)
     except Exception as e:
-        print(f"[CONFIG WARNING] Validation failed: {str(e)}")
+        log_warning(f"Validation failed: {str(e)}")
         return DEFAULT_CONFIG
 
 
-# -----------------------------
-# Dump Config
-# -----------------------------
 def dump_config(config: dict) -> str:
     return yaml.dump(config, sort_keys=False)

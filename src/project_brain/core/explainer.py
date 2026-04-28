@@ -1,23 +1,11 @@
 from pathlib import Path
 import hashlib
 import json
-import yaml
+import re
 
 from project_brain.core.differ import compute_diff, get_file_from_ref, extract_functions
-from project_brain.llm.provider import generate_explanation
-
-
-def load_config(root: Path):
-    config_path = root / "brain.yaml"
-    if not config_path.exists():
-        return {"llm": {"provider": "none", "model": ""}}
-
-    try:
-        return yaml.safe_load(config_path.read_text()) or {
-            "llm": {"provider": "none", "model": ""}
-        }
-    except Exception:
-        return {"llm": {"provider": "none", "model": ""}}
+from project_brain.llm.provider import call_llm
+from project_brain.core.config_loader import load_config
 
 
 def hash_pair(old: str, new: str, fn: str) -> str:
@@ -52,42 +40,42 @@ def save_cache(cache_dir: Path, key: str, data: dict):
 
 def build_prompt(old_code: str, new_code: str, fn: str) -> str:
     return f"""
-You are a senior software engineer performing a code review.
+        You are a senior software engineer performing a code review.
 
-Analyze the function change and return STRICT JSON ONLY.
+        Analyze the function change and return STRICT JSON ONLY.
 
-DO NOT use markdown.
-DO NOT add text outside JSON.
+        DO NOT use markdown.
+        DO NOT add text outside JSON.
 
-Return EXACTLY:
+        Return EXACTLY:
 
-{{
-  "fast": {{
-    "change": "(1-2 lines) short line summary",
-    "impact": "(1-2 lines) short line impact",
-    "risk": "low | medium | high"
-  }},
-  "detailed": {{
-    "change": "Explain what changed at logic level (4-6 lines)",
-    "impact": "Explain system-level impact and behavior changes (4-6 lines)",
-    "risk": "Explain actual risk reasoning + severity (2-3 lines, end with low|medium|high)"
-  }}
-}}
+        {{
+          "fast": {{
+            "change": "(1-2 lines) short line summary",
+            "impact": "(1-2 lines) short line impact",
+            "risk": "low | medium | high"
+          }},
+          "detailed": {{
+            "change": "Explain what changed at logic level (4-6 lines)",
+            "impact": "Explain system-level impact and behavior changes (4-6 lines)",
+            "risk": "Explain actual risk reasoning + severity (2-3 lines, end with low|medium|high)"
+          }}
+        }}
 
-Rules:
-- fast = minimal summary only
-- detailed MUST include reasoning, not just description
-- DO NOT repeat fast output in detailed
-- risk must still end with one of: low, medium, high
+        Rules:
+        - fast = minimal summary only
+        - detailed MUST include reasoning, not just description
+        - DO NOT repeat fast output in detailed
+        - risk must still end with one of: low, medium, high
 
-Function: {fn}
+        Function: {fn}
 
-Old Code:
-{old_code}
+        Old Code:
+        {old_code}
 
-New Code:
-{new_code}
-""".strip()
+        New Code:
+        {new_code}
+        """.strip()
 
 
 def safe_extract(source: str):
@@ -169,25 +157,28 @@ def explain_diff(from_ref: str, to_ref: str, root: Path):
                 continue
 
             prompt = build_prompt(old_code, new_code, fn)
-            response = generate_explanation(provider, model, prompt, api_key)
+            response = call_llm(provider, model, prompt, api_key)
             
-            parsed = parse_llm_json(response)
+            parsed = parse_llm_json(response["output"])
             
             # retry if parsing failed
             if not parsed:
                 fix_prompt = f"""
-            Convert this into the required JSON structure:
+                Convert this into the required JSON structure:
             
-            {response}
+                {response["output"]}
             
-            Return ONLY:
-            {{
-              "fast": {{ "change": "...", "impact": "...", "risk": "low|medium|high" }},
-              "detailed": {{ "change": "...", "impact": "...", "risk": "low|medium|high" }}
-            }}
-            """
-                response = generate_explanation(provider, model, fix_prompt, api_key)
-                parsed = parse_llm_json(response)
+                Return ONLY:
+                {{
+                "fast": {{ "change": "...", "impact": "...", "risk": "low|medium|high" }},
+                "detailed": {{ "change": "...", "impact": "...", "risk": "low|medium|high" }}
+                }}
+                """
+                response = call_llm(provider, model, fix_prompt, api_key)
+                if response["error"]:
+                    parsed = None
+                else:
+                    parsed = parse_llm_json(response["output"])
             
             if parsed:
                 data = select_output(parsed, config)
@@ -198,7 +189,8 @@ def explain_diff(from_ref: str, to_ref: str, root: Path):
                     "risk": "high"
                 }
 
-            save_cache(cache_dir, key, parsed)
+            if parsed:
+                save_cache(cache_dir, key, parsed)
 
             results.append({"file": file, "function": fn, **data})
     explain_cfg = config.get("explain", {})
@@ -221,7 +213,7 @@ def parse_llm_json(response: str):
 
         return data
 
-    except Exception:
+    except Exception as e:
         return None
 
 
@@ -255,20 +247,20 @@ def normalize_cached_data(cached, provider, model, api_key):
     raw_text = str(cached)
 
     fix_prompt = f"""
-Convert this into STRICT JSON:
+        Convert this into STRICT JSON:
+        
+        {raw_text}
+        
+        Return ONLY:
+        {{
+          "change": "...",
+          "impact": "...",
+          "risk": "low|medium|high"
+        }}
+        """
 
-{raw_text}
-
-Return ONLY:
-{{
-  "change": "...",
-  "impact": "...",
-  "risk": "low|medium|high"
-}}
-"""
-
-    response = generate_explanation(provider, model, fix_prompt, api_key)
-    parsed = parse_llm_json(response)
+    response = call_llm(provider, model, fix_prompt, api_key)
+    parsed = parse_llm_json(response["output"])
 
     if parsed and "fast" in parsed:
         return parsed["detailed"]  # prefer detailed for recovery
@@ -278,9 +270,6 @@ Return ONLY:
         "impact": "Unknown",
         "risk": "medium"
     }
-
-
-import re
 
 
 def extract_from_old_text(text: str):

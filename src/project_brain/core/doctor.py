@@ -1,8 +1,8 @@
 from pathlib import Path
 import subprocess
-import yaml
 
 from project_brain.core.differ import is_git_repo
+from project_brain.core.config_loader import load_config
 
 
 def check_project_initialized(root: Path):
@@ -16,15 +16,6 @@ def check_analyzed(root: Path):
 def check_git(root: Path):
     return is_git_repo(root)
 
-
-def load_config(root: Path):
-    path = root / "brain.yaml"
-    if not path.exists():
-        return None
-    try:
-        return yaml.safe_load(path.read_text())
-    except Exception:
-        return None
 
 
 def check_ollama():
@@ -40,11 +31,17 @@ def check_ollama():
         return False
 
 
-def check_openai():
-    return bool(yaml.load(open("brain.yaml"), Loader=yaml.FullLoader).get("llm", {}).get("api_key"))
+def check_openai(root: Path):
+    config = load_config(root)
+    api_key = config.get("llm", {}).get("api_key", "")
+    model= config.get("llm", {}).get("model", "")
+    return bool(api_key and model)
 
-def check_gemini():
-    return bool(yaml.load(open("brain.yaml"), Loader=yaml.FullLoader).get("llm", {}).get("api_key"))
+def check_gemini(root: Path):
+    config = load_config(root)
+    api_key = config.get("llm", {}).get("api_key", "")
+    model = config.get("llm", {}).get("model", "")
+    return bool(api_key and model)
 
 def run_doctor(root: Path):
     results = []
@@ -94,14 +91,14 @@ def run_doctor(root: Path):
             status_flags.append(False)
 
     elif llm_provider == "openai":
-        if check_openai():
+        if check_openai(root):
             results.append("✔ LLM: openai key found")
         else:
             results.append("❌ LLM: OPENAI_API_KEY missing")
             status_flags.append(False)
     
     elif llm_provider == "gemini":
-        if check_gemini():
+        if check_gemini(root):
             results.append("✔ LLM: gemini available")
         else:
             results.append("❌ LLM: GEMINI_API_KEY missing")

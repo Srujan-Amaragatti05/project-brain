@@ -1,25 +1,8 @@
 from pathlib import Path
 import ast
-import yaml
 
-from project_brain.llm.provider import generate_explanation  # type: ignore
-
-
-def load_config(root: Path):
-    default = {
-        "llm": {"provider": "none", "model": ""},
-        "explain": {"level": "basic", "include_risks": True}
-    }
-
-    config_path = root / "brain.yaml"
-    if not config_path.exists():
-        return default
-
-    try:
-        data = yaml.safe_load(config_path.read_text())
-        return data or default
-    except Exception:
-        return default
+from project_brain.llm.provider import call_llm
+from project_brain.core.config_loader import load_config
 
 
 def extract_file_structure(source: str):
@@ -100,9 +83,9 @@ Explain this file: purpose, main components, data flow, key risks.
 {source}
 """.strip()
 
-    response = generate_explanation(provider, model, prompt, api_key)
+    response = call_llm(provider, model, prompt, api_key)
 
-    return f"File: {file_path}\n\nSummary:\n{response.strip()}"
+    return f"File: {file_path}\n\nSummary:\n{response['output'].strip()}"
 
 
 def explain_function(root: Path, file_path: str, func_name: str):
@@ -140,6 +123,6 @@ Explain this function: purpose, inputs, outputs, logic{risk_part}.
 {fn['code']}
 """.strip()
 
-    response = generate_explanation(provider, model, prompt, api_key)
+    response = call_llm(provider, model, prompt, api_key)
 
-    return f"Function: {fn['name']}\n\n{response.strip()}"
+    return f"Function: {fn['name']}\n\n{response['output'].strip()}"

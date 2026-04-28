@@ -1,6 +1,7 @@
 from pathlib import Path
 import json
 from collections import Counter
+from project_brain.core.logger import log_error
 
 
 def load_data(root: Path):
@@ -12,7 +13,7 @@ def load_data(root: Path):
         with data_path.open("r", encoding="utf-8") as f:
             return json.load(f)
     except Exception:
-        print("❌ Corrupted data.json. Run 'brain analyze .' again.")
+        log_error("Corrupted data.json. Run 'brain analyze .' again.")
         return None
 
 

@@ -1,8 +1,8 @@
 from pathlib import Path
-import yaml
 import ast
 import hashlib
 from project_brain.core.differ import compute_diff, get_file_from_ref
+from project_brain.core.config_loader import load_config
 
 
 def should_skip(path: Path, ignore_patterns):
@@ -30,30 +30,6 @@ def is_test_file(path: Path):
         "tests" in path.parts
     )
 
-
-def load_config(root: Path):
-    default = {
-        "export": {
-            "full_code": {
-                "include_tests": False,
-                "max_file_size_kb": 200
-            },
-            "manual_add": {
-                "allow_duplicates": True
-            }
-        }
-    }
-
-    config_path = root / "brain.yaml"
-
-    if not config_path.exists():
-        return default
-
-    try:
-        data = yaml.safe_load(config_path.read_text())
-        return data or default
-    except Exception:
-        return default
 
 
 def _read_existing_entries(output_path: Path):

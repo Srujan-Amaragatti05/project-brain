@@ -3,8 +3,6 @@ import hashlib
 import ast
 from datetime import datetime
 
-# EXCLUDE_DIRS = {".brain", ".git", "node_modules", "venv", ".venv", "__pycache__", "env", ".env", "*.egg-info"}
-# EXCLUDE_FILES = {".env", ".gitignore", "README.md", "LICENSE", "CHANGELOG.md"}
 
 
 def sha256_file(path: Path) -> str:

@@ -11,3 +11,4 @@ mainbrain.yaml
 brain.yaml
 .env
 .coverage
+build/

@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools>=65", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -19,8 +19,8 @@ dependencies = [
 ]
 
 [project.scripts]
-project-brain = "project_brain.cli:main"
-brain = "project_brain.cli:main"
+project-brain = "project_brain.cli:app"
+brain = "project_brain.cli:app"
 
 [tool.setuptools.packages.find]
 where = ["src"]

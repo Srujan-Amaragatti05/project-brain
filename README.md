@@ -33,13 +33,25 @@
 
 - Python **>= 3.10**
 - Git (required for diff features)
+### Best Practice 
+
+```bash
+(In your Project Directory)
+python -m venv env
+env\Scripts\activate
+```
 
 ### Install Locally
 
 ```bash
 git clone <repo-url>
 cd project-brain
-pip install -e .
+pip install .
+
+(To check where it installed)
+where brain
+OR
+where project-brain
 ```
 
 ### CLI Access
@@ -60,9 +72,6 @@ brain changes
 brain explain
 brain export
 ```
-
----
-
 ---
 
 ## 🧠 CLI Commands

@@ -1,0 +1,12 @@
+{
+  "fast": {
+    "change": "Replaced the generic intersection list with a content-based equality check for modified functions.",
+    "impact": "Refines the modified list by filtering out functions that exist in both versions but remain unchanged.",
+    "risk": "low"
+  },
+  "detailed": {
+    "change": "The implementation previously identified any intersection of function names as 'modified' regardless of their code content. The updated logic introduces a list comprehension that fetches the source strings from the extract_functions results and performs an inequality comparison on the function bodies.",
+    "impact": "The system now provides accurate information regarding actual code changes instead of reporting false positives for every function present in both source versions. Downstream processes relying on the 'modified' list will now only trigger on functional code differences rather than just presence.",
+    "risk": "The added equality check relies on the output format of extract_functions; if function bodies are inconsistent or formatted differently despite functional equivalence, it may report false positives, though this is unlikely to break execution. The risk remains low."
+  }
+}

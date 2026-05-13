@@ -2,13 +2,11 @@ __pycache__/
 *.pyc
 .env/
 env/
-brain_data/
-.brain/
+# .brain/
 *.egg-info/ 
-tests/
+# tests/
 .brainmain/
-mainbrain.yaml
-brain.yaml
+# brain.yaml
 .env
 .coverage
 build/

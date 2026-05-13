@@ -1,0 +1,24 @@
+[2026-04-29 00:51:33] [WARNING] Invalid value for output.format='123', using default='text'
+[2026-04-29 00:51:33] [WARNING] Invalid value for llm.timeout_sec='invalid', using default='60'
+[2026-04-29 00:51:34] [ERROR] Function failed: invalid syntax (<unknown>, line 1)
+[2026-04-29 00:51:34] [WARNING] Invalid value for llm.provider='invalid-provider', using default='none'
+[2026-04-29 00:51:34] [WARNING] Invalid value for output.format='invalid', using default='text'
+[2026-04-29 00:51:34] [WARNING] Invalid value for llm.timeout_sec='-10', using default='60'
+[2026-04-29 01:02:08] [WARNING] Invalid value for output.format='123', using default='text'
+[2026-04-29 01:02:08] [WARNING] Invalid value for llm.timeout_sec='invalid', using default='60'
+[2026-04-29 01:02:09] [ERROR] Function failed: invalid syntax (<unknown>, line 1)
+[2026-04-29 01:02:09] [WARNING] Invalid value for llm.provider='invalid-provider', using default='none'
+[2026-04-29 01:02:09] [WARNING] Invalid value for output.format='invalid', using default='text'
+[2026-04-29 01:02:09] [WARNING] Invalid value for llm.timeout_sec='-10', using default='60'
+[2026-04-29 01:07:20] [WARNING] Invalid value for output.format='123', using default='text'
+[2026-04-29 01:07:20] [WARNING] Invalid value for llm.timeout_sec='invalid', using default='60'
+[2026-04-29 01:07:21] [ERROR] Function failed: invalid syntax (<unknown>, line 1)
+[2026-04-29 01:07:21] [WARNING] Invalid value for llm.provider='invalid-provider', using default='none'
+[2026-04-29 01:07:21] [WARNING] Invalid value for output.format='invalid', using default='text'
+[2026-04-29 01:07:21] [WARNING] Invalid value for llm.timeout_sec='-10', using default='60'
+[2026-04-29 01:07:29] [WARNING] Invalid value for output.format='123', using default='text'
+[2026-04-29 01:07:29] [WARNING] Invalid value for llm.timeout_sec='invalid', using default='60'
+[2026-04-29 01:07:30] [ERROR] Function failed: invalid syntax (<unknown>, line 1)
+[2026-04-29 01:07:30] [WARNING] Invalid value for llm.provider='invalid-provider', using default='none'
+[2026-04-29 01:07:30] [WARNING] Invalid value for output.format='invalid', using default='text'
+[2026-04-29 01:07:30] [WARNING] Invalid value for llm.timeout_sec='-10', using default='60'

@@ -1,0 +1,12 @@
+{
+  "fast": {
+    "change": "Implemented a grouping mechanism to organize analysis results by file path.",
+    "impact": "Introduces collapsible UI sections in the HTML report for better data navigation.",
+    "risk": "low"
+  },
+  "detailed": {
+    "change": "The logic now uses a defaultdict to aggregate item dictionaries by their 'file' key before rendering. It iterates through these groups to nest function-specific cards inside collapsible file-level containers using custom JS and CSS classes.",
+    "impact": "Improves readability significantly for reports containing many entries. It forces a hierarchical structure on the data and adds an interactive toggle feature that obscures details until a user clicks, reducing initial visual clutter.",
+    "risk": "The implementation assumes every item contains a 'file' key; missing keys would trigger a KeyError. However, since this is a reporting utility, the risk of data corruption is non-existent, and runtime failures are localized to the report generation process only. low"
+  }
+}

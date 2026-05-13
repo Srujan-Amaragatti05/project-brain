@@ -1,0 +1,12 @@
+{
+  "fast": {
+    "change": "Updated error handling to raise exceptions for failed git commands and return empty dicts for no-diff scenarios.",
+    "impact": "Improves observability for git failures and prevents downstream attribute errors from null returns.",
+    "risk": "low"
+  },
+  "detailed": {
+    "change": "The function now distinguishes between a failed git execution (raising a RuntimeError) and an empty diff output (returning an empty data structure). Previously, the function returned None in both cases, which could mask underlying process failures and lead to TypeErrors in calling code expecting a dictionary. The return structure for empty diffs is now explicitly initialized to avoid null-reference issues.",
+    "impact": "This changes the error handling contract, forcing callers to handle potential RuntimeErrors instead of checking for None. It ensures that valid logic chains receive a consistent data structure, preventing 'NoneType' attribute errors when iterating over diff results. This improves system stability by failing fast on git command issues.",
+    "risk": "The explicit raising of RuntimeError may cause unhandled exceptions in callers that did not anticipate it. However, since the previous behavior likely caused a downstream crash anyway, this is a safer pattern. Overall risk is low."
+  }
+}

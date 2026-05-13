@@ -1,0 +1,156 @@
+[
+  {
+    "file": "src/project_brain/cli.py",
+    "function": "explain_diff_cmd",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/cli.py",
+    "function": "analyze",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/cli.py",
+    "function": "validate_ref",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/cli.py",
+    "function": "diff",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/core/analyzer.py",
+    "function": "analyze_python_file",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/core/analyzer.py",
+    "function": "is_binary",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/core/analyzer.py",
+    "function": "analyze_project",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/core/analyzer.py",
+    "function": "should_skip",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/core/differ.py",
+    "function": "compute_diff",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/core/differ.py",
+    "function": "diff_functions",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/core/differ.py",
+    "function": "run_git_command",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/core/doctor.py",
+    "function": "check_git",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/core/doctor.py",
+    "function": "run_doctor",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/core/explainer.py",
+    "function": "explain_diff",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/core/explainer.py",
+    "function": "save_cache",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/core/explainer.py",
+    "function": "cleanup_cache",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/core/exporter.py",
+    "function": "export_code_changes",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/core/exporter.py",
+    "function": "should_skip",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/core/summarizer.py",
+    "function": "load_data",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/core/summarizer.py",
+    "function": "generate_overview",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/llm/provider.py",
+    "function": "call_ollama",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  },
+  {
+    "file": "src/project_brain/llm/provider.py",
+    "function": "call_openai",
+    "change": "Failed to parse structured output",
+    "impact": "LLM returned unstructured response",
+    "risk": "high"
+  }
+]

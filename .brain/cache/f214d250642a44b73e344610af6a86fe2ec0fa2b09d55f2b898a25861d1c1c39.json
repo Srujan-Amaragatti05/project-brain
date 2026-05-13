@@ -1,0 +1,12 @@
+{
+  "fast": {
+    "change": "Added a function to force UTF-8 encoding on standard output and error streams.",
+    "impact": "Ensures consistent character handling across different environments and avoids UnicodeDecodeErrors.",
+    "risk": "low"
+  },
+  "detailed": {
+    "change": "The implementation iterates over sys.stdout and sys.stderr, checking for the existence of the reconfigure method. If present, it explicitly sets the stream encoding to utf-8. This pattern ensures compatibility by bypassing reliance on platform-specific default locale settings for text output.",
+    "impact": "This change standardizes output stream behavior, preventing potential failures or character mangling when printing non-ASCII content. It stabilizes application logs and CLI output, making the execution environment more predictable regardless of the host OS locale configuration.",
+    "risk": "The use of hasattr provides a safe fallback for older Python versions or redirected streams that might not support reconfiguration. The scope is strictly localized to stream encoding, posing minimal risk to core business logic. low"
+  }
+}

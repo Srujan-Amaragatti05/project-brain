@@ -1,0 +1,200 @@
+
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Project Brain Report</title>
+
+<style>
+body {
+    font-family: Inter, Arial;
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 20px;
+}
+
+h1 {
+    color: #38bdf8;
+    margin-bottom: 20px;
+}
+
+.file-block {
+    margin-bottom: 20px;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.file-header {
+    background: #1e293b;
+    padding: 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.file-content {
+    display: none;
+    padding: 15px;
+}
+
+.function-card {
+    background: #020617;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+.fn-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.fn-name {
+    font-weight: bold;
+    color: #22c55e;
+}
+
+.section {
+    margin-bottom: 8px;
+}
+
+.section p {
+    margin: 4px 0;
+    color: #cbd5f5;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.risk-high {
+    background: #dc2626;
+}
+
+.risk-medium {
+    background: #f59e0b;
+}
+
+.risk-low {
+    background: #16a34a;
+}
+</style>
+
+<script>
+function toggle(el) {
+    let content = el.nextElementSibling;
+    content.style.display =
+        content.style.display === "block" ? "none" : "block";
+}
+</script>
+
+</head>
+
+<body>
+
+<h1>🧠 Project Brain - Diff Analysis</h1>
+
+
+        <div class="file-block">
+            <div class="file-header" onclick="toggle(this)">
+                📂 src/project_brain/cli.py
+            </div>
+            <div class="file-content">
+                
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">show</span>
+                    <span class="badge risk-low">low</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The implementation introduces a dynamic git reference resolution mechanism, defaulting to HEAD~1..HEAD if no arguments are provided. It adds a validation layer using git rev-parse to ensure the provided references exist before processing. The function now dynamically toggles between file-level and function-level reporting based on an external configuration file.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This change enforces input sanitation, preventing runtime crashes from invalid git objects. It separates the output logic to respect configuration-defined modes, ensuring users only receive the granularity requested. The structured error handling provides clear user feedback via Typer when operations fail, improving observability.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>low</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">diff</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The implementation has been completely stripped of its core Git diff logic, parameter parsing, and output formatting. It is now transformed into a Typer command group stub that enforces the usage of nested subcommands. The function signature was simplified to only accept the context object, removing the arguments for Git references entirely.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This is a breaking change for the CLI interface. Existing scripts or users calling 'brain diff [ref1] [ref2]' will now fail with a 'Missing subcommand' error. The system dependency on Git logic has been abstracted away to sub-modules, changing the execution flow from a direct action to a router-style command.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">validate_ref</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The implementation transitioned from a raw subprocess invocation to a wrapper function run_git_command, while also introducing a new 'root' variable reference. By abstracting the git command execution, the function signature relies on an external context variable that was previously absent, and it shifts the error handling mechanism from explicit exception catching to a null-check pattern.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This change standardizes git interaction across the codebase, potentially reducing boilerplate and ensuring consistent environment configurations. However, it introduces an implicit dependency on the 'root' variable scope, which could lead to NameErrors if the variable is not defined in the caller's scope, deviating from the previous self-contained logic.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">review</span>
+                    <span class="badge risk-low">low</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Implemented a local helper function validate_ref that executes a git rev-parse command to ensure the provided references exist within the repository context. This check is performed immediately after the repository verification and before calling the diff logic, ensuring that both from_ref and to_ref are valid objects.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This change enhances the robustness of the CLI tool by explicitly failing early with clear diagnostic messages when invalid inputs are provided, rather than letting the subprocess call to the diff utility return a cryptic error or fail silently. It improves the developer experience by validating inputs against the actual git state.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>low</p>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+
+</body>
+</html>

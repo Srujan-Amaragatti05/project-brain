@@ -1,0 +1,12 @@
+{
+  "fast": {
+    "change": "Updated export_full_code call to capture and display a new list of exported file paths.",
+    "impact": "The terminal output now includes a detailed list of all files included in the export operation.",
+    "risk": "low"
+  },
+  "detailed": {
+    "change": "The function signature for the export call was updated to unpack an additional return value representing file paths. The logic now processes this list using a join operation with tab indentation and registers an additional typer.echo command to render these paths directly to the console stream.",
+    "impact": "This changes the user interface by flooding the standard output with a potentially long list of file paths. If the codebase contains thousands of files, this will significantly increase terminal noise and potentially degrade performance for large repositories.",
+    "risk": "The risk is minimal because the change is additive and non-destructive. However, if the list is extremely long, it could affect readability or terminal buffer limits. Severity is low."
+  }
+}

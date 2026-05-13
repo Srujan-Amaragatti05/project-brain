@@ -1,0 +1,12 @@
+{
+  "fast": {
+    "change": "Added binary file filtering and optional ignore patterns parameter.",
+    "impact": "Reduces processing overhead for non-text files and enables custom exclusion rules.",
+    "risk": "low"
+  },
+  "detailed": {
+    "change": "The function signature now accepts an optional ignore_patterns argument, though it remains unused in the current loop. Additionally, a new conditional check using is_binary(path) was introduced inside the file traversal loop. This check explicitly skips any file identified as binary before it reaches the file processing and hashing logic.",
+    "impact": "This prevents unnecessary hash calculations and metadata collection for binary assets, which is a significant performance improvement for projects containing large media or build artifacts. By ensuring analysis is strictly limited to text-based files, the tool becomes more robust against irrelevant data collection, although clients must now be aware that binary files will no longer appear in the results list.",
+    "risk": "The logic is additive and safely skips files using an established pattern, mirroring the existing behavior for skipped/unreadable files. The main risk is false-positive binary identification, but since this only results in the exclusion of specific files, the impact is minimal. low"
+  }
+}

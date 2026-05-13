@@ -1,0 +1,12 @@
+{
+  "fast": {
+    "change": "Added a directory existence check for the .brain/cache path.",
+    "impact": "Introduced an optional diagnostic warning in the doctor report.",
+    "risk": "low"
+  },
+  "detailed": {
+    "change": "Inserted a logic block that verifies the presence of the .brain/cache directory within the project root. This check is appended to the diagnostics results list immediately following the initial project initialization check.",
+    "impact": "The function now provides proactive feedback regarding missing cache directories, which helps users troubleshoot performance or storage issues. It does not affect the existing final_status calculation logic, ensuring backward compatibility with external dependencies.",
+    "risk": "The modification is read-only and uses standard Pathlib methods, posing no danger to existing data or logic state. Severity: low"
+  }
+}

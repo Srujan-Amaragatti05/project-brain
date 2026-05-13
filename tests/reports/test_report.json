@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-04-29T01:07:30.917997",
+  "exit_code": 0,
+  "summary": {
+    "passed": 18,
+    "failed": 0
+  },
+  "failures": [],
+  "stdout": "..................                                                       [100%]\n18 passed in 1.45s\n",
+  "stderr": ""
+}

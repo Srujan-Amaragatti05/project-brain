@@ -1,0 +1,12 @@
+{
+  "fast": {
+    "change": "Added configuration-based filtering and input reference validation.",
+    "impact": "Introduced a new brain.yaml check and git reference verification, preventing crashes on bad inputs.",
+    "risk": "low"
+  },
+  "detailed": {
+    "change": "The function now reads a configuration from brain.yaml to determine the diff granularity. It includes a helper function to validate git references using subprocess.run, ensuring both from_ref and to_ref exist before computation. Furthermore, it wraps the core diff computation in a try-except block to capture and report execution errors instead of relying on a None return check.",
+    "impact": "The system gains robustness against invalid git references and runtime exceptions during diffing. Users can now restrict output to file-level changes via configuration, simplifying CLI output in environments where function-level analysis is unnecessary or computationally expensive. Behavior is now predictable and descriptive on failure.",
+    "risk": "The dependency on a local file (brain.yaml) and subprocess execution adds minor surface area, but since failures are handled via explicit exit, the system remains stable. The logic is defensive and unlikely to introduce regressions in existing workflows. low"
+  }
+}

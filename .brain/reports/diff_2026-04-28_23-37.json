@@ -1,0 +1,30 @@
+[
+  {
+    "file": "src/project_brain/cli.py",
+    "function": "show",
+    "change": "The implementation introduces a dynamic git reference resolution mechanism, defaulting to HEAD~1..HEAD if no arguments are provided. It adds a validation layer using git rev-parse to ensure the provided references exist before processing. The function now dynamically toggles between file-level and function-level reporting based on an external configuration file.",
+    "impact": "This change enforces input sanitation, preventing runtime crashes from invalid git objects. It separates the output logic to respect configuration-defined modes, ensuring users only receive the granularity requested. The structured error handling provides clear user feedback via Typer when operations fail, improving observability.",
+    "risk": "low"
+  },
+  {
+    "file": "src/project_brain/cli.py",
+    "function": "diff",
+    "change": "The implementation has been completely stripped of its core Git diff logic, parameter parsing, and output formatting. It is now transformed into a Typer command group stub that enforces the usage of nested subcommands. The function signature was simplified to only accept the context object, removing the arguments for Git references entirely.",
+    "impact": "This is a breaking change for the CLI interface. Existing scripts or users calling 'brain diff [ref1] [ref2]' will now fail with a 'Missing subcommand' error. The system dependency on Git logic has been abstracted away to sub-modules, changing the execution flow from a direct action to a router-style command.",
+    "risk": "medium"
+  },
+  {
+    "file": "src/project_brain/cli.py",
+    "function": "validate_ref",
+    "change": "The implementation transitioned from a raw subprocess invocation to a wrapper function run_git_command, while also introducing a new 'root' variable reference. By abstracting the git command execution, the function signature relies on an external context variable that was previously absent, and it shifts the error handling mechanism from explicit exception catching to a null-check pattern.",
+    "impact": "This change standardizes git interaction across the codebase, potentially reducing boilerplate and ensuring consistent environment configurations. However, it introduces an implicit dependency on the 'root' variable scope, which could lead to NameErrors if the variable is not defined in the caller's scope, deviating from the previous self-contained logic.",
+    "risk": "medium"
+  },
+  {
+    "file": "src/project_brain/cli.py",
+    "function": "review",
+    "change": "Implemented a local helper function validate_ref that executes a git rev-parse command to ensure the provided references exist within the repository context. This check is performed immediately after the repository verification and before calling the diff logic, ensuring that both from_ref and to_ref are valid objects.",
+    "impact": "This change enhances the robustness of the CLI tool by explicitly failing early with clear diagnostic messages when invalid inputs are provided, rather than letting the subprocess call to the diff utility return a cryptic error or fail silently. It improves the developer experience by validating inputs against the actual git state.",
+    "risk": "low"
+  }
+]

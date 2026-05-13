@@ -1,0 +1,12 @@
+{
+  "fast": {
+    "change": "Added optional filters (ignore_patterns, include_tests), binary file detection, and returns a secondary list of file paths.",
+    "impact": "Changes function signature and return type, potentially breaking existing callers expecting a single dictionary.",
+    "risk": "high"
+  },
+  "detailed": {
+    "change": "The function signature now accepts two new parameters: ignore_patterns and include_tests, allowing callers to refine the crawl scope. Logic was added to preemptively skip binary files via is_binary and filter out test-related files based on naming conventions. Additionally, the function now returns a tuple (dict, list) instead of just the original dictionary, exposing the accumulated file path list.",
+    "impact": "This update makes the analysis more efficient by reducing IO overhead for non-text files and irrelevant test artifacts. However, because the return type has shifted from a flat dictionary to a tuple, any downstream code consuming the return value of analyze_project will likely raise an unpack error or type mismatch, requiring immediate refactoring of the calling codebase.",
+    "risk": "The modification of the return signature introduces a breaking change that will cause runtime crashes for all existing consumers of this function. While the logic improvements for filtering are valuable, the lack of backward compatibility necessitates a high severity rating. high"
+  }
+}

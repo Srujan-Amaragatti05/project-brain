@@ -1,0 +1,659 @@
+
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Project Brain Report</title>
+
+<style>
+body {
+    font-family: Inter, Arial;
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 20px;
+}
+
+h1 {
+    color: #38bdf8;
+    margin-bottom: 20px;
+}
+
+.file-block {
+    margin-bottom: 20px;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.file-header {
+    background: #1e293b;
+    padding: 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.file-content {
+    display: none;
+    padding: 15px;
+}
+
+.function-card {
+    background: #020617;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+.fn-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.fn-name {
+    font-weight: bold;
+    color: #22c55e;
+}
+
+.section {
+    margin-bottom: 8px;
+}
+
+.section p {
+    margin: 4px 0;
+    color: #cbd5f5;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.risk-high {
+    background: #dc2626;
+}
+
+.risk-medium {
+    background: #f59e0b;
+}
+
+.risk-low {
+    background: #16a34a;
+}
+</style>
+
+<script>
+function toggle(el) {
+    let content = el.nextElementSibling;
+    content.style.display =
+        content.style.display === "block" ? "none" : "block";
+}
+</script>
+
+</head>
+
+<body>
+
+<h1>🧠 Project Brain - Diff Analysis</h1>
+
+
+        <div class="file-block">
+            <div class="file-header" onclick="toggle(this)">
+                📂 src/project_brain/cli.py
+            </div>
+            <div class="file-content">
+                
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">analyze</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Added YAML configuration loading for exclusion patterns.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Enables filtering of specific files/directories during project analysis.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">diff</span>
+                    <span class="badge risk-low">low</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Added input validation for git references and error handling for compute_diff.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Improves CLI robustness by catching invalid refs and exceptions before processing.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>low</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">explain_diff_cmd</span>
+                    <span class="badge risk-low">low</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Added git validation and grouped CLI output by filename.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Improved user feedback and readability of output.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>low</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">validate_ref</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Added git validation via subprocess.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Enables ref existence checking using system git.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="file-block">
+            <div class="file-header" onclick="toggle(this)">
+                📂 src/project_brain/core/analyzer.py
+            </div>
+            <div class="file-content">
+                
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">should_skip</span>
+                    <span class="badge risk-low">low</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Added .egg-info directory pattern matching to skip logic.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Excludes .egg-info directories from processing.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>low</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">analyze_project</span>
+                    <span class="badge risk-low">low</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Added binary file filtering and optional ignore patterns.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Excludes binary files from the analysis process.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>low</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">is_binary</span>
+                    <span class="badge risk-low">low</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Added binary check using null byte detection.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Improves file type identification accuracy.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>low</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">analyze_python_file</span>
+                    <span class="badge risk-low">low</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>No functional changes detected.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>None.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>low</p>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="file-block">
+            <div class="file-header" onclick="toggle(this)">
+                📂 src/project_brain/core/differ.py
+            </div>
+            <div class="file-content">
+                
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">run_git_command</span>
+                    <span class="badge risk-low">low</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Added trailing comma to subprocess.run arguments.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Improves code style/diff consistency for future updates.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>low</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">diff_functions</span>
+                    <span class="badge risk-low">low</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Refined modified function heuristic by adding content comparison.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Improves accuracy of detected function changes.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>low</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">compute_diff</span>
+                    <span class="badge risk-low">low</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Added error handling for git command failure and explicit return on empty diffs.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Improves robustness by differentiating between command failure and empty state.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>low</p>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="file-block">
+            <div class="file-header" onclick="toggle(this)">
+                📂 src/project_brain/core/doctor.py
+            </div>
+            <div class="file-content">
+                
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">run_doctor</span>
+                    <span class="badge risk-low">low</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Added a check for the existence of the cache directory.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Adds a warning message to the diagnostic results if the cache folder is missing.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>low</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">check_git</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Replaced manual directory check with is_git_repo function call.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Decouples repository validation from filesystem implementation.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="file-block">
+            <div class="file-header" onclick="toggle(this)">
+                📂 src/project_brain/core/explainer.py
+            </div>
+            <div class="file-content">
+                
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">save_cache</span>
+                    <span class="badge risk-low">low</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Added cleanup_cache call after saving data.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Triggers cache pruning logic after every write.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>low</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">cleanup_cache</span>
+                    <span class="badge risk-low">low</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Added a function to prune oldest JSON cache files exceeding a threshold.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Prevents disk bloat by enforcing a maximum file count.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>low</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">explain_diff</span>
+                    <span class="badge risk-low">low</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Refactored changed_funcs to a list and added an early continue for empty diff sets.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Improves code readability and prevents unnecessary iteration for files with no effective changes.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>low</p>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="file-block">
+            <div class="file-header" onclick="toggle(this)">
+                📂 src/project_brain/core/exporter.py
+            </div>
+            <div class="file-content">
+                
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">should_skip</span>
+                    <span class="badge risk-low">low</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Added .egg-info directory exclusion logic.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Excludes build metadata directories from processing.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>low</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">export_code_changes</span>
+                    <span class="badge risk-low">low</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Added explicit output for non-Python modified files.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Non-Python file changes are now acknowledged in the output log instead of silently ignored.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>low</p>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="file-block">
+            <div class="file-header" onclick="toggle(this)">
+                📂 src/project_brain/core/summarizer.py
+            </div>
+            <div class="file-content">
+                
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">load_data</span>
+                    <span class="badge risk-low">low</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Added error console feedback for JSON loading failures.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Improves user visibility into data corruption issues.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>low</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">generate_overview</span>
+                    <span class="badge risk-low">low</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Added detection for CLI components.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Expands project summary to include CLI tools.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>low</p>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="file-block">
+            <div class="file-header" onclick="toggle(this)">
+                📂 src/project_brain/llm/provider.py
+            </div>
+            <div class="file-content">
+                
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">call_openai</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Updated API endpoint and response parsing logic.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Breaks compatibility with the standard OpenAI Chat Completions API.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">call_ollama</span>
+                    <span class="badge risk-low">low</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Added error handling and console logging.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Improves observability for failures.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>low</p>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "fast": {
+    "change": "Added git reference validation and CLI argument handling for file/function diffing.",
+    "impact": "Provides robust error checking for git refs and standardizes display output for diff results.",
+    "risk": "low"
+  },
+  "detailed": {
+    "change": "The implementation introduces a dynamic git reference resolution mechanism, defaulting to HEAD~1..HEAD if no arguments are provided. It adds a validation layer using git rev-parse to ensure the provided references exist before processing. The function now dynamically toggles between file-level and function-level reporting based on an external configuration file.",
+    "impact": "This change enforces input sanitation, preventing runtime crashes from invalid git objects. It separates the output logic to respect configuration-defined modes, ensuring users only receive the granularity requested. The structured error handling provides clear user feedback via Typer when operations fail, improving observability.",
+    "risk": "low"
+  }
+}

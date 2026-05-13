@@ -1,0 +1,12 @@
+{
+  "fast": {
+    "change": "Shifted from implicit environment variable API key to explicit argument injection and updated endpoint/payload schema.",
+    "impact": "Breaks existing callers and changes the expected API response parsing structure significantly.",
+    "risk": "high"
+  },
+  "detailed": {
+    "change": "Removed dependency on os.getenv, requiring callers to now pass the API key explicitly. The request URL was changed to a non-standard v1/responses endpoint, and the payload format was completely overhauled, removing the standard 'messages' list in favor of an 'input' field.",
+    "impact": "This introduces a breaking change for all consuming modules that do not provide an API key. Additionally, the response parsing logic now relies on a deep-nested 'output' structure that does not conform to the standard OpenAI chat completions schema, potentially leading to runtime errors if the API response format is not strictly matched.",
+    "risk": "The combination of changing the API endpoint to a non-standard path, modifying the request body format, and breaking the method signature makes this a high-risk change. It requires full refactoring of all upstream dependencies and lacks backwards compatibility, resulting in high"
+  }
+}

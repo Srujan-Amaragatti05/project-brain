@@ -1,0 +1,156 @@
+[
+  {
+    "file": "src/project_brain/cli.py",
+    "function": "explain_diff_cmd",
+    "change": "Introduced a git repository check and refactored the output loop to group changes by file.",
+    "impact": "Prevents execution outside git repos and organizes console output for easier multi-change review.",
+    "risk": "low"
+  },
+  {
+    "file": "src/project_brain/cli.py",
+    "function": "diff",
+    "change": "Implemented a subprocess-based git ref validation helper and wrapped compute_diff in a try-except block.",
+    "impact": "Prevents crashes on invalid input and provides descriptive error messages instead of propagating raw exceptions.",
+    "risk": "low"
+  },
+  {
+    "file": "src/project_brain/cli.py",
+    "function": "analyze",
+    "change": "Implemented dynamic exclusion logic by reading an ignore list from a local brain.yaml file.",
+    "impact": "Alters analysis results based on external config; potentially crashes if brain.yaml is missing or malformed.",
+    "risk": "medium"
+  },
+  {
+    "file": "src/project_brain/cli.py",
+    "function": "validate_ref",
+    "change": "Replaced placeholder logic with subprocess call to git rev-parse to verify branch or tag existence.",
+    "impact": "Introduces dependency on git binary and external process execution, potentially impacting performance or security.",
+    "risk": "medium"
+  },
+  {
+    "file": "src/project_brain/core/analyzer.py",
+    "function": "analyze_project",
+    "change": "Added an is_binary(path) check to skip binary files and introduced an optional ignore_patterns argument.",
+    "impact": "Reduces processing time and avoids errors when attempting to read non-text files; requires updating existing callers.",
+    "risk": "low"
+  },
+  {
+    "file": "src/project_brain/core/analyzer.py",
+    "function": "is_binary",
+    "change": "Checks the first 1024 bytes of a file for a null byte to determine if it is binary.",
+    "impact": "Improves file handling robustness; defaults to True on access errors to avoid data corruption.",
+    "risk": "low"
+  },
+  {
+    "file": "src/project_brain/core/analyzer.py",
+    "function": "analyze_python_file",
+    "change": "The provided new code is identical to the old code, maintaining the exact same logic and structure.",
+    "impact": "There is zero impact on system behavior or functionality.",
+    "risk": "low"
+  },
+  {
+    "file": "src/project_brain/core/analyzer.py",
+    "function": "should_skip",
+    "change": "Updated the exclusion loop to skip directory components ending in .egg-info.",
+    "impact": "Reduces processing overhead by ignoring Python packaging metadata directories automatically.",
+    "risk": "low"
+  },
+  {
+    "file": "src/project_brain/core/differ.py",
+    "function": "compute_diff",
+    "change": "Replaced silent None returns with explicit RuntimeError for failures and standardized empty dictionary returns.",
+    "impact": "Prevents potential downstream AttributeErrors and enforces strict return schema for API consumers.",
+    "risk": "low"
+  },
+  {
+    "file": "src/project_brain/core/differ.py",
+    "function": "run_git_command",
+    "change": "Added a trailing comma to the last element of the subprocess.run call.",
+    "impact": "Zero impact on runtime execution; maintains consistent formatting for multi-line function calls.",
+    "risk": "low"
+  },
+  {
+    "file": "src/project_brain/core/differ.py",
+    "function": "diff_functions",
+    "change": "Updates the modified list logic to filter by comparing the source content of functions instead of just checking presence.",
+    "impact": "Improves accuracy of the diff output by excluding functions that exist in both versions but remain unchanged.",
+    "risk": "low"
+  },
+  {
+    "file": "src/project_brain/core/doctor.py",
+    "function": "run_doctor",
+    "change": "Inserted a conditional check verifying that the .brain/cache subdirectory exists within the project root.",
+    "impact": "Increases diagnostic observability by identifying missing cache folders without altering the existing status_flags logic.",
+    "risk": "low"
+  },
+  {
+    "file": "src/project_brain/core/doctor.py",
+    "function": "check_git",
+    "change": "Refactored the direct existence check of '.git' to a dedicated function call named is_git_repo.",
+    "impact": "Centralizes repository identification logic, improving maintainability and allowing for more complex validation criteria in the future.",
+    "risk": "low"
+  },
+  {
+    "file": "src/project_brain/core/explainer.py",
+    "function": "cleanup_cache",
+    "change": "Implemented a mechanism to sort .json files by modification time and delete excess files exceeding the max_files threshold.",
+    "impact": "Reduces disk usage by enforcing a retention policy based on file count, though it assumes exclusive control over the directory.",
+    "risk": "medium"
+  },
+  {
+    "file": "src/project_brain/core/explainer.py",
+    "function": "explain_diff",
+    "change": "Converted changed_funcs set to list and added an early exit condition if no functions were modified.",
+    "impact": "Prevents redundant loops and potential cache lookups for empty function diffs, improving efficiency.",
+    "risk": "low"
+  },
+  {
+    "file": "src/project_brain/core/explainer.py",
+    "function": "save_cache",
+    "change": "Integrated a cleanup_cache function call immediately after the JSON file write operation.",
+    "impact": "Automatically triggers cache eviction logic, potentially removing older files to manage disk space.",
+    "risk": "medium"
+  },
+  {
+    "file": "src/project_brain/core/exporter.py",
+    "function": "should_skip",
+    "change": "Updated the exclusion check to include any directory path segment ending with '.egg-info'.",
+    "impact": "Prevents unnecessary scanning or processing of auto-generated Python package metadata, improving performance.",
+    "risk": "low"
+  },
+  {
+    "file": "src/project_brain/core/exporter.py",
+    "function": "export_code_changes",
+    "change": "Updated the modification loop to handle non-Python files by logging them as 'modified' with a notice instead of silently skipping them.",
+    "impact": "Ensures full visibility into changed non-Python files in the report, improving auditability without breaking existing logic.",
+    "risk": "low"
+  },
+  {
+    "file": "src/project_brain/core/summarizer.py",
+    "function": "load_data",
+    "change": "Added a console print statement to notify users when data.json cannot be parsed during load.",
+    "impact": "Enhances debuggability for end-users while preserving existing function return behavior.",
+    "risk": "low"
+  },
+  {
+    "file": "src/project_brain/core/summarizer.py",
+    "function": "generate_overview",
+    "change": "Extended the name parsing logic to include a check for the 'cli' substring and append 'CLI tool' to the parts list.",
+    "impact": "Improves project categorization accuracy for CLI-based tools without altering existing formatting logic.",
+    "risk": "low"
+  },
+  {
+    "file": "src/project_brain/llm/provider.py",
+    "function": "call_ollama",
+    "change": "Introduced return code verification for subprocess execution and added console logging for errors in both success and failure paths.",
+    "impact": "Facilitates easier debugging by exposing stderr and failure context, with no functional change to the return types.",
+    "risk": "low"
+  },
+  {
+    "file": "src/project_brain/llm/provider.py",
+    "function": "call_openai",
+    "change": "Implement an exponential backoff retry strategy and monitor server health/load status.",
+    "impact": "Ensures system stability during temporary outages and reduces unnecessary request load.",
+    "risk": "medium"
+  }
+]

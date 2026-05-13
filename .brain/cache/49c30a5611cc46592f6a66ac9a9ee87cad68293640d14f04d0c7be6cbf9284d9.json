@@ -1,0 +1,12 @@
+{
+  "fast": {
+    "change": "Hardcoded sensitive credentials and model configuration directly into the function.",
+    "impact": "Exposes secret API keys in source code and prevents environment-based configuration.",
+    "risk": "high"
+  },
+  "detailed": {
+    "change": "The function now initializes a hardcoded provider name, specific Gemini model string, and a plain-text API key directly within the function scope. It proceeds to invoke a testing utility with these static parameters and outputs the result using a Typer echo command.",
+    "impact": "This change introduces a severe security vulnerability by committing a secret key to the version control system. It also removes flexibility, as changing models or rotating keys now requires a code deployment rather than simple environment variable updates, breaking modularity.",
+    "risk": "Hardcoding credentials is a critical security failure that leads to unauthorized access if the repository is compromised or shared. The practice violates basic secret management standards, making this a high risk."
+  }
+}

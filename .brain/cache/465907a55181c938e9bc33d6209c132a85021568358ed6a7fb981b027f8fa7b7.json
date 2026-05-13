@@ -1,0 +1,12 @@
+{
+  "fast": {
+    "change": "Added a callback function to display the application version and exit.",
+    "impact": "Enables a --version flag to output the installed package version and terminate execution.",
+    "risk": "low"
+  },
+  "detailed": {
+    "change": "The implementation introduces a boolean callback that checks for the existence of the 'project-brain' metadata using importlib.metadata. If found, it prints the version string; otherwise, it defaults to 'unknown'. The function concludes by invoking typer.Exit() to ensure the application lifecycle terminates immediately upon reporting the version.",
+    "impact": "This standardizes version reporting for CLI utilities built with Typer. It replaces potentially manual version handling with a dynamic lookup, ensuring the output is always synchronized with the installed package metadata. The use of an exception block prevents runtime crashes if the metadata is missing in development or non-standard environments.",
+    "risk": "The logic is isolated and strictly follows the expected pattern for CLI tool version flags. Error handling gracefully manages missing metadata cases, preventing unexpected crashes during initialization. Risk level: low"
+  }
+}

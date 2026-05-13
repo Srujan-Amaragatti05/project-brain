@@ -1,0 +1,12 @@
+{
+  "fast": {
+    "change": "Added git repository validation and redirected output to persistent JSON/HTML reports.",
+    "impact": "The CLI no longer prints individual file changes to the console, instead saving them as files and auto-opening a browser.",
+    "risk": "medium"
+  },
+  "detailed": {
+    "change": "The logic now enforces a repository check before execution and refactors the output handling. Instead of iterating through results to print them to stdout, it aggregates the data into a local report directory. It saves both raw JSON and generated HTML formats, creating a new timestamped artifact for each command execution.",
+    "impact": "This transition changes the primary interface from a terminal-based stream to a persistent file-based report system. Users lose direct command-line feedback but gain a browser-ready visualization and archival capability. Automating the browser launch significantly alters the UX for CLI users.",
+    "risk": "The inclusion of filesystem writes and an automatic browser launch introduces dependency on environment capabilities. Error handling for directory creation is present, but potential file permission issues or unwanted browser behavior in headless environments warrant a medium risk assessment."
+  }
+}

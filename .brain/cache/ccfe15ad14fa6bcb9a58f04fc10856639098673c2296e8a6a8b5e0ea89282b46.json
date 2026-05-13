@@ -1,0 +1,12 @@
+{
+  "fast": {
+    "change": "Added git repository validation and refactored display logic to group output by file.",
+    "impact": "Improves CLI usability and user feedback, preventing errors in non-git directories.",
+    "risk": "low"
+  },
+  "detailed": {
+    "change": "The function now performs an explicit check for a valid git repository before execution. Logic was introduced to aggregate diff results into a dictionary keyed by filename. The reporting loop was restructured to iterate through these groups, displaying the filename once as a header followed by all associated function changes.",
+    "impact": "System stability is increased by failing early with a clear message when executed outside a git context. Output readability is significantly enhanced for files containing multiple modified functions, reducing visual clutter and providing a clearer hierarchy for the user.",
+    "risk": "The changes are non-destructive and improve error handling without altering the underlying diff calculation logic. The use of defaultdict is standard and safe, making the risk level low."
+  }
+}

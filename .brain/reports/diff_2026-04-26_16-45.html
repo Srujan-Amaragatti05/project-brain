@@ -1,0 +1,1350 @@
+
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Project Brain Report</title>
+
+<style>
+body {
+    font-family: Inter, Arial;
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 20px;
+}
+
+h1 {
+    color: #38bdf8;
+    margin-bottom: 20px;
+}
+
+.file-block {
+    margin-bottom: 20px;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.file-header {
+    background: #1e293b;
+    padding: 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.file-content {
+    display: none;
+    padding: 15px;
+}
+
+.function-card {
+    background: #020617;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+.fn-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.fn-name {
+    font-weight: bold;
+    color: #22c55e;
+}
+
+.section {
+    margin-bottom: 8px;
+}
+
+.section p {
+    margin: 4px 0;
+    color: #cbd5f5;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.risk-high {
+    background: #dc2626;
+}
+
+.risk-medium {
+    background: #f59e0b;
+}
+
+.risk-low {
+    background: #16a34a;
+}
+</style>
+
+<script>
+function toggle(el) {
+    let content = el.nextElementSibling;
+    content.style.display =
+        content.style.display === "block" ? "none" : "block";
+}
+</script>
+
+</head>
+
+<body>
+
+<h1>🧠 Project Brain - Diff Analysis</h1>
+
+
+        <div class="file-block">
+            <div class="file-header" onclick="toggle(this)">
+                📂 src/project_brain/cli.py
+            </div>
+            <div class="file-content">
+                
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">init</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The logic now introduces a boolean flag 'created_anything' which aggregates the success status of all file and directory creation operations. The original implementation unconditionally printed a 'successfully initialized' message even if the directory structure already existed. By checking the return values of 'create_file' and tracking directory mkdir actions, the function now differentiates between a fresh setup and an operation performed on an existing environment.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>The user experience is improved by preventing misleading success messages when no actual changes were made to the file system. It avoids reporting a successful initialization when the environment was already present, providing more explicit feedback via an info message instead of the previous celebratory terminal output.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">gemini</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The function now initializes a hardcoded provider name, specific Gemini model string, and a plain-text API key directly within the function scope. It proceeds to invoke a testing utility with these static parameters and outputs the result using a Typer echo command.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This change introduces a severe security vulnerability by committing a secret key to the version control system. It also removes flexibility, as changing models or rotating keys now requires a code deployment rather than simple environment variable updates, breaking modularity.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">create_file</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The function now explicitly returns False when an existing file prevents writing and True upon successful file creation. Previously, the function implicitly returned None, providing no feedback to the caller regarding the outcome of the filesystem operation.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This introduces a breaking change for any existing integration that may have relied on the function's return value (previously None). Callers can now implement conditional logic based on the outcome, improving error handling and flow control in downstream processes.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">hugface</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The implementation introduces a hardcoded string literal containing a specific Hugging Face API token, model identifier, and test prompt. It directly invokes a helper function with these static values and includes conditional logic to handle responses, including status codes, error messages, and a list slice of sample models.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This introduces a severe security vulnerability by embedding a secret directly in the codebase, which is accessible to anyone with repository access. Furthermore, the function loses environment-based configuration capabilities, making it impossible to rotate keys or swap models without modifying and redeploying the source code.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">summary</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The function now reads a local brain.yaml file to determine output formatting preferences. It introduces conditional logic to bypass standard text formatting in favor of raw JSON serialization if the configuration key is set. A new import statement for the json module is included within the scope of the conditional block to handle data transformation dynamically.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Users can now integrate the tool into automated pipelines by consuming JSON directly from the terminal or the existing data file. This change preserves backward compatibility by defaulting to the legacy text formatting, ensuring no regressions for existing CLI users while providing a new capability for programmatic consumption.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">openai</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The function now reads 'brain.yaml' to dynamically determine the LLM provider and API credentials. It implements a specific branching path for OpenAI that invokes an external helper 'test_openai' with model parameters. It also includes basic error handling to capture and report connectivity failures or invalid configurations directly to the console via Typer.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This introduces a diagnostic capability, allowing users to verify if their environment is correctly configured before running primary tasks. By centralizing the credential retrieval from the local filesystem, it reduces manual troubleshooting time, though it creates a dependency on the 'brain.yaml' file structure existing in the current working directory.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">version_callback</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The implementation introduces a boolean callback that checks for the existence of the 'project-brain' metadata using importlib.metadata. If found, it prints the version string; otherwise, it defaults to 'unknown'. The function concludes by invoking typer.Exit() to ensure the application lifecycle terminates immediately upon reporting the version.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This standardizes version reporting for CLI utilities built with Typer. It replaces potentially manual version handling with a dynamic lookup, ensuring the output is always synchronized with the installed package metadata. The use of an exception block prevents runtime crashes if the metadata is missing in development or non-standard environments.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">configure_output_encoding</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The implementation iterates over sys.stdout and sys.stderr, checking for the existence of the reconfigure method. If present, it explicitly sets the stream encoding to utf-8. This pattern ensures compatibility by bypassing reliance on platform-specific default locale settings for text output.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This change standardizes output stream behavior, preventing potential failures or character mangling when printing non-ASCII content. It stabilizes application logs and CLI output, making the execution environment more predictable regardless of the host OS locale configuration.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">generate_html</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The logic now uses a defaultdict to aggregate item dictionaries by their 'file' key before rendering. It iterates through these groups to nest function-specific cards inside collapsible file-level containers using custom JS and CSS classes.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Improves readability significantly for reports containing many entries. It forces a hierarchical structure on the data and adds an interactive toggle feature that obscures details until a user clicks, reducing initial visual clutter.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">diff</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The function now reads a configuration from brain.yaml to determine the diff granularity. It includes a helper function to validate git references using subprocess.run, ensuring both from_ref and to_ref exist before computation. Furthermore, it wraps the core diff computation in a try-except block to capture and report execution errors instead of relying on a None return check.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>The system gains robustness against invalid git references and runtime exceptions during diffing. Users can now restrict output to file-level changes via configuration, simplifying CLI output in environments where function-level analysis is unnecessary or computationally expensive. Behavior is now predictable and descriptive on failure.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">explain_diff_cmd</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The logic now enforces a repository check before execution and refactors the output handling. Instead of iterating through results to print them to stdout, it aggregates the data into a local report directory. It saves both raw JSON and generated HTML formats, creating a new timestamped artifact for each command execution.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This transition changes the primary interface from a terminal-based stream to a persistent file-based report system. Users lose direct command-line feedback but gain a browser-ready visualization and archival capability. Automating the browser launch significantly alters the UX for CLI users.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">full_code</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The function signature for the export call was updated to unpack an additional return value representing file paths. The logic now processes this list using a join operation with tab indentation and registers an additional typer.echo command to render these paths directly to the console stream.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This changes the user interface by flooding the standard output with a potentially long list of file paths. If the codebase contains thousands of files, this will significantly increase terminal noise and potentially degrade performance for large repositories.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">main_callback</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The function signature now explicitly includes a version parameter configured via typer.Option. It defines the flag aliases, sets is_eager to True to ensure immediate execution, and links a version_callback to handle the logic flow when the flag is triggered.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This introduces a standard CLI behavior where version querying short-circuits the main application logic. By utilizing is_eager, the application will exit before any subsequent processing occurs, preventing unnecessary initialization overhead when a user only requests the version string.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">analyze</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The function now attempts to load a brain.yaml file from the target directory to configure analysis behavior. It extracts 'ignore' patterns and an 'include_tests' flag, passing these as arguments to analyze_project. Furthermore, the code now explicitly ensures the existence of the .brain directory before writing output, replacing the previous implicit behavior.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This introduces configurable project scoping, allowing users to exclude specific files or directories and toggle test file inclusion. System behavior is now more flexible, though it assumes valid YAML structure. The output handling is more robust by creating the hidden storage directory explicitly, preventing runtime I/O errors if the directory is missing.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">validate_ref</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The implementation now executes a subprocess call to 'git rev-parse' using the provided reference string. It suppresses both standard output and error streams, relying solely on the process return code to determine validity via the 'check=True' parameter. A generic try-except block captures all failures, returning a boolean status indicating whether the reference was successfully resolved by the underlying git plumbing command.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This transition shifts validation from potential conceptual checks to concrete repository lookups. It forces a dependency on a local git environment and repository context. System performance may be impacted by the overhead of spawning a new process for every validation call, particularly under high-concurrency scenarios, as it interacts directly with the file system and git index locks.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="file-block">
+            <div class="file-header" onclick="toggle(this)">
+                📂 src/project_brain/core/analyzer.py
+            </div>
+            <div class="file-content">
+                
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">is_binary</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The function now reads the first 1024 bytes of a given path in binary mode to inspect for the presence of a null character (b'\0'). It employs a broad try-except block to handle file access errors or missing files, defaulting to a binary classification if an exception occurs.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This change introduces an automated heuristic for distinguishing between text and binary files. Systems relying on this function will now correctly identify binary blobs, though it may trigger false positives for non-UTF files or cause performance overhead if called frequently on large volumes of small files.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">analyze_project</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The function signature now accepts two new parameters: ignore_patterns and include_tests, allowing callers to refine the crawl scope. Logic was added to preemptively skip binary files via is_binary and filter out test-related files based on naming conventions. Additionally, the function now returns a tuple (dict, list) instead of just the original dictionary, exposing the accumulated file path list.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This update makes the analysis more efficient by reducing IO overhead for non-text files and irrelevant test artifacts. However, because the return type has shifted from a flat dictionary to a tuple, any downstream code consuming the return value of analyze_project will likely raise an unpack error or type mismatch, requiring immediate refactoring of the calling codebase.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">analyze_python_file</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The provided new code is an exact byte-for-byte replica of the old code, maintaining the same AST parsing logic, iteration approach, and data structures for tracking function and class definitions.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>There is zero functional impact on the existing codebase, as no logical, structural, or dependency modifications were made during this purported update.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">should_skip</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The implementation shifts from checking static sets to iterating over an injectable ignore_patterns collection. It introduces conditional logic to handle directory-specific suffixes, file extension wildcards via string replacement, and partial path matching. The method signature now forces dependency injection of patterns, removing reliance on global scope constants.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This significantly increases flexibility for file system traversals, allowing users to define custom ignore criteria without modifying core code. However, it changes the function signature, breaking backward compatibility for all existing call sites. The reliance on string operations for pattern matching also introduces a potential for false positives compared to explicit path part verification.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="file-block">
+            <div class="file-header" onclick="toggle(this)">
+                📂 src/project_brain/core/differ.py
+            </div>
+            <div class="file-content">
+                
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">run_git_command</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The change is strictly stylistic, adding a trailing comma to the 'check=True' argument within the subprocess.run call. This adheres to common Python code style guidelines (PEP 8) for multiline argument lists. No logical operators or parameter values were altered in this diff.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>There is zero functional impact on the Git command execution or error handling logic. The code behavior remains identical to the previous implementation. This change serves solely to enhance source control readability by ensuring that subsequent additions to the argument list result in cleaner, atomic diffs.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">compute_diff</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The function now distinguishes between a failed git execution (raising a RuntimeError) and an empty diff output (returning an empty data structure). Previously, the function returned None in both cases, which could mask underlying process failures and lead to TypeErrors in calling code expecting a dictionary. The return structure for empty diffs is now explicitly initialized to avoid null-reference issues.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This changes the error handling contract, forcing callers to handle potential RuntimeErrors instead of checking for None. It ensures that valid logic chains receive a consistent data structure, preventing 'NoneType' attribute errors when iterating over diff results. This improves system stability by failing fast on git command issues.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">diff_functions</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The implementation previously identified any intersection of function names as 'modified' regardless of their code content. The updated logic introduces a list comprehension that fetches the source strings from the extract_functions results and performs an inequality comparison on the function bodies.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>The system now provides accurate information regarding actual code changes instead of reporting false positives for every function present in both source versions. Downstream processes relying on the 'modified' list will now only trigger on functional code differences rather than just presence.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="file-block">
+            <div class="file-header" onclick="toggle(this)">
+                📂 src/project_brain/core/doctor.py
+            </div>
+            <div class="file-content">
+                
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">check_git</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The implementation shifted from a hardcoded check for a '.git' directory to a call to a generic 'is_git_repo' function. This abstracts the repository verification logic away from the path-handling function, shifting responsibility to a specialized utility.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>The system now supports more flexible repository detection, such as identifying submodules or repositories initialized without a standard '.git' folder. This ensures consistency across the codebase if 'is_git_repo' contains more robust validation logic (e.g., git config parsing).</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">run_doctor</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">check_gemini</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">check_openai</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="file-block">
+            <div class="file-header" onclick="toggle(this)">
+                📂 src/project_brain/core/explainer.py
+            </div>
+            <div class="file-content">
+                
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">normalize_cached_data</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">save_cache</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The function now invokes a newly introduced side-effect function cleanup_cache after the serialization process is completed. This shifts the function from a pure write operation to one that actively manages the filesystem state of the cache directory. The logic assumes that external pruning is required whenever a new entry is successfully persisted.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>The execution time of save_cache is now dependent on the implementation of cleanup_cache. If the cleanup process is resource-intensive or slow, this will introduce latency into the calling code. It also potentially changes the filesystem footprint by removing older or expired files immediately upon saving new data.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">select_output</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">explain_diff</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">is_structured</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">parse_llm_json</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">build_prompt</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">load_config</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">load_cache</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">cleanup_cache</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">extract_from_old_text</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="file-block">
+            <div class="file-header" onclick="toggle(this)">
+                📂 src/project_brain/core/explainer_file.py
+            </div>
+            <div class="file-content">
+                
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">explain_file</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">explain_function</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="file-block">
+            <div class="file-header" onclick="toggle(this)">
+                📂 src/project_brain/core/exporter.py
+            </div>
+            <div class="file-content">
+                
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">export_code_changes</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The modified file loop now catches non-Python files via a negative filter. Instead of ignoring them, it explicitly writes a 'MODIFIED - NON PY' header and a placeholder note to the output file and increments the files_processed counter.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This improves visibility for users performing audits of code changes. Previously, non-Python modifications were completely absent from the report, potentially leading to confusion regarding why certain files were omitted from the summary.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">add_code_dir</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">export_full_code</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">add_code_file</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">should_skip</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="file-block">
+            <div class="file-header" onclick="toggle(this)">
+                📂 src/project_brain/core/summarizer.py
+            </div>
+            <div class="file-content">
+                
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">generate_overview</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">load_data</span>
+                    <span class="badge risk-high">high</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Failed to generate structured output</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>Unknown</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>high</p>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="file-block">
+            <div class="file-header" onclick="toggle(this)">
+                📂 src/project_brain/llm/provider.py
+            </div>
+            <div class="file-content">
+                
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">call_gemini</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The function initializes a structured POST request to the Google Generative AI REST API. It wraps the raw prompt into the required 'contents' schema, handles the API key via query parameter, and implements robust extraction logic to parse the nested 'candidates' JSON structure.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This introduces an external dependency on the requests library and the Google Generative AI backend. It standardizes error handling for HTTP status codes, missing response fields, and network-level exceptions, returning user-friendly error strings instead of raw stack traces.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">test_gemini</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The function now constructs a POST request to the Google Generative Language API using the provided model and prompt. It includes a timeout of 60 seconds, implements error handling for non-200 HTTP statuses, and uses safe dictionary access to parse the nested JSON response structure returned by the API.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This integration introduces an external network dependency that directly impacts runtime performance and reliability. It standardizes the data extraction process for Gemini models, converting raw API responses into clean string outputs while shielding the caller from underlying transport or parsing exceptions.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">call_ollama</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The implementation now enforces a 60-second execution timeout on the ollama process to prevent indefinite blocking. It introduces explicit checks on the process return code, ensuring that non-zero exit statuses are treated as failures. Furthermore, the error handling block was expanded to log specific stderr output and exception details instead of failing silently.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>System reliability is improved by mitigating potential zombie processes or deadlocks during stalled API calls. The addition of console logging provides observability, which is critical for debugging infrastructure issues or model loading errors. These changes transform the function from a fragile 'best-effort' utility into a more resilient component with clear failure state reporting.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">call_openai</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Removed dependency on os.getenv, requiring callers to now pass the API key explicitly. The request URL was changed to a non-standard v1/responses endpoint, and the payload format was completely overhauled, removing the standard 'messages' list in favor of an 'input' field.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This introduces a breaking change for all consuming modules that do not provide an API key. Additionally, the response parsing logic now relies on a deep-nested 'output' structure that does not conform to the standard OpenAI chat completions schema, potentially leading to runtime errors if the API response format is not strictly matched.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">call_huggingface</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>Implemented a POST request to the HuggingFace API using a configurable model string and bearer authentication. Added structured JSON parsing with fallback mechanisms for non-JSON responses. Included a secondary GET request to retrieve a list of public models, parsing the first ten results into the return payload.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>The function now modifies return signatures to provide status codes and error messages, which standardizes error handling for callers. It introduces network-bound operations that can cause latency due to the secondary request for model lists, potentially impacting performance if the upstream metadata endpoint is slow.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">generate_explanation</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The function signature was updated to include an optional api_key string. The internal conditional logic was expanded to pass this key to the openai handler and introduce a new branch for the gemini provider, delegating requests to a corresponding call_gemini function.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>The system now supports an additional LLM provider and allows dynamic injection of authentication credentials. Existing callers that do not provide an API key remain functional for local providers like Ollama, but OpenAI integrations now require the key argument to function correctly if not handled elsewhere.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            <div class="function-card">
+                <div class="fn-header">
+                    <span class="fn-name">test_openai</span>
+                    <span class="badge risk-medium">medium</span>
+                </div>
+
+                <div class="section">
+                    <b>Change</b>
+                    <p>The function now performs a POST request to a specific OpenAI completions-style endpoint and a GET request to the models catalog. It includes header authorization, dynamic payload construction using provided parameters, and nested response parsing to extract text content and data lists respectively.</p>
+                </div>
+
+                <div class="section">
+                    <b>Impact</b>
+                    <p>This updates the system to interact with external OpenAI infrastructure. The function now dictates how inputs are serialized and how error states from the provider are communicated back to the caller, effectively acting as a client adapter for OpenAI services.</p>
+                </div>
+
+                <div class="section">
+                    <b>Risk</b>
+                    <p>medium</p>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+
+</body>
+</html>

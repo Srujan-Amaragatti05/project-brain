@@ -1,20 +1,20 @@
 name: Tests
 
 on:
-  push:
-    branches:
-      - main
-      - dev
+push:
+branches:
+- main
+- dev
 
-  pull_request:
-    branches:
-      - main
-      - dev
+pull_request:
+branches:
+- main
+- dev
 
 jobs:
-  test:
-    name: Python ${{ matrix.python-version }} • ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+test:
+name: Python ${{ matrix.python-version }} • ${{ matrix.os }}
+runs-on: ${{ matrix.os }}
 
 ```
 strategy:
@@ -43,7 +43,14 @@ steps:
     run: python -m pip install --upgrade pip
 
   - name: Install project
-    run: pip install -e .
+    run: pip install -e . > install-output.txt 2>&1
+
+  - name: Upload install logs
+    uses: actions/upload-artifact@v4
+    if: always()
+    with:
+      name: install-logs-${{ matrix.os }}-${{ matrix.python-version }}
+      path: install-output.txt
 
   - name: Install test dependencies
     run: pip install pytest pytest-cov

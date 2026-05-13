@@ -2,6 +2,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
+from rich.panel import Panel
 
 console = Console()
 
@@ -49,3 +50,20 @@ def key_value_table(title: str, rows: list[tuple[str, str]]):
         table.add_row(k, v)
 
     console.print(table)
+
+def doctor_panel(title: str, rows: list[tuple[str, str, str]]):
+    table = Table(title=title)
+
+    table.add_column("Check", style="cyan")
+    table.add_column("Status")
+    table.add_column("Details", style="white")
+
+    for check, status, detail in rows:
+        table.add_row(check, status, detail)
+
+    console.print(
+        Panel(
+            table,
+            border_style="cyan",
+        )
+    )

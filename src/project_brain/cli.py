@@ -39,6 +39,7 @@ from project_brain.cli_ui import (
     error,
     info,
     key_value_table,
+    doctor_panel,
 )
 
 typer.rich_utils.STYLE_HELPTEXT = "bold"
@@ -445,33 +446,71 @@ def review(
 @project_app.command()
 def doctor():
     """
-    Validate project setup and environment
+    Repository diagnostics and environment health checks.
     """
+
     root = Path.cwd()
 
-    results, final_status = run_doctor(root)
+    checks, final_status = run_doctor(root)
 
-    typer.echo("\nProject Brain Doctor Report\n")
-
-    rows = []
-
-    for line in results:
-        if "✔" in line:
-            status = "[green]PASS[/green]"
-        elif "⚠" in line:
-            status = "[yellow]WARN[/yellow]"
-        else:
-            status = "[red]FAIL[/red]"
-
-        rows.append((line, status))
-
-    key_value_table("Doctor Report", rows)
-
-    success(
-        f"Environment status: {final_status}",
-        next_step="brain project analyze .",
+    console.print(
+        Panel.fit(
+            "[bold cyan]🩺 Project Brain Diagnostics[/bold cyan]",
+            border_style="cyan",
+        )
     )
 
+    grouped = {}
+
+    for check in checks:
+        grouped.setdefault(check.category, []).append(check)
+
+    for category, items in grouped.items():
+        rows = []
+
+        for item in items:
+
+            if item.status == "pass":
+                status = "[green]PASS[/green]"
+            elif item.status == "warn":
+                status = "[yellow]WARN[/yellow]"
+            elif item.status == "fail":
+                status = "[red]FAIL[/red]"
+            else:
+                status = "[cyan]INFO[/cyan]"
+
+            detail = item.message
+
+            if item.fix:
+                detail += f"\n[dim]{item.fix}[/dim]"
+
+            rows.append(
+                (
+                    item.name,
+                    status,
+                    detail,
+                )
+            )
+
+        doctor_panel(category, rows)
+
+    if final_status == "READY":
+        success(
+            "Repository is fully operational",
+            next_step="brain diff review",
+        )
+
+    elif final_status == "PARTIAL":
+        info("Repository partially configured")
+
+    else:
+        error(
+            "Repository is not ready",
+            suggestion="""
+brain project init
+brain project analyze .
+""",
+        )
 
 @export_app.command()
 def full_code():

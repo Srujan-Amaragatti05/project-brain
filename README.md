@@ -105,6 +105,60 @@ Tests LLM provider configuration.
 
 ---
 
+## API Key Setup
+
+project-brain uses environment variables for secrets.
+
+### Windows CMD (Permanent)
+
+```bash
+setx API_KEY VARIABLE NAME "your_api_key_here"
+```
+
+Restart terminal after running this.
+
+### Verify
+
+```bash
+echo %API_KEY VARIABLE NAME%
+```
+
+## Remove API Key
+
+### Windows CMD
+
+Remove the environment variable permanently:
+
+```bash
+setx OPENAI_API_KEY "your_api_key"
+setx GEMINI_API_KEY "your_api_key"
+setx HUGGINGFACE_API_KEY "your_api_key"
+```
+
+```bash
+setx API_KEY VARIABLE NAME""
+```
+
+Then restart terminal.
+
+### Verify Removal
+
+CMD:
+
+```bash
+echo %API_KEY VARIABLE NAME%
+```
+
+If removed correctly, it should return:
+
+```bash
+%API_KEY VARIABLE NAME%
+```
+
+or empty output.
+
+---
+
 ## 📄 Output Structure
 
 ```
@@ -127,7 +181,7 @@ Example:
 llm:
   provider: none
   model: ""
-  api_key: ""
+  timeout: 60
 
 analysis:
   include_tests: false

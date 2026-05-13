@@ -1,5 +1,6 @@
 import ast
 from pathlib import Path
+import os
 
 from project_brain.core.config_loader import load_config
 from project_brain.core.logger import log_error
@@ -53,7 +54,7 @@ def explain_file(root: Path, file_path: str):
     config = load_config(root)
     provider = config["llm"]["provider"]
     model = config["llm"]["model"]
-    api_key = config["llm"]["api_key"]
+    api_key = ""
 
     path = root / file_path
     if not path.exists():
@@ -96,7 +97,7 @@ def explain_function(root: Path, file_path: str, func_name: str):
     config = load_config(root)
     provider = config["llm"]["provider"]
     model = config["llm"]["model"]
-    api_key = config["llm"]["api_key"]
+    api_key = ""
     include_risks = config.get("explain", {}).get("include_risks", True)
 
     path = root / file_path

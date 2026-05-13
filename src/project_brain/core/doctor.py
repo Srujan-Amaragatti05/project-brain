@@ -1,3 +1,4 @@
+import os
 import subprocess
 from pathlib import Path
 
@@ -33,13 +34,19 @@ def check_ollama():
 
 def check_openai(root: Path):
     config = load_config(root)
-    api_key = config.get("llm", {}).get("api_key", "")
+    api_key = os.getenv("OPENAI_API_KEY","")
     model= config.get("llm", {}).get("model", "")
     return bool(api_key and model)
 
 def check_gemini(root: Path):
     config = load_config(root)
-    api_key = config.get("llm", {}).get("api_key", "")
+    api_key = os.getenv("GEMINI_API_KEY","")
+    model = config.get("llm", {}).get("model", "")
+    return bool(api_key and model)
+
+def check_huggingface(root: Path):
+    config = load_config(root)
+    api_key = os.getenv("HUGGINGFACE_API_KEY","")
     model = config.get("llm", {}).get("model", "")
     return bool(api_key and model)
 
@@ -102,6 +109,13 @@ def run_doctor(root: Path):
             results.append("✔ LLM: gemini available")
         else:
             results.append("❌ LLM: GEMINI_API_KEY missing")
+            status_flags.append(False)
+
+    elif llm_provider == "huggingface":
+        if check_huggingface(root):
+            results.append("✔ LLM: huggingface available")
+        else:
+            results.append("❌ LLM: HUGGINGFACE_API_KEY missing")
             status_flags.append(False)
 
     else:

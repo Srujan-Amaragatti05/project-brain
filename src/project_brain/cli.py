@@ -4,6 +4,7 @@ import sys
 import webbrowser
 from datetime import datetime
 from pathlib import Path
+import os
 
 import typer
 
@@ -434,8 +435,8 @@ def test():
 
     llm = config.get("llm", {})
     provider = llm.get("provider", "none")
+    model = llm.get("model", "")
     timeout = llm.get("timeout_sec", 60)
-    timeout = int(timeout) if timeout else 60
 
     if provider == "none":
         typer.echo("LLM disabled")
@@ -443,12 +444,14 @@ def test():
 
     result = call_llm(
         provider,
-        llm.get("model"),
+        model,
         "What is 2 + 2?",
-        llm.get("api_key", ""),
+        api_key="",
         include_models=True,
         timeout=timeout
     )
+    print(f"LLM Call - Provider: {provider}, Model: {model}, Timeout: {timeout}s")
+
 
     if result["error"]:
         typer.echo(f"❌ Error: {result['error']}")

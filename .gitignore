@@ -2,9 +2,9 @@ __pycache__/
 *.pyc
 .env/
 env/
-# .brain/
+.brain/
 *.egg-info/ 
-# tests/
+tests/reports/
 .brainmain/
 # brain.yaml
 .env

@@ -7,6 +7,9 @@ from pathlib import Path
 import os
 
 import typer
+import typer.rich_utils
+from rich.console import Console
+from rich.panel import Panel
 
 from project_brain.core.analyzer import analyze_project
 from project_brain.core.config_loader import (DEFAULT_CONFIG, dump_config,
@@ -21,6 +24,26 @@ from project_brain.core.results import generate_html
 from project_brain.core.summarizer import format_summary, load_data
 from project_brain.llm.provider import call_llm
 
+from project_brain.cli_help import (
+    ROOT_HELP,
+    PROJECT_HELP,
+    DIFF_HELP,
+    EXPORT_HELP,
+    LLM_HELP,
+)
+
+from project_brain.cli_ui import (
+    console,
+    section,
+    success,
+    error,
+    info,
+    key_value_table,
+)
+
+typer.rich_utils.STYLE_HELPTEXT = "bold"
+typer.rich_utils.STYLE_OPTIONS_PANEL_BORDER = "cyan"
+typer.rich_utils.STYLE_COMMANDS_PANEL_BORDER = "cyan"
 
 def configure_output_encoding():
     for stream in (sys.stdout, sys.stderr):
@@ -30,11 +53,31 @@ def configure_output_encoding():
 
 configure_output_encoding()
 
-app = typer.Typer(help="project-brain CLI")
-project_app = typer.Typer(help="Project management commands")
-diff_app = typer.Typer(help="Diff and change analysis")
-export_app = typer.Typer(help="Code export tools")
-llm_app = typer.Typer(help="LLM testing tools")
+app = typer.Typer(
+    help=ROOT_HELP,
+    rich_markup_mode="rich",
+    no_args_is_help=True,
+)
+
+project_app = typer.Typer(
+    help=PROJECT_HELP,
+    no_args_is_help=True,
+)
+
+diff_app = typer.Typer(
+    help=DIFF_HELP,
+    no_args_is_help=True,
+)
+
+export_app = typer.Typer(
+    help=EXPORT_HELP,
+    no_args_is_help=True,
+)
+
+llm_app = typer.Typer(
+    help=LLM_HELP,
+    no_args_is_help=True,
+)
 
 app.add_typer(project_app, name="project")
 app.add_typer(diff_app, name="diff")
@@ -63,10 +106,25 @@ def main_callback(
         help="Show version and exit",
     )
 ):
-    pass
+    """ project-brain CLI entrypoint """
 
 
+def require_git_repo(root: Path):
+    if not is_git_repo(root):
+        error(
+            "Current directory is not a git repository",
+            suggestion="""
+Initialize git:
 
+git init
+
+Then create first commit:
+
+git add .
+git commit -m "initial commit"
+""",
+        )
+        raise typer.Exit(code=1)
 
 
 def create_file(path: Path, content: str):
@@ -118,19 +176,40 @@ def init():
     )
 
     if created_anything:
-        typer.echo("\n🎉 project-brain initialized successfully!")
+        success(
+            "project-brain initialized successfully",
+            next_step="brain project analyze .",
+        )
     else:
-        typer.echo("\nℹ️ Project already initialized.")
+        info("Project already initialized")
 
 
 @project_app.command()
-def analyze(path: str = typer.Argument(".", help="Path to analyze")):
+def analyze(
+    path: str = typer.Argument(
+        ".",
+        help="Repository path to analyze",
+    )
+):
     """
-    Analyze the project
+    Analyze repository structure using AST parsing.
+
+    Extracts:
+    - files
+    - functions
+    - classes
+    - metadata
+
+    Stores results inside:
+    .brain/data.json
+
+    Example:
+        brain project analyze .
     """
     root = Path(path)
 
-    typer.echo(f"🔍 Analyzing: {root}")
+    section("Project Analysis")
+    info(f"Analyzing: {root}")
 
     config = load_config(root)
 
@@ -151,7 +230,10 @@ def analyze(path: str = typer.Argument(".", help="Path to analyze")):
 
     formatted_paths = "\n\t\t".join(str(p) for p in files_path)
     typer.echo(f"📋 File Paths: {formatted_paths}")
-    typer.echo("✅ Analysis complete. Data saved to .brain/data.json")
+    success(
+        "Analysis complete",
+        next_step="brain project summary",
+    )
 
 
 @project_app.command()
@@ -161,7 +243,14 @@ def summary():
     data = load_data(root)
 
     if not data:
-        typer.echo("❌ Run 'project-brain analyze .' first")
+        error(
+            "Project has not been analyzed yet",
+            suggestion="""
+        Run:
+
+        brain project analyze .
+        """,
+        )
         raise typer.Exit(code=1)
 
     config = load_config(root)
@@ -205,9 +294,7 @@ def show(
 
     root = Path.cwd()
 
-    if not is_git_repo(root):
-        typer.echo("❌ Not a git repository")
-        raise typer.Exit(code=1)
+    require_git_repo(root)
 
     config = load_config(root)
     mode = config.get("diff", {}).get("mode", "function")
@@ -216,7 +303,16 @@ def show(
         return run_git_command(["rev-parse", "--verify", ref], root) is not None
 
     if not validate_ref(from_ref) or not validate_ref(to_ref):
-        typer.echo("❌ Invalid git reference provided")
+        error(
+            f"Invalid git reference: {from_ref} {to_ref}",
+            suggestion="""
+        brain diff show HEAD~1 HEAD
+        brain diff show main dev
+
+        Check refs using:
+        git log --oneline
+        """,
+        )
         raise typer.Exit(code=1)
 
     try:
@@ -235,22 +331,28 @@ def show(
 
     typer.echo(f"Files Changed: {len(added) + len(modified) + len(deleted)}\n")
 
-    typer.echo("Modified:\n")
-    for f in modified:
-        typer.echo(f"* {f}")
-    if not modified:
-        typer.echo("* None")
+    section("Modified Files")
 
-    typer.echo("\nAdded:\n")
-    for f in added:
-        typer.echo(f"* {f}")
-    if not added:
-        typer.echo("* None")
+    if modified:
+        for f in modified:
+            console.print(f"[yellow]•[/yellow] {f}")
+    else:
+        info("No modified files")
 
-    typer.echo("\nDeleted:\n")
-    for f in deleted:
-        typer.echo(f"* {f}")
-    if not deleted:
+    section("Added Files")
+    if added:
+        for f in added:
+            console.print(f"[green]•[/green] {f}")
+    else:
+        info("No added files")
+
+    section("Deleted Files")
+    if deleted:
+        for f in deleted:
+            console.print(f"[red]•[/red] {f}")
+    else:
+        info("No deleted files")
+
         typer.echo("* None")
 
     if mode == "file":
@@ -297,14 +399,21 @@ def review(
 
     root = Path.cwd()
 
-    if not is_git_repo(root):
-        typer.echo("❌ Not a git repository")
-        raise typer.Exit(code=1)
+    require_git_repo(root)
     def validate_ref(ref: str):
         return run_git_command(["rev-parse", "--verify", ref], root) is not None
     
     if not validate_ref(from_ref) or not validate_ref(to_ref):
-        typer.echo("❌ Invalid git reference provided")
+        error(
+            f"Invalid git reference: {from_ref} {to_ref}",
+            suggestion="""
+        brain diff show HEAD~1 HEAD
+        brain diff show main dev
+
+        Check refs using:
+        git log --oneline
+        """,
+        )
         typer.echo(f"   From: {from_ref}")
         typer.echo(f"   To: {to_ref}")
         raise typer.Exit(code=1)
@@ -344,10 +453,24 @@ def doctor():
 
     typer.echo("\nProject Brain Doctor Report\n")
 
-    for line in results:
-        typer.echo(line)
+    rows = []
 
-    typer.echo(f"\nStatus: {final_status}")
+    for line in results:
+        if "✔" in line:
+            status = "[green]PASS[/green]"
+        elif "⚠" in line:
+            status = "[yellow]WARN[/yellow]"
+        else:
+            status = "[red]FAIL[/red]"
+
+        rows.append((line, status))
+
+    key_value_table("Doctor Report", rows)
+
+    success(
+        f"Environment status: {final_status}",
+        next_step="brain project analyze .",
+    )
 
 
 @export_app.command()
@@ -359,8 +482,12 @@ def full_code():
 
     count, output_path, files_path = export_full_code(root)
 
-    typer.echo(f"📦 Files exported: {count}")
-    typer.echo(f"📄 Output: {output_path}")
+    success(
+        f"Exported {count} files",
+        next_step="brain export code_changes HEAD~1 HEAD",
+    )
+
+    info(f"Output: {output_path}")
     formatted_paths = "\n\t\t".join(files_path)
     typer.echo(f"📋 File Paths: {formatted_paths}")
 
@@ -439,7 +566,7 @@ def test():
     timeout = llm.get("timeout_sec", 60)
 
     if provider == "none":
-        typer.echo("LLM disabled")
+        info("LLM disabled (provider=none)")
         return
 
     result = call_llm(
@@ -454,7 +581,16 @@ def test():
 
 
     if result["error"]:
-        typer.echo(f"❌ Error: {result['error']}")
+        error(
+        f"LLM test failed: {result['error']}",
+        suggestion="""
+    Check:
+    - provider name
+    - model name
+    - API keys
+    - internet connectivity
+    """,
+    )
         return
 
     typer.echo(f"✅ Output: {result['output']}")

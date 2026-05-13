@@ -1,5 +1,5 @@
 import subprocess
-
+import os
 import requests
 
 
@@ -160,6 +160,15 @@ def call_gemini(model, prompt, api_key, include_models=False, timeout=60):
     
 
 def call_llm(provider, model, prompt, api_key="", include_models=False, timeout=60):
+    if provider == "openai":
+        api_key = os.getenv("OPENAI_API_KEY", "")
+
+    elif provider == "gemini":
+        api_key = os.getenv("GEMINI_API_KEY", "")
+
+    elif provider == "huggingface":
+        api_key = os.getenv("HUGGINGFACE_API_KEY", "")
+
     if not model and provider != "none":
         return _response(error="Model not specified", status=400)
 

@@ -2,6 +2,7 @@ import hashlib
 import json
 import re
 from pathlib import Path
+import os
 
 from project_brain.core.config_loader import load_config
 from project_brain.core.differ import (compute_diff, extract_functions,
@@ -117,7 +118,7 @@ def explain_diff(from_ref: str, to_ref: str, root: Path) -> list[dict] | None:
 
     provider = llm_cfg.get("provider", "none")
     model = llm_cfg.get("model", "")
-    api_key = llm_cfg.get("api_key", "")
+    api_key = ""
 
     diff = compute_diff(from_ref, to_ref, root)
     if not diff:

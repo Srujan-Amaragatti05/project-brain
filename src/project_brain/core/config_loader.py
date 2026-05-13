@@ -10,7 +10,6 @@ DEFAULT_CONFIG = {
     "llm": {
         "provider": "none",
         "model": "",
-        "api_key": "",
         "timeout_sec": 60,
     },
     "analysis": {

@@ -6,7 +6,7 @@ env/
 *.egg-info/ 
 tests/reports/
 .brainmain/
-# brain.yaml
+brain.yaml
 .env
 .coverage
 build/

@@ -1,9 +1,0 @@
-[
-  {
-    "file": "src/project_brain/cli.py",
-    "function": "testing",
-    "change": "Introduced a docstring that explicitly labels the function for testing purposes only. This change alters the function body by adding a single literal string constant as the first statement.",
-    "impact": "This updates the metadata accessible via introspection tools like help() or docstring extractors. It provides developers with immediate clarity that the function is intended for utility or development use, potentially preventing accidental production usage.",
-    "risk": "low"
-  }
-]

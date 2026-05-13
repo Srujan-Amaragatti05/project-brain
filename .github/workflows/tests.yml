@@ -16,7 +16,6 @@ test:
 name: Python ${{ matrix.python-version }} • ${{ matrix.os }}
 runs-on: ${{ matrix.os }}
 
-```
 strategy:
   fail-fast: false
 
@@ -64,4 +63,3 @@ steps:
     with:
       name: test-logs-${{ matrix.os }}-${{ matrix.python-version }}
       path: test-output.txt
-```

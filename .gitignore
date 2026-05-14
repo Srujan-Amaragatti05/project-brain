@@ -3,9 +3,12 @@ __pycache__/
 .env/
 env/
 .brain/
-*.egg-info/ 
+src/*.egg-info/
 tests/reports/
 .brainmain/
 .env
 .coverage
 build/
+brain.yaml
+dist/
+repo-testing/

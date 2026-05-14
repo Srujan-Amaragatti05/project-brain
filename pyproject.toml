@@ -3,13 +3,15 @@ requires = ["setuptools>=65", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "project-brain"
-version = "0.1.0"
+name = "project-brain-cli"
+dynamic = ["version"]
 description = "CLI-first developer intelligence tool"
+readme = "README.md"
 authors = [
     { name = "Srujan Amaragatti" }
 ]
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.10"
 dependencies = [
     "typer",
@@ -17,6 +19,9 @@ dependencies = [
     "PyYAML",
     "requests"
 ]
+
+[tool.setuptools.dynamic]
+version = {attr = "project_brain.__version__"}
 
 [project.scripts]
 project-brain = "project_brain.cli:main"

@@ -636,9 +636,6 @@ def test():
     typer.echo(f"📦 Models: {result['models'][:5]}")
 
 
-def testing():
-    ''' For testing purposes only '''
-
 def main():
     app()
 

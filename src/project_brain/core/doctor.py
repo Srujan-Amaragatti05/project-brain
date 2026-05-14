@@ -1,132 +1,29 @@
-import os
-import subprocess
 from pathlib import Path
 
-from project_brain.core.config_loader import load_config
-from project_brain.core.differ import is_git_repo
+from project_brain.core.doctor_checks.analysis import run_analysis_checks
+from project_brain.core.doctor_checks.environment import run_environment_checks
+from project_brain.core.doctor_checks.exports import run_export_checks
+from project_brain.core.doctor_checks.llm import run_llm_checks
+from project_brain.core.doctor_checks.repository import run_repository_checks
 
-
-def check_project_initialized(root: Path):
-    return (root / ".brain").exists()
-
-
-def check_analyzed(root: Path):
-    return (root / ".brain" / "data.json").exists()
-
-
-def check_git(root: Path):
-    return is_git_repo(root)
-
-
-
-def check_ollama():
-    try:
-        subprocess.run(
-            ["ollama", "list"],
-            capture_output=True,
-            text=True,
-            check=True
-        )
-        return True
-    except Exception:
-        return False
-
-
-def check_openai(root: Path):
-    config = load_config(root)
-    api_key = os.getenv("OPENAI_API_KEY","")
-    model= config.get("llm", {}).get("model", "")
-    return bool(api_key and model)
-
-def check_gemini(root: Path):
-    config = load_config(root)
-    api_key = os.getenv("GEMINI_API_KEY","")
-    model = config.get("llm", {}).get("model", "")
-    return bool(api_key and model)
-
-def check_huggingface(root: Path):
-    config = load_config(root)
-    api_key = os.getenv("HUGGINGFACE_API_KEY","")
-    model = config.get("llm", {}).get("model", "")
-    return bool(api_key and model)
 
 def run_doctor(root: Path):
-    results = []
-    status_flags = []
+    checks = []
 
-    # Project init
-    if check_project_initialized(root):
-        results.append("✔ Project initialized")
-        status_flags.append(True)
+    checks.extend(run_environment_checks(root))
+    checks.extend(run_repository_checks(root))
+    checks.extend(run_analysis_checks(root))
+    checks.extend(run_export_checks(root))
+    checks.extend(run_llm_checks(root))
+
+    failures = [c for c in checks if c.status == "fail"]
+    warnings = [c for c in checks if c.status == "warn"]
+
+    if failures:
+        status = "NOT READY"
+    elif warnings:
+        status = "PARTIAL"
     else:
-        results.append("❌ Project not initialized")
-        status_flags.append(False)
+        status = "READY"
 
-    if not (root / ".brain" / "cache").exists():
-        results.append("⚠ Cache directory missing")
-
-    # Analysis
-    if check_analyzed(root):
-        results.append("✔ Project analyzed")
-        status_flags.append(True)
-    else:
-        results.append("❌ Project not analyzed")
-        status_flags.append(False)
-
-    # Git
-    if check_git(root):
-        results.append("✔ Git repository detected")
-    else:
-        results.append("⚠ Not a git repository")
-
-    # Config
-    config = load_config(root)
-    if not config:
-        results.append("❌ Missing or invalid brain.yaml")
-        status_flags.append(False)
-        llm_provider = "none"
-    else:
-        results.append("✔ Config loaded")
-        llm_provider = config.get("llm", {}).get("provider", "none")
-
-    # LLM check
-    if llm_provider == "ollama":
-        if check_ollama():
-            results.append("✔ LLM: ollama available")
-        else:
-            results.append("❌ LLM: ollama not available")
-            status_flags.append(False)
-
-    elif llm_provider == "openai":
-        if check_openai(root):
-            results.append("✔ LLM: openai key found")
-        else:
-            results.append("❌ LLM: OPENAI_API_KEY missing")
-            status_flags.append(False)
-    
-    elif llm_provider == "gemini":
-        if check_gemini(root):
-            results.append("✔ LLM: gemini available")
-        else:
-            results.append("❌ LLM: GEMINI_API_KEY missing")
-            status_flags.append(False)
-
-    elif llm_provider == "huggingface":
-        if check_huggingface(root):
-            results.append("✔ LLM: huggingface available")
-        else:
-            results.append("❌ LLM: HUGGINGFACE_API_KEY missing")
-            status_flags.append(False)
-
-    else:
-        results.append("ℹ LLM: disabled (provider=none)")
-
-    # Final status
-    if all(status_flags):
-        final_status = "READY"
-    elif any(status_flags):
-        final_status = "PARTIAL"
-    else:
-        final_status = "NOT READY"
-
-    return results, final_status
+    return checks, status

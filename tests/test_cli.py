@@ -35,4 +35,4 @@ def test_diff_show_not_git(tmp_path, monkeypatch):
     result = runner.invoke(app, ["diff", "show"])
 
     assert result.exit_code != 0
-    assert "Not a git repository" in result.output
+    assert "not a git repository" in result.output.lower()

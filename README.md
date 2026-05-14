@@ -6,6 +6,7 @@
 ![CLI](https://img.shields.io/badge/interface-CLI-black)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Status](https://img.shields.io/badge/status-active-success)
+![Tests](https://github.com/Srujan-Amaragatti05/project-brain/actions/workflows/tests.yml/badge.svg)
 
 ---
 

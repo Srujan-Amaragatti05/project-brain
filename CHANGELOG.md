@@ -189,3 +189,23 @@ Future releases will expand:
 * incremental analysis
 * multi-language support
 * richer repository indexing
+
+
+# [1.1.0] - 2026-05-14
+## Added
+
+- community command group
+- --feedback CLI option
+- GitHub Discussions integration
+- community resource panel
+
+## Improved
+
+- version consistency fixes
+- packaging metadata cleanup
+- OSS ecosystem readiness
+
+## Fixed
+
+- CLI version resolution issue
+- package metadata mismatch

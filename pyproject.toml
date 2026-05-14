@@ -33,7 +33,6 @@ keywords = [
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
-    "License :: OSI Approved :: MIT License",
     "Environment :: Console",
     "Topic :: Software Development",
     "Topic :: Software Development :: Version Control :: Git",

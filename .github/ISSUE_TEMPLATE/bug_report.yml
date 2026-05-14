@@ -1,0 +1,30 @@
+name: Bug Report
+description: Report a reproducible issue
+title: "[Bug]: "
+labels: ["bug"]
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+
+  - type: input
+    id: version
+    attributes:
+      label: project-brain version
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs/output

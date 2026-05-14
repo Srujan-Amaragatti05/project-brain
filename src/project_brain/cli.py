@@ -11,6 +11,7 @@ import typer.rich_utils
 from rich.console import Console
 from rich.panel import Panel
 
+from project_brain import __version__
 from project_brain.core.analyzer import analyze_project
 from project_brain.core.config_loader import (DEFAULT_CONFIG, dump_config,
                                               load_config)
@@ -41,6 +42,8 @@ from project_brain.cli_ui import (
     key_value_table,
     doctor_panel,
 )
+
+from project_brain.community import open_feedback
 
 typer.rich_utils.STYLE_HELPTEXT = "bold"
 typer.rich_utils.STYLE_OPTIONS_PANEL_BORDER = "cyan"
@@ -80,23 +83,29 @@ llm_app = typer.Typer(
     no_args_is_help=True,
 )
 
+community_app = typer.Typer(
+    help="Community and ecosystem resources.",
+    no_args_is_help=False,
+)
+
 app.add_typer(project_app, name="project")
 app.add_typer(diff_app, name="diff")
 app.add_typer(export_app, name="export")
 app.add_typer(llm_app, name="testllm")
+app.add_typer(community_app, name="community")
 
 
 def version_callback(value: bool):
     if value:
         try:
-            version = importlib.metadata.version("project-brain")
+            version = __version__
         except Exception:
             version = "unknown"
         typer.echo(f"project-brain version: {version}")
         raise typer.Exit()
 
 
-@app.callback()
+@app.callback(invoke_without_command=True)
 def main_callback(
     version: bool = typer.Option(
         False,
@@ -105,9 +114,17 @@ def main_callback(
         callback=version_callback,
         is_eager=True,
         help="Show version and exit",
-    )
+    ),
+    feedback: bool = typer.Option(
+        False,
+        "--feedback",
+        help="Open GitHub Discussions page",
+        is_eager=True,
+    ),
 ):
-    """ project-brain CLI entrypoint """
+    if feedback:
+        open_feedback()
+        raise typer.Exit()
 
 
 def require_git_repo(root: Path):
@@ -634,6 +651,28 @@ def test():
 
     typer.echo(f"✅ Output: {result['output']}")
     typer.echo(f"📦 Models: {result['models'][:5]}")
+
+@community_app.callback(invoke_without_command=True)
+def community():
+    panel = Panel.fit(
+        """
+[bold cyan]GitHub[/bold cyan]
+https://github.com/Srujan-Amaragatti05/project-brain
+
+[bold cyan]PyPI[/bold cyan]
+https://pypi.org/project/project-brain-cli/
+
+[bold cyan]Discussions[/bold cyan]
+https://github.com/Srujan-Amaragatti05/project-brain/discussions
+
+[bold cyan]Issues[/bold cyan]
+https://github.com/Srujan-Amaragatti05/project-brain/issues
+""",
+        title="🧠 project-brain Community",
+        border_style="cyan",
+    )
+
+    console.print(panel)
 
 
 def main():

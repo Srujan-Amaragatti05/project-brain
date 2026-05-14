@@ -3,7 +3,7 @@ __pycache__/
 .env/
 env/
 .brain/
-*.egg-info/ 
+src/*.egg-info/
 tests/reports/
 .brainmain/
 .env

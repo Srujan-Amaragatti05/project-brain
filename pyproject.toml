@@ -20,25 +20,6 @@ dependencies = [
     "requests"
 ]
 
-[tool.setuptools.dynamic]
-version = {attr = "project_brain.__version__"}
-
-[project.scripts]
-project-brain = "project_brain.cli:main"
-brain = "project_brain.cli:main"
-
-[tool.setuptools]
-package-dir = {"" = "src"}
-
-[tool.setuptools.packages.find]
-where = ["src"]
-
-[project.optional-dependencies]
-dev = [
-    "pytest",
-    "pytest-cov"
-]
-
 keywords = [
     "cli",
     "git",
@@ -63,3 +44,22 @@ Homepage = "https://github.com/Srujan-Amaragatti05/project-brain"
 Repository = "https://github.com/Srujan-Amaragatti05/project-brain"
 Issues = "https://github.com/Srujan-Amaragatti05/project-brain/issues"
 Discussions = "https://github.com/Srujan-Amaragatti05/project-brain/discussions"
+
+[tool.setuptools.dynamic]
+version = {attr = "project_brain.__version__"}
+
+[project.scripts]
+project-brain = "project_brain.cli:main"
+brain = "project_brain.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov"
+]

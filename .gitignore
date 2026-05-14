@@ -13,3 +13,4 @@ brain.yaml
 dist/
 repo-testing/
 .pytest_cache/
+pytest.ini

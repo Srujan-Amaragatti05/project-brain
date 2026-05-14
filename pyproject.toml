@@ -20,6 +20,30 @@ dependencies = [
     "requests"
 ]
 
+keywords = [
+    "cli",
+    "git",
+    "ast",
+    "developer-tools",
+    "code-analysis",
+    "llm",
+    "developer-productivity",
+]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Environment :: Console",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Version Control :: Git",
+]
+
+[project.urls]
+Homepage = "https://github.com/Srujan-Amaragatti05/project-brain"
+Repository = "https://github.com/Srujan-Amaragatti05/project-brain"
+Issues = "https://github.com/Srujan-Amaragatti05/project-brain/issues"
+Discussions = "https://github.com/Srujan-Amaragatti05/project-brain/discussions"
+
 [tool.setuptools.dynamic]
 version = {attr = "project_brain.__version__"}
 
@@ -38,28 +62,3 @@ dev = [
     "pytest",
     "pytest-cov"
 ]
-
-keywords = [
-    "cli",
-    "git",
-    "ast",
-    "developer-tools",
-    "code-analysis",
-    "llm",
-    "developer-productivity",
-]
-
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
-    "License :: OSI Approved :: MIT License",
-    "Environment :: Console",
-    "Topic :: Software Development",
-    "Topic :: Software Development :: Version Control :: Git",
-]
-
-[project.urls]
-Homepage = "https://github.com/Srujan-Amaragatti05/project-brain"
-Repository = "https://github.com/Srujan-Amaragatti05/project-brain"
-Issues = "https://github.com/Srujan-Amaragatti05/project-brain/issues"
-Discussions = "https://github.com/Srujan-Amaragatti05/project-brain/discussions"

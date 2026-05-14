@@ -1,0 +1,1073 @@
+
+================================================================================
+COMMAND: brain project init
+================================================================================
+⚠️  Exists: D:\NewE\College\Project\project-brain\repo-testing\repos\medium_rich\.brain
+⚠️  Exists: D:\NewE\College\Project\project-brain\repo-testing\repos\medium_rich\.brain\cache
+⚠️  Skipped (already exists): D:\NewE\College\Project\project-brain\repo-testing\repos\medium_rich\brain.yaml
+⚠️  Skipped (already exists): D:\NewE\College\Project\project-brain\repo-testing\repos\medium_rich\.brain\data.json
+⚠️  Skipped (already exists): D:\NewE\College\Project\project-brain\repo-testing\repos\medium_rich\.brain\index.json
+ℹ Project already initialized
+
+
+================================================================================
+COMMAND: brain project analyze .
+================================================================================
+────────────────────────────── Project Analysis ───────────────────────────────
+ℹ Analyzing: .
+📋 File Paths: .coveragerc
+		.gitignore
+		.pre-commit-config.yaml
+		.readthedocs.yml
+		AI_POLICY.md
+		asv.conf.json
+		asvhashfile
+		brain.yaml
+		CHANGELOG.md
+		CODE_OF_CONDUCT.md
+		CONTRIBUTING.md
+		CONTRIBUTORS.md
+		FAQ.md
+		faq.yml
+		LICENSE
+		make.bat
+		Makefile
+		poetry.lock
+		pyproject.toml
+		README.cn.md
+		README.de-ch.md
+		README.de.md
+		README.es.md
+		README.fa.md
+		README.fr.md
+		README.hi.md
+		README.id.md
+		README.it.md
+		README.ja.md
+		README.kr.md
+		README.md
+		README.pl.md
+		README.pt-br.md
+		README.ru.md
+		README.sv.md
+		README.tr.md
+		README.zh-tw.md
+		SECURITY.md
+		setup.py
+		tox.ini
+		.faq\FAQ.md
+		.faq\suggest.md
+		.github\dependabot.yml
+		.github\FUNDING.yml
+		.github\pull_request_template.md
+		assets\logo.ai
+		assets\logo.svg
+		assets\logo.txt
+		benchmarks\benchmarks.py
+		benchmarks\README.md
+		benchmarks\snippets.py
+		benchmarks\__init__.py
+		docs\make.bat
+		docs\Makefile
+		docs\requirements.txt
+		examples\attrs.py
+		examples\bars.py
+		examples\columns.py
+		examples\cp_progress.py
+		examples\downloader.py
+		examples\dynamic_progress.py
+		examples\exception.py
+		examples\export.py
+		examples\file_progress.py
+		examples\fullscreen.py
+		examples\group.py
+		examples\group2.py
+		examples\highlighter.py
+		examples\jobs.py
+		examples\justify.py
+		examples\justify2.py
+		examples\layout.py
+		examples\link.py
+		examples\listdir.py
+		examples\live_progress.py
+		examples\log.py
+		examples\overflow.py
+		examples\padding.py
+		examples\print_calendar.py
+		examples\rainbow.py
+		examples\README.md
+		examples\recursive_error.py
+		examples\repr.py
+		examples\save_table_svg.py
+		examples\screen.py
+		examples\spinners.py
+		examples\status.py
+		examples\suppress.py
+		examples\table.py
+		examples\table_movie.py
+		examples\top_lite_simulator.py
+		examples\tree.py
+		imgs\logo.svg
+		questions\ansi_escapes.question.md
+		questions\emoji_broken.question.md
+		questions\highlighting_unexpected.question.md
+		questions\highlight_incorrect.question.md
+		questions\jupyter.question.md
+		questions\logging_color.question.md
+		questions\log_renderables.question.md
+		questions\README.md
+		questions\rich_spinner.question.md
+		questions\square_brackets.question.md
+		questions\tracebacks_installed.question.md
+		rich\abc.py
+		rich\align.py
+		rich\ansi.py
+		rich\bar.py
+		rich\box.py
+		rich\cells.py
+		rich\color.py
+		rich\color_triplet.py
+		rich\columns.py
+		rich\console.py
+		rich\constrain.py
+		rich\containers.py
+		rich\control.py
+		rich\default_styles.py
+		rich\diagnose.py
+		rich\emoji.py
+		rich\errors.py
+		rich\filesize.py
+		rich\file_proxy.py
+		rich\highlighter.py
+		rich\json.py
+		rich\jupyter.py
+		rich\layout.py
+		rich\live.py
+		rich\live_render.py
+		rich\logging.py
+		rich\markdown.py
+		rich\markup.py
+		rich\measure.py
+		rich\padding.py
+		rich\pager.py
+		rich\palette.py
+		rich\panel.py
+		rich\pretty.py
+		rich\progress.py
+		rich\progress_bar.py
+		rich\prompt.py
+		rich\protocol.py
+		rich\py.typed
+		rich\region.py
+		rich\repr.py
+		rich\rule.py
+		rich\scope.py
+		rich\screen.py
+		rich\segment.py
+		rich\spinner.py
+		rich\status.py
+		rich\style.py
+		rich\styled.py
+		rich\syntax.py
+		rich\table.py
+		rich\terminal_theme.py
+		rich\text.py
+		rich\theme.py
+		rich\themes.py
+		rich\traceback.py
+		rich\tree.py
+		rich\_emoji_codes.py
+		rich\_emoji_replace.py
+		rich\_export_format.py
+		rich\_extension.py
+		rich\_fileno.py
+		rich\_inspect.py
+		rich\_log_render.py
+		rich\_loop.py
+		rich\_null_file.py
+		rich\_palettes.py
+		rich\_pick.py
+		rich\_ratio.py
+		rich\_spinners.py
+		rich\_stack.py
+		rich\_timer.py
+		rich\_win32_console.py
+		rich\_windows.py
+		rich\_windows_renderer.py
+		rich\_wrap.py
+		rich\__init__.py
+		rich\__main__.py
+		tools\cats.json
+		tools\make_emoji.py
+		tools\make_width_tables.py
+		tools\movies.md
+		tools\profile_divide.py
+		tools\profile_pretty.py
+		tools\README.md
+		rich\_unicode_data\unicode10-0-0.py
+		rich\_unicode_data\unicode11-0-0.py
+		rich\_unicode_data\unicode12-0-0.py
+		rich\_unicode_data\unicode12-1-0.py
+		rich\_unicode_data\unicode13-0-0.py
+		rich\_unicode_data\unicode14-0-0.py
+		rich\_unicode_data\unicode15-0-0.py
+		rich\_unicode_data\unicode15-1-0.py
+		rich\_unicode_data\unicode16-0-0.py
+		rich\_unicode_data\unicode17-0-0.py
+		rich\_unicode_data\unicode4-1-0.py
+		rich\_unicode_data\unicode5-0-0.py
+		rich\_unicode_data\unicode5-1-0.py
+		rich\_unicode_data\unicode5-2-0.py
+		rich\_unicode_data\unicode6-0-0.py
+		rich\_unicode_data\unicode6-1-0.py
+		rich\_unicode_data\unicode6-2-0.py
+		rich\_unicode_data\unicode6-3-0.py
+		rich\_unicode_data\unicode7-0-0.py
+		rich\_unicode_data\unicode8-0-0.py
+		rich\_unicode_data\unicode9-0-0.py
+		rich\_unicode_data\_versions.py
+		rich\_unicode_data\__init__.py
+		docs\images\box.svg
+		docs\images\svg_export.svg
+		docs\source\appendix.rst
+		docs\source\columns.rst
+		docs\source\conf.py
+		docs\source\console.rst
+		docs\source\group.rst
+		docs\source\highlighting.rst
+		docs\source\index.rst
+		docs\source\introduction.rst
+		docs\source\layout.rst
+		docs\source\live.rst
+		docs\source\logging.rst
+		docs\source\markdown.rst
+		docs\source\markup.rst
+		docs\source\padding.rst
+		docs\source\panel.rst
+		docs\source\pretty.rst
+		docs\source\progress.rst
+		docs\source\prompt.rst
+		docs\source\protocol.rst
+		docs\source\reference.rst
+		docs\source\style.rst
+		docs\source\syntax.rst
+		docs\source\tables.rst
+		docs\source\text.rst
+		docs\source\traceback.rst
+		docs\source\tree.rst
+		docs\source\appendix\box.rst
+		docs\source\appendix\colors.rst
+		docs\source\reference\abc.rst
+		docs\source\reference\align.rst
+		docs\source\reference\bar.rst
+		docs\source\reference\color.rst
+		docs\source\reference\columns.rst
+		docs\source\reference\console.rst
+		docs\source\reference\control.rst
+		docs\source\reference\emoji.rst
+		docs\source\reference\highlighter.rst
+		docs\source\reference\init.rst
+		docs\source\reference\json.rst
+		docs\source\reference\layout.rst
+		docs\source\reference\live.rst
+		docs\source\reference\logging.rst
+		docs\source\reference\markdown.rst
+		docs\source\reference\markup.rst
+		docs\source\reference\measure.rst
+		docs\source\reference\padding.rst
+		docs\source\reference\panel.rst
+		docs\source\reference\pretty.rst
+		docs\source\reference\progress.rst
+		docs\source\reference\progress_bar.rst
+		docs\source\reference\prompt.rst
+		docs\source\reference\protocol.rst
+		docs\source\reference\rule.rst
+		docs\source\reference\segment.rst
+		docs\source\reference\spinner.rst
+		docs\source\reference\status.rst
+		docs\source\reference\style.rst
+		docs\source\reference\styled.rst
+		docs\source\reference\syntax.rst
+		docs\source\reference\table.rst
+		docs\source\reference\text.rst
+		docs\source\reference\theme.rst
+		docs\source\reference\traceback.rst
+		docs\source\reference\tree.rst
+		benchmarks\results\benchmarks.json
+		benchmarks\results\darrenburns-2022-mbp\008854c4-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\03392a1b-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\038e22eb-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\03a52134-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\06922006-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\06aa1271-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\07d51ffc-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\0a3fcb9c-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\0ac4e308-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\0d2aeb75-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\0d69004c-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\0db0cbd0-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\0e8df8cd-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\0fd6bc56-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\11c00224-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\11c305e1-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\1442dd77-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\15623c5a-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\177958c5-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\189a2a3f-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\19e26c94-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\1cdcd1ae-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\1daa1771-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\1f3f7f1e-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\1ffbd443-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\20024635-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\21432b4c-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\2356d7c0-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\23aa7177-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\24743154-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\25a1bf06-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\26fe4667-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\27ab1732-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\2aea8526-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\2ba277ac-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\2c93dce9-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\2d3152a2-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\2d3ec69f-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\2ea7e586-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\2ea7e586-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\30498f59-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\3473658d-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\36efcb5a-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\3827b4ae-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\3be88c08-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\3db6396a-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\3f7d3e4e-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\3f7d3e4e-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\4020d5a9-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\41279bca-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\416033ff-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\43a26c0a-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\43d4c4e5-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\43d4c4e5-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\44f54dd8-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\464e4e33-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\489fafc6-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\48da2791-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\4b123ddf-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\4b3b6531-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\4bf3f19c-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\4d6a6d88-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\4dc1d4cb-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\4f8908a6-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\52d159aa-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\52d159aa-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\53cda574-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\53d9eeaf-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\550d3911-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\55e11902-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\573125e9-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\579a29c8-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\588f0331-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\58bfa48f-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\5f021978-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\5f021978-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\5f03e3ba-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\5f55063b-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\5f82274a-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\5fafb92f-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\60dadaf2-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\64471afc-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\646d933d-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\64755d41-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\656b7a18-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\666d0cf2-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\690507d4-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\6d7ba589-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\71135d19-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\7441bf27-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\76620730-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\79ea1c1d-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\7bad81d5-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\7d00fa83-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\7d02d29b-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\7e4a2db4-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\7edd619f-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\7ef7ffee-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\83756d62-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\837b6d7e-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\877c53d9-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\88b07b3e-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\8a7f5d82-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\8a7f5d82-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\8b185610-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\8b47f338-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\8c3e6be4-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\8e649fea-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\911d305f-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\932e26b6-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\949e1f72-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\95d8bf98-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\96ea5fed-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\972dedff-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\972dedff-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\99831099-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\9a4fbf83-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\9abc0292-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\9bfb6190-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\9f2a426e-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\a27a3ee2-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\a2f6688e-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\a6d1d784-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\a6ea9890-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\a81230bc-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\a81230bc-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\a8d2bb20-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\aa4546ac-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\aa7926c1-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\aaea99f7-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\ac1a33da-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\aca0b60b-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\ad6e3dea-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\ae5865eb-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\b15bc18c-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\b391635e-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\b9e0014a-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\b9e0014a-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\ba5d0c2c-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\bd34e0a1-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\bd34e0a1-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\bf728dbc-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\c24ab497-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\c3d0e358-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\c3d0e358-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\c3ee3b05-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\c57e1f50-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\c9afafdd-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\cefafdc1-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\cf606f0a-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\d06540a2-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\d1ea01d0-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\d6e6a762-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\d9d59c6e-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\d9d59c6e-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\dc3f0623-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\e0a1fd30-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\e21ac11a-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\e338ab14-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\e34eadb3-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\e5246436-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\e7849495-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\e78acae6-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\e7de32a0-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\e9e72000-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\ea049ffc-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\ea2ed337-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\eab3fe8e-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\ecf3d7f1-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\edcb6f9e-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\ef80460f-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\f2845e12-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\f2af8c9d-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\f5ed5bde-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\f82a4ccf-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\f84d5dee-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\machine.json
+		.github\ISSUE_TEMPLATE\bug_report.md
+		.github\ISSUE_TEMPLATE\feature_request.md
+		.github\workflows\codeql.yml
+		.github\workflows\codespell.yml
+		.github\workflows\comment.yml
+		.github\workflows\newissue.yml
+		.github\workflows\pythonpackage.yml
+		.github\workflows\readmechanged.yml
+✅ Analysis complete
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Next:                                                                       │
+│ brain project summary                                                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+================================================================================
+COMMAND: brain project summary
+================================================================================
+Project: D:\NewE\College\Project\project-brain\repo-testing\repos\medium_rich
+
+Files: 464
+Functions: 983
+Classes: 200
+
+Top Files:
+
+* rich\console.py (116 functions)
+* rich\progress.py (96 functions)
+* rich\text.py (65 functions)
+* rich\markdown.py (57 functions)
+* benchmarks\benchmarks.py (43 functions)
+
+Key Classes:
+
+* TextSuite (benchmarks\benchmarks.py)
+* TextHotCacheSuite (benchmarks\benchmarks.py)
+* SyntaxWrappingSuite (benchmarks\benchmarks.py)
+* TableSuite (benchmarks\benchmarks.py)
+* PrettySuite (benchmarks\benchmarks.py)
+
+Overview: Project includes database layer functionality.
+
+
+================================================================================
+COMMAND: brain project doctor
+================================================================================
+┌──────────────────────────────┐
+│ 🩺 Project Brain Diagnostics │
+└──────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          Environment                                        │
+│ ┌─────────────────────┬────────┬────────────────────────────┐               │
+│ │ Check               │ Status │ Details                    │               │
+│ ├─────────────────────┼────────┼────────────────────────────┤               │
+│ │ Python              │ PASS   │ Python 3.14                │               │
+│ │ OS                  │ INFO   │ Windows-11-10.0.26200-SP0  │               │
+│ │ Virtual Environment │ PASS   │ Virtual environment active │               │
+│ │ Git                 │ PASS   │ Git installed              │               │
+│ └─────────────────────┴────────┴────────────────────────────┘               │
+└─────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       Repository                                            │
+│ ┌─────────────────┬────────┬─────────────────────────┐                      │
+│ │ Check           │ Status │ Details                 │                      │
+│ ├─────────────────┼────────┼─────────────────────────┤                      │
+│ │ Git Repository  │ PASS   │ Git repository detected │                      │
+│ │ Branch          │ PASS   │ master                  │                      │
+│ │ Latest Commit   │ PASS   │ 46cebbb                 │                      │
+│ │ Repository Size │ INFO   │ 37.97 MB                │                      │
+│ └─────────────────┴────────┴─────────────────────────┘                      │
+└─────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       Analysis                                              │
+│ ┌────────────────┬────────┬─────────────────────────┐                       │
+│ │ Check          │ Status │ Details                 │                       │
+│ ├────────────────┼────────┼─────────────────────────┤                       │
+│ │ Initialization │ PASS   │ .brain directory exists │                       │
+│ │ Analysis       │ PASS   │ data.json exists        │                       │
+│ │ Analyzed Files │ INFO   │ 464                     │                       │
+│ │ Freshness      │ PASS   │ Analysis is recent      │                       │
+│ └────────────────┴────────┴─────────────────────────┘                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           Exports                                           │
+│ ┌─────────────────────┬────────┬──────────────────────────┐                 │
+│ │ Check               │ Status │ Details                  │                 │
+│ ├─────────────────────┼────────┼──────────────────────────┤                 │
+│ │ Exports Directory   │ PASS   │ Exports directory exists │                 │
+│ │ Full Code Export    │ PASS   │ Export available         │                 │
+│ │ Code Changes Export │ WARN   │ Export missing           │                 │
+│ └─────────────────────┴────────┴──────────────────────────┘                 │
+└─────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                 LLM                                                         │
+│ ┌──────────┬────────┬──────────────┐                                        │
+│ │ Check    │ Status │ Details      │                                        │
+│ ├──────────┼────────┼──────────────┤                                        │
+│ │ Provider │ INFO   │ none         │                                        │
+│ │ Status   │ INFO   │ LLM disabled │                                        │
+│ └──────────┴────────┴──────────────┘                                        │
+└─────────────────────────────────────────────────────────────────────────────┘
+ℹ Repository partially configured
+
+
+================================================================================
+COMMAND: brain export full-code
+================================================================================
+✅ Exported 469 files
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Next:                                                                       │
+│ brain export code_changes HEAD~1 HEAD                                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+ℹ Output: 
+D:\NewE\College\Project\project-brain\repo-testing\repos\medium_rich\.brain\exp
+orts\full_code.txt
+📋 File Paths: .coveragerc
+		.gitignore
+		.pre-commit-config.yaml
+		.readthedocs.yml
+		AI_POLICY.md
+		asv.conf.json
+		asvhashfile
+		brain.yaml
+		CHANGELOG.md
+		CODE_OF_CONDUCT.md
+		CONTRIBUTING.md
+		CONTRIBUTORS.md
+		FAQ.md
+		faq.yml
+		LICENSE
+		make.bat
+		Makefile
+		poetry.lock
+		pyproject.toml
+		README.cn.md
+		README.de-ch.md
+		README.de.md
+		README.es.md
+		README.fa.md
+		README.fr.md
+		README.hi.md
+		README.id.md
+		README.it.md
+		README.ja.md
+		README.kr.md
+		README.md
+		README.pl.md
+		README.pt-br.md
+		README.ru.md
+		README.sv.md
+		README.tr.md
+		README.zh-tw.md
+		SECURITY.md
+		setup.py
+		tox.ini
+		.faq\FAQ.md
+		.faq\suggest.md
+		.github\dependabot.yml
+		.github\FUNDING.yml
+		.github\pull_request_template.md
+		assets\logo.txt
+		benchmarks\benchmarks.py
+		benchmarks\README.md
+		benchmarks\snippets.py
+		benchmarks\__init__.py
+		docs\make.bat
+		docs\Makefile
+		docs\requirements.txt
+		examples\attrs.py
+		examples\bars.py
+		examples\columns.py
+		examples\cp_progress.py
+		examples\downloader.py
+		examples\dynamic_progress.py
+		examples\exception.py
+		examples\export.py
+		examples\file_progress.py
+		examples\fullscreen.py
+		examples\group.py
+		examples\group2.py
+		examples\highlighter.py
+		examples\jobs.py
+		examples\justify.py
+		examples\justify2.py
+		examples\layout.py
+		examples\link.py
+		examples\listdir.py
+		examples\live_progress.py
+		examples\log.py
+		examples\overflow.py
+		examples\padding.py
+		examples\print_calendar.py
+		examples\rainbow.py
+		examples\README.md
+		examples\recursive_error.py
+		examples\repr.py
+		examples\save_table_svg.py
+		examples\screen.py
+		examples\spinners.py
+		examples\status.py
+		examples\suppress.py
+		examples\table.py
+		examples\table_movie.py
+		examples\top_lite_simulator.py
+		examples\tree.py
+		imgs\hello_world.png
+		imgs\logging.png
+		imgs\logo.svg
+		imgs\syntax.png
+		imgs\table.png
+		imgs\table2.png
+		imgs\where_there_is_a_will.png
+		questions\ansi_escapes.question.md
+		questions\emoji_broken.question.md
+		questions\highlighting_unexpected.question.md
+		questions\highlight_incorrect.question.md
+		questions\jupyter.question.md
+		questions\logging_color.question.md
+		questions\log_renderables.question.md
+		questions\README.md
+		questions\rich_spinner.question.md
+		questions\square_brackets.question.md
+		questions\tracebacks_installed.question.md
+		rich\abc.py
+		rich\align.py
+		rich\ansi.py
+		rich\bar.py
+		rich\box.py
+		rich\cells.py
+		rich\color.py
+		rich\color_triplet.py
+		rich\columns.py
+		rich\console.py
+		rich\constrain.py
+		rich\containers.py
+		rich\control.py
+		rich\default_styles.py
+		rich\diagnose.py
+		rich\emoji.py
+		rich\errors.py
+		rich\filesize.py
+		rich\file_proxy.py
+		rich\highlighter.py
+		rich\json.py
+		rich\jupyter.py
+		rich\layout.py
+		rich\live.py
+		rich\live_render.py
+		rich\logging.py
+		rich\markdown.py
+		rich\markup.py
+		rich\measure.py
+		rich\padding.py
+		rich\pager.py
+		rich\palette.py
+		rich\panel.py
+		rich\pretty.py
+		rich\progress.py
+		rich\progress_bar.py
+		rich\prompt.py
+		rich\protocol.py
+		rich\py.typed
+		rich\region.py
+		rich\repr.py
+		rich\rule.py
+		rich\scope.py
+		rich\screen.py
+		rich\segment.py
+		rich\spinner.py
+		rich\status.py
+		rich\style.py
+		rich\styled.py
+		rich\syntax.py
+		rich\table.py
+		rich\terminal_theme.py
+		rich\text.py
+		rich\theme.py
+		rich\themes.py
+		rich\traceback.py
+		rich\tree.py
+		rich\_emoji_codes.py
+		rich\_emoji_replace.py
+		rich\_export_format.py
+		rich\_extension.py
+		rich\_fileno.py
+		rich\_inspect.py
+		rich\_log_render.py
+		rich\_loop.py
+		rich\_null_file.py
+		rich\_palettes.py
+		rich\_pick.py
+		rich\_ratio.py
+		rich\_spinners.py
+		rich\_stack.py
+		rich\_timer.py
+		rich\_win32_console.py
+		rich\_windows.py
+		rich\_windows_renderer.py
+		rich\_wrap.py
+		rich\__init__.py
+		rich\__main__.py
+		tools\cats.json
+		tools\make_emoji.py
+		tools\make_width_tables.py
+		tools\movies.md
+		tools\profile_divide.py
+		tools\profile_pretty.py
+		tools\README.md
+		tools\stress_test_pretty.py
+		rich\_unicode_data\unicode10-0-0.py
+		rich\_unicode_data\unicode11-0-0.py
+		rich\_unicode_data\unicode12-0-0.py
+		rich\_unicode_data\unicode12-1-0.py
+		rich\_unicode_data\unicode13-0-0.py
+		rich\_unicode_data\unicode14-0-0.py
+		rich\_unicode_data\unicode15-0-0.py
+		rich\_unicode_data\unicode15-1-0.py
+		rich\_unicode_data\unicode16-0-0.py
+		rich\_unicode_data\unicode17-0-0.py
+		rich\_unicode_data\unicode4-1-0.py
+		rich\_unicode_data\unicode5-0-0.py
+		rich\_unicode_data\unicode5-1-0.py
+		rich\_unicode_data\unicode5-2-0.py
+		rich\_unicode_data\unicode6-0-0.py
+		rich\_unicode_data\unicode6-1-0.py
+		rich\_unicode_data\unicode6-2-0.py
+		rich\_unicode_data\unicode6-3-0.py
+		rich\_unicode_data\unicode7-0-0.py
+		rich\_unicode_data\unicode8-0-0.py
+		rich\_unicode_data\unicode9-0-0.py
+		rich\_unicode_data\_versions.py
+		rich\_unicode_data\__init__.py
+		docs\images\box.svg
+		docs\images\svg_export.svg
+		docs\source\appendix.rst
+		docs\source\columns.rst
+		docs\source\conf.py
+		docs\source\console.rst
+		docs\source\group.rst
+		docs\source\highlighting.rst
+		docs\source\index.rst
+		docs\source\introduction.rst
+		docs\source\layout.rst
+		docs\source\live.rst
+		docs\source\logging.rst
+		docs\source\markdown.rst
+		docs\source\markup.rst
+		docs\source\padding.rst
+		docs\source\panel.rst
+		docs\source\pretty.rst
+		docs\source\progress.rst
+		docs\source\prompt.rst
+		docs\source\protocol.rst
+		docs\source\reference.rst
+		docs\source\style.rst
+		docs\source\syntax.rst
+		docs\source\tables.rst
+		docs\source\text.rst
+		docs\source\traceback.rst
+		docs\source\tree.rst
+		docs\source\appendix\box.rst
+		docs\source\appendix\colors.rst
+		docs\source\reference\abc.rst
+		docs\source\reference\align.rst
+		docs\source\reference\bar.rst
+		docs\source\reference\color.rst
+		docs\source\reference\columns.rst
+		docs\source\reference\console.rst
+		docs\source\reference\control.rst
+		docs\source\reference\emoji.rst
+		docs\source\reference\highlighter.rst
+		docs\source\reference\init.rst
+		docs\source\reference\json.rst
+		docs\source\reference\layout.rst
+		docs\source\reference\live.rst
+		docs\source\reference\logging.rst
+		docs\source\reference\markdown.rst
+		docs\source\reference\markup.rst
+		docs\source\reference\measure.rst
+		docs\source\reference\padding.rst
+		docs\source\reference\panel.rst
+		docs\source\reference\pretty.rst
+		docs\source\reference\progress.rst
+		docs\source\reference\progress_bar.rst
+		docs\source\reference\prompt.rst
+		docs\source\reference\protocol.rst
+		docs\source\reference\rule.rst
+		docs\source\reference\segment.rst
+		docs\source\reference\spinner.rst
+		docs\source\reference\status.rst
+		docs\source\reference\style.rst
+		docs\source\reference\styled.rst
+		docs\source\reference\syntax.rst
+		docs\source\reference\table.rst
+		docs\source\reference\text.rst
+		docs\source\reference\theme.rst
+		docs\source\reference\traceback.rst
+		docs\source\reference\tree.rst
+		benchmarks\results\benchmarks.json
+		benchmarks\results\darrenburns-2022-mbp\008854c4-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\03392a1b-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\038e22eb-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\03a52134-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\06922006-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\06aa1271-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\07d51ffc-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\0a3fcb9c-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\0ac4e308-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\0d2aeb75-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\0d69004c-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\0db0cbd0-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\0e8df8cd-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\0fd6bc56-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\11c00224-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\11c305e1-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\1442dd77-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\15623c5a-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\177958c5-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\189a2a3f-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\19e26c94-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\1cdcd1ae-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\1daa1771-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\1f3f7f1e-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\1ffbd443-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\20024635-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\21432b4c-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\2356d7c0-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\23aa7177-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\24743154-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\25a1bf06-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\26fe4667-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\27ab1732-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\2aea8526-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\2ba277ac-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\2c93dce9-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\2d3152a2-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\2d3ec69f-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\2ea7e586-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\2ea7e586-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\30498f59-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\3473658d-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\36efcb5a-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\3827b4ae-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\3be88c08-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\3db6396a-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\3f7d3e4e-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\3f7d3e4e-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\4020d5a9-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\41279bca-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\416033ff-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\43a26c0a-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\43d4c4e5-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\43d4c4e5-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\44f54dd8-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\464e4e33-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\489fafc6-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\48da2791-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\4b123ddf-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\4b3b6531-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\4bf3f19c-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\4d6a6d88-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\4dc1d4cb-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\4f8908a6-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\52d159aa-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\52d159aa-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\53cda574-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\53d9eeaf-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\550d3911-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\55e11902-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\573125e9-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\579a29c8-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\588f0331-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\58bfa48f-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\5f021978-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\5f021978-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\5f03e3ba-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\5f55063b-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\5f82274a-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\5fafb92f-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\60dadaf2-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\64471afc-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\646d933d-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\64755d41-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\656b7a18-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\666d0cf2-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\690507d4-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\6d7ba589-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\71135d19-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\7441bf27-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\76620730-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\79ea1c1d-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\7bad81d5-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\7d00fa83-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\7d02d29b-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\7e4a2db4-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\7edd619f-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\7ef7ffee-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\83756d62-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\837b6d7e-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\877c53d9-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\88b07b3e-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\8a7f5d82-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\8a7f5d82-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\8b185610-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\8b47f338-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\8c3e6be4-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\8e649fea-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\911d305f-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\932e26b6-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\949e1f72-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\95d8bf98-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\96ea5fed-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\972dedff-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\972dedff-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\99831099-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\9a4fbf83-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\9abc0292-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\9bfb6190-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\9f2a426e-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\a27a3ee2-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\a2f6688e-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\a6d1d784-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\a6ea9890-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\a81230bc-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\a81230bc-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\a8d2bb20-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\aa4546ac-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\aa7926c1-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\aaea99f7-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\ac1a33da-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\aca0b60b-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\ad6e3dea-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\ae5865eb-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\b15bc18c-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\b391635e-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\b9e0014a-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\b9e0014a-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\ba5d0c2c-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\bd34e0a1-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\bd34e0a1-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\bf728dbc-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\c24ab497-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\c3d0e358-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\c3d0e358-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\c3ee3b05-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\c57e1f50-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\c9afafdd-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\cefafdc1-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\cf606f0a-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\d06540a2-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\d1ea01d0-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\d6e6a762-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\d9d59c6e-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\d9d59c6e-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\dc3f0623-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\e0a1fd30-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\e21ac11a-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\e338ab14-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\e34eadb3-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\e5246436-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\e7849495-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\e78acae6-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\e7de32a0-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\e9e72000-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\ea049ffc-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\ea2ed337-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\eab3fe8e-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\ecf3d7f1-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\edcb6f9e-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\ef80460f-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\f2845e12-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\f2af8c9d-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\f5ed5bde-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\f82a4ccf-virtualenv-py3.10-setuptools59.2.0.json
+		benchmarks\results\darrenburns-2022-mbp\f84d5dee-virtualenv-py3.10.json
+		benchmarks\results\darrenburns-2022-mbp\machine.json
+		.github\ISSUE_TEMPLATE\bug_report.md
+		.github\ISSUE_TEMPLATE\feature_request.md
+		.github\workflows\codeql.yml
+		.github\workflows\codespell.yml
+		.github\workflows\comment.yml
+		.github\workflows\newissue.yml
+		.github\workflows\pythonpackage.yml
+		.github\workflows\readmechanged.yml
+
+
+================================================================================
+COMMAND: brain diff show
+================================================================================
+❌ Invalid git reference: HEAD~1 HEAD
+┌──────────────────────────────────── Try ────────────────────────────────────┐
+│                                                                             │
+│         brain diff show HEAD~1 HEAD                                         │
+│         brain diff show main dev                                            │
+│                                                                             │
+│         Check refs using:                                                   │
+│         git log --oneline                                                   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+

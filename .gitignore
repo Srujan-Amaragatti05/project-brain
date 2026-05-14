@@ -9,7 +9,5 @@ tests/reports/
 .env
 .coverage
 build/
+repo-testing/repos/
 brain.yaml
-dist/
-repo-testing/
-.pytest_cache/

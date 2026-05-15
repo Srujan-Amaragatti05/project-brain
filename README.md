@@ -8,7 +8,7 @@
 ![Status](https://img.shields.io/badge/status-active-success)
 ![Tests](https://github.com/Srujan-Amaragatti05/project-brain/actions/workflows/tests.yml/badge.svg)
 ![PyPI](https://img.shields.io/pypi/v/project-brain-cli)
-![Downloads](https://img.shields.io/pypi/dm/project-brain-cli)
+![Downloads](https://static.pepy.tech/badge/project-brain-cli)
 
 ---
 
@@ -220,39 +220,27 @@ This avoids repeated LLM calls for unchanged function diffs.
 
 ---
 
-## Clone Repository
+## Install from PyPI
 
 ```bash
-git clone <repo-url>
-cd project-brain
+pip install project-brain-cli
 ```
 
 ---
 
-## Create Virtual Environment
-
-### Windows
+## Verify Installation
 
 ```bash
-python -m venv env
-env\Scripts\activate
-```
-
-### Linux/macOS
-
-```bash
-python3 -m venv env
-source env/bin/activate
+brain --version
 ```
 
 ---
 
-## Install
+## Upgrade
 
 ```bash
-pip install -e .
+pip install --upgrade project-brain-cli
 ```
-
 ---
 
 ## CLI Aliases
@@ -339,6 +327,19 @@ Creates:
 
 ```text
 .brain/exports/full_code.txt
+```
+---
+
+## 5. Access Community Resources
+
+```bash
+brain community
+```
+
+Open feedback/discussions directly:
+
+```bash
+brain --feedback
 ```
 
 ---
@@ -473,32 +474,123 @@ Supported:
 
 ## `brain project doctor`
 
-Validate environment setup.
+Run comprehensive environment and repository diagnostics.
 
 ### Syntax
 
-```bash
+```bash id="j9l8qk"
 brain project doctor
 ```
 
-### Checks
+---
 
-* project initialized
-* repository analyzed
-* git availability
-* config validity
-* provider setup
-* API key presence
+### What It Checks
+
+#### Environment
+
+* Python installation/version
+* operating system info
+* virtual environment detection
+* Git installation
+
+---
+
+#### Repository
+
+* Git repository detection
+* current branch
+* latest commit
+* repository size
+
+---
+
+#### Analysis
+
+* `.brain/` initialization
+* analysis database presence
+* analyzed file count
+* analysis freshness/staleness detection
+
+---
+
+#### Exports
+
+* exports directory availability
+* full code export presence
+* code changes export presence
+
+---
+
+#### LLM
+
+* configured provider
+* provider status
+* offline mode detection
+
+---
+
+### Example Output
+
+```text id="zx9v4m"
+🩺 Project Brain Diagnostics
+
+Environment
+✔ Python 3.14
+✔ Virtual environment active
+✔ Git installed
+
+Repository
+✔ Git repository detected
+✔ Branch: dev
+
+Analysis
+✔ data.json exists
+⚠ Analysis may be stale
+
+Exports
+✔ Full code export available
+
+LLM
+ℹ Provider: none
+ℹ LLM disabled
+```
 
 ---
 
 ### Final Status
 
-| Status    | Meaning                    |
-| --------- | -------------------------- |
-| READY     | All required checks passed |
-| PARTIAL   | Some checks missing        |
-| NOT READY | Critical setup missing     |
+| Status    | Meaning                             |
+| --------- | ----------------------------------- |
+| READY     | Repository fully configured         |
+| PARTIAL   | Configuration incomplete but usable |
+| NOT READY | Critical setup missing              |
+
+---
+
+### Notes
+
+Freshness warnings appear when:
+
+* repository changes may not match current analysis
+* `data.json` appears outdated
+
+Recommended refresh:
+
+```bash id="2twmq7"
+brain project analyze .
+```
+
+---
+
+### Notes
+
+The doctor system is designed to:
+
+* detect broken setups early
+* validate developer environments
+* reduce CLI/runtime failures
+* improve operational reliability
+
 
 ---
 
@@ -860,8 +952,8 @@ brain.yaml
 
 # Example Configuration
 
-```yaml
-version: "1.0"
+```yaml id="g8r7wq"
+version: "1.1.0"
 
 llm:
   provider: none
@@ -871,10 +963,19 @@ llm:
 analysis:
   depth: fast
   include_tests: false
+
   ignore:
     - .brain/
     - .git/
     - node_modules/
+    - venv/
+    - .venv/
+    - __pycache__/
+    - env/
+    - .env/
+    - project_brain_cli.egg-info/
+    - tests/
+    - test/
 
 diff:
   mode: function
@@ -891,6 +992,19 @@ export:
     mode: function
     include_context: true
     output_path: .brain/exports/code_changes.txt
+
+  ignore:
+    - .brain/
+    - .git/
+    - node_modules/
+    - venv/
+    - .venv/
+    - __pycache__/
+    - env/
+    - .env/
+    - project_brain_cli.egg-info/
+    - tests/
+    - test/
 
 explain:
   level: detailed
@@ -1102,7 +1216,62 @@ Current QA status:
 * provider fallback testing
 
 ---
+# 🌍 Community & Feedback
 
+project-brain includes built-in community workflows to simplify feedback and contributor interaction.
+
+---
+
+## Open Feedback Page
+
+```bash
+brain --feedback
+```
+
+Behavior:
+
+* opens GitHub Discussions page
+* fallback prints URL if browser launch fails
+
+---
+
+## Community Resources
+
+```bash
+brain community
+```
+
+Displays:
+
+* GitHub repository
+* PyPI package
+* Discussions
+* Issues
+* documentation links
+
+---
+
+## GitHub Discussions
+
+Use Discussions for:
+
+* feature ideas
+* workflow discussions
+* troubleshooting
+* integrations
+* feedback
+
+Repository:
+[project-brain GitHub Repository](https://github.com/Srujan-Amaragatti05/project-brain?utm_source=chatgpt.com)
+
+Discussions:
+[project-brain Discussions](https://github.com/Srujan-Amaragatti05/project-brain/discussions?utm_source=chatgpt.com)
+
+PyPI:
+[project-brain-cli on PyPI](https://pypi.org/project/project-brain-cli/?utm_source=chatgpt.com)
+
+
+---
 # 🔮 Roadmap
 
 ## Near-Term

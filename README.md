@@ -8,6 +8,7 @@
 ![Status](https://img.shields.io/badge/status-active-success)
 ![Tests](https://github.com/Srujan-Amaragatti05/project-brain/actions/workflows/tests.yml/badge.svg)
 ![PyPI](https://img.shields.io/pypi/v/project-brain-cli)
+[![Production](https://img.shields.io/badge/Production-Live-brightgreen)](https://project-brain-i2fdcj9qr-srujan-amaragatti05s-projects.vercel.app/)
 ![Downloads](https://static.pepy.tech/badge/project-brain-cli)
 
 ---

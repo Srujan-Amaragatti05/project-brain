@@ -1,6 +1,6 @@
 # 🧠 project-brain
 
-> **Developer Intelligence CLI for understanding codebases and code evolution at a semantic level.**
+> **Local-first developer intelligence CLI for semantic repository analysis, Git-aware code understanding, and AI-friendly engineering workflows.**
 
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![CLI](https://img.shields.io/badge/interface-CLI-black)
@@ -9,7 +9,6 @@
 ![Tests](https://github.com/Srujan-Amaragatti05/project-brain/actions/workflows/tests.yml/badge.svg)
 ![PyPI](https://img.shields.io/pypi/v/project-brain-cli)
 [![Production](https://img.shields.io/badge/Production-Live-brightgreen)](https://project-brain-i2fdcj9qr-srujan-amaragatti05s-projects.vercel.app/)
-![Downloads](https://static.pepy.tech/badge/project-brain-cli)
 
 ---
 
@@ -61,23 +60,6 @@ project-brain creates:
 
 ---
 
-### Local-first tooling matters
-
-Many developers do not want:
-
-* automatic code uploads
-* cloud dependency
-* vendor lock-in
-
-project-brain works fully offline when:
-
-```yaml
-llm:
-  provider: none
-```
-
----
-
 # ✨ Features
 
 ## Implemented
@@ -101,113 +83,7 @@ llm:
 
 ---
 
-# 🏗️ Architecture Overview
-
-project-brain is structured into independent modules.
-
-```text
-CLI Layer
-│
-├── Analyzer
-├── Diff Engine
-├── Explain Engine
-├── Export Engine
-├── Doctor / Diagnostics
-├── Config Validation
-├── Logging System
-└── LLM Provider Layer
-```
-
----
-
-## 🔍 Analyzer
-
-Responsible for:
-
-* filesystem traversal
-* AST parsing
-* metadata extraction
-* hashing files
-* extracting functions/classes
-
-Uses Python `ast` module for semantic analysis.
-
----
-
-## 🔄 Diff Engine
-
-Responsible for:
-
-* Git diff parsing
-* tracking modified files
-* function-level change detection
-* comparing AST extracted function bodies
-
-Supports:
-
-* added files
-* modified files
-* deleted files
-
----
-
-## 🧠 Explain Engine
-
-Responsible for:
-
-* generating semantic explanations
-* producing structured summaries
-* LLM provider integration
-* caching explanations
-* fallback behavior when AI disabled
-
----
-
-## 📦 Export Engine
-
-Responsible for:
-
-* exporting entire repositories
-* exporting changed code only
-* generating AI-friendly code bundles
-* structured file aggregation
-
----
-
-## 🤖 LLM Provider Layer
-
-Supports:
-
-* OpenAI
-* Ollama
-* Gemini
-* HuggingFace
-
-Provider abstraction includes:
-
-* timeout handling
-* model listing
-* response normalization
-* error handling
-
----
-
-## 💾 Cache System
-
-Explanation results are cached inside:
-
-```text
-.brain/cache/
-```
-
-This avoids repeated LLM calls for unchanged function diffs.
-
----
-
 # ⚙️ Installation
-
----
-
 ## Requirements
 
 * Python >= 3.10
@@ -258,7 +134,7 @@ project-brain
 
 ---
 
-# ⚡ Quick Start (30 Seconds)
+# ⚡ Quick Start (30 Seconds), [For More INFO Click](https://project-brain-web-gamma.vercel.app/)
 
 ---
 
@@ -267,7 +143,10 @@ project-brain
 ```bash
 brain project init
 ```
-
+Demo:
+---
+![](demo/gifs/init.gif)
+---
 Creates:
 
 ```text
@@ -282,7 +161,10 @@ brain.yaml
 ```bash
 brain project analyze .
 ```
-
+Demo:
+---
+![](demo/gifs/analyze.gif)
+---
 Performs:
 
 * recursive scan
@@ -302,7 +184,10 @@ Stores results inside:
 ```bash
 brain diff show
 ```
-
+Demo:
+---
+![](demo/gifs/diff.gif)
+---
 Default behavior:
 
 ```text
@@ -321,581 +206,53 @@ Shows:
 ## 4. Export AI-Friendly Context
 
 ```bash
-brain export full_code
+brain export full-code
 ```
-
+Demo:
+---
+![](demo/gifs/full_code.gif)
+---
 Creates:
 
 ```text
 .brain/exports/full_code.txt
 ```
 ---
+## 5. Diagnostics
 
-## 5. Access Community Resources
+Validate project readiness:
+
+```bash
+brain project doctor
+```
+Demo:
+---
+![](demo/gifs/doctor.gif)
+---
+Checks:
+
+- git availability
+- project initialization
+- analysis freshness
+- export availability
+- provider configuration
+- API key presence
+
+---
+
+## 6. Access Community Resources
 
 ```bash
 brain community
 ```
-
+Demo:
+---
+![](demo/gifs/community.gif)
+---
 Open feedback/discussions directly:
 
 ```bash
 brain --feedback
-```
-
----
-
-# 🧠 Command Reference
-
----
-
-# 📁 Project Commands
-
----
-
-## `brain project init`
-
-Initialize project-brain.
-
-### Syntax
-
-```bash
-brain project init
-```
-
-### What It Does
-
-Creates:
-
-* `.brain/`
-* `.brain/cache/`
-* `.brain/data.json`
-* `.brain/index.json`
-* `brain.yaml`
-
-### Notes
-
-* Existing files are preserved
-* Safe to rerun
-
----
-
-## `brain project analyze`
-
-Analyze repository structure.
-
-### Syntax
-
-```bash
-brain project analyze [path]
-```
-
-### Arguments
-
-| Argument | Default | Description    |
-| -------- | ------- | -------------- |
-| path     | `.`     | Root directory |
-
----
-
-### Internal Behavior
-
-* recursively traverses directories
-* skips ignored paths
-* skips binary files
-* optionally skips tests
-* extracts:
-
-  * functions
-  * classes
-  * hashes
-  * metadata
-
----
-
-### Output
-
-```text
-.brain/data.json
-```
-
----
-
-### Example
-
-```bash
-brain project analyze .
-```
-
----
-
-### Edge Cases
-
-* invalid Python files are skipped safely
-* unreadable files do not crash analysis
-
----
-
-## `brain project summary`
-
-Generate repository summary.
-
-### Syntax
-
-```bash
-brain project summary
-```
-
-### What It Shows
-
-* total files
-* total functions
-* total classes
-* top files by function count
-* detected architecture hints
-
----
-
-### Output Modes
-
-Configured using:
-
-```yaml
-output:
-  format: text
-```
-
-Supported:
-
-* text
-* json
-* markdown
-
----
-
-## `brain project doctor`
-
-Run comprehensive environment and repository diagnostics.
-
-### Syntax
-
-```bash id="j9l8qk"
-brain project doctor
-```
-
----
-
-### What It Checks
-
-#### Environment
-
-* Python installation/version
-* operating system info
-* virtual environment detection
-* Git installation
-
----
-
-#### Repository
-
-* Git repository detection
-* current branch
-* latest commit
-* repository size
-
----
-
-#### Analysis
-
-* `.brain/` initialization
-* analysis database presence
-* analyzed file count
-* analysis freshness/staleness detection
-
----
-
-#### Exports
-
-* exports directory availability
-* full code export presence
-* code changes export presence
-
----
-
-#### LLM
-
-* configured provider
-* provider status
-* offline mode detection
-
----
-
-### Example Output
-
-```text id="zx9v4m"
-🩺 Project Brain Diagnostics
-
-Environment
-✔ Python 3.14
-✔ Virtual environment active
-✔ Git installed
-
-Repository
-✔ Git repository detected
-✔ Branch: dev
-
-Analysis
-✔ data.json exists
-⚠ Analysis may be stale
-
-Exports
-✔ Full code export available
-
-LLM
-ℹ Provider: none
-ℹ LLM disabled
-```
-
----
-
-### Final Status
-
-| Status    | Meaning                             |
-| --------- | ----------------------------------- |
-| READY     | Repository fully configured         |
-| PARTIAL   | Configuration incomplete but usable |
-| NOT READY | Critical setup missing              |
-
----
-
-### Notes
-
-Freshness warnings appear when:
-
-* repository changes may not match current analysis
-* `data.json` appears outdated
-
-Recommended refresh:
-
-```bash id="2twmq7"
-brain project analyze .
-```
-
----
-
-### Notes
-
-The doctor system is designed to:
-
-* detect broken setups early
-* validate developer environments
-* reduce CLI/runtime failures
-* improve operational reliability
-
-
----
-
-# 🔄 Diff Commands
-
----
-
-## `brain diff show`
-
-Show repository changes.
-
-### Syntax
-
-```bash
-brain diff show [from_ref] [to_ref]
-```
-
----
-
-### Default Behavior
-
-If no refs provided:
-
-```bash
-brain diff show
-```
-
-Equivalent to:
-
-```bash
-brain diff show HEAD~1 HEAD
-```
-
----
-
-### Git Reference Explanation
-
-| Ref    | Meaning               |
-| ------ | --------------------- |
-| HEAD   | current commit        |
-| HEAD~1 | previous commit       |
-| HEAD~5 | 5 commits before HEAD |
-
----
-
-### Internal Workflow
-
-project-brain:
-
-1. validates git refs
-2. runs git diff logic
-3. computes changed files
-4. extracts Python functions
-5. compares function bodies
-
----
-
-### Output Example
-
-```text
-Files Changed: 2
-
-Modified:
-* src/api.py
-
-Added:
-* src/utils.py
-
-Deleted:
-* src/legacy.py
-```
-
----
-
-### Function-Level Output
-
-```text
-Functions Added:
-* validate_user
-
-Functions Modified:
-* create_user
-```
-
----
-
-### Edge Cases
-
-* non-Python files only receive file-level diff
-* invalid git refs fail safely
-* non-git repositories rejected
-
----
-
-## `brain diff review`
-
-Generate semantic diff explanations.
-
-### Syntax
-
-```bash
-brain diff review [from_ref] [to_ref]
-```
-
----
-
-### What It Does
-
-* computes git diff
-* extracts changed functions
-* builds prompts
-* calls LLM provider
-* caches results
-* generates reports
-
----
-
-### Outputs
-
-```text
-.brain/reports/diff_<timestamp>.json
-.brain/reports/diff_<timestamp>.html
-```
-
----
-
-### HTML Report
-
-Interactive HTML report includes:
-
-* grouped files
-* risk labels
-* semantic summaries
-* impact descriptions
-
----
-
-### LLM Disabled Mode
-
-If:
-
-```yaml
-provider: none
-```
-
-project-brain generates fallback heuristic summaries.
-
----
-
-## `brain diff explain`
-
-Explain a file or function.
-
-### Syntax
-
-```bash
-brain diff explain <target>
-```
-
----
-
-### File Example
-
-```bash
-brain diff explain src/api.py
-```
-
----
-
-### Function Example
-
-```bash
-brain diff explain src/api.py:create_user
-```
-
----
-
-### Behavior
-
-Without LLM:
-
-* structural summary only
-
-With LLM:
-
-* semantic explanation
-* risks
-* logic overview
-
----
-
-# 📦 Export Commands
-
----
-
-## `brain export full_code`
-
-Export entire repository.
-
-### Syntax
-
-```bash
-brain export full_code
-```
-
----
-
-### Output
-
-```text
-.brain/exports/full_code.txt
-```
-
----
-
-### Export Format
-
-```text
-=== FILE: src/api.py ===
-<content>
-```
-
----
-
-### Behavior
-
-* recursively scans files
-* respects ignore rules
-* respects file size limits
-* optionally skips tests
-
----
-
-## `brain export file`
-
-Manually export single file.
-
-### Syntax
-
-```bash
-brain export file <path>
-```
-
----
-
-### Example
-
-```bash
-brain export file src/api.py
-```
-
----
-
-## `brain export dir`
-
-Manually export directory.
-
-### Syntax
-
-```bash
-brain export dir <path>
-```
-
----
-
-### Example
-
-```bash
-brain export dir src/
-```
-
----
-
-## `brain export code_changes`
-
-Export changed code between refs.
-
-### Syntax
-
-```bash
-brain export code_changes <from_ref> <to_ref>
-```
-
----
-
-### Example
-
-```bash
-brain export code_changes HEAD~3 HEAD
-```
-
----
-
-### Output
-
-```text
-=== FILE: src/api.py ===
-
---- FUNCTION: create_user (UPDATED) ---
-OLD:
-...
-
-NEW:
-...
 ```
 
 ---
@@ -1109,25 +466,32 @@ medium
 ```
 
 ---
-
-# 📁 Project Structure
+# 🏗️ Architecture
 
 ```text
-project-brain/
+CLI Layer
 │
-├── src/
-│   └── project_brain/
-│       ├── cli.py
-│       ├── core/
-│       ├── llm/
-│       ├── storage/
-│       └── config/
-│
-├── tests/
-├── brain.yaml
-├── pyproject.toml
-└── README.md
+├── Analyzer Engine
+├── Diff Engine
+├── Explain Engine
+├── Export Engine
+├── Diagnostics Layer
+├── Config Validation
+├── Logging System
+└── LLM Provider Layer
 ```
+
+---
+
+# 🔄 Supported Providers
+
+| Provider | Supported |
+|---|---|
+| OpenAI | ✅ |
+| Ollama | ✅ |
+| Gemini | ✅ |
+| HuggingFace | ✅ |
+| Offline Mode | ✅ |
 
 ---
 
@@ -1215,62 +579,6 @@ Current QA status:
 * config validation
 * edge-case handling
 * provider fallback testing
-
----
-# 🌍 Community & Feedback
-
-project-brain includes built-in community workflows to simplify feedback and contributor interaction.
-
----
-
-## Open Feedback Page
-
-```bash
-brain --feedback
-```
-
-Behavior:
-
-* opens GitHub Discussions page
-* fallback prints URL if browser launch fails
-
----
-
-## Community Resources
-
-```bash
-brain community
-```
-
-Displays:
-
-* GitHub repository
-* PyPI package
-* Discussions
-* Issues
-* documentation links
-
----
-
-## GitHub Discussions
-
-Use Discussions for:
-
-* feature ideas
-* workflow discussions
-* troubleshooting
-* integrations
-* feedback
-
-Repository:
-[project-brain GitHub Repository](https://github.com/Srujan-Amaragatti05/project-brain?utm_source=chatgpt.com)
-
-Discussions:
-[project-brain Discussions](https://github.com/Srujan-Amaragatti05/project-brain/discussions?utm_source=chatgpt.com)
-
-PyPI:
-[project-brain-cli on PyPI](https://pypi.org/project/project-brain-cli/?utm_source=chatgpt.com)
-
 
 ---
 # 🔮 Roadmap

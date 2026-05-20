@@ -1,0 +1,58 @@
+{
+  "project": [
+    {
+      "title": "brain project init",
+      "slug": "brain_project_init"
+    },
+    {
+      "title": "brain project analyze",
+      "slug": "brain_project_analyze"
+    },
+    {
+      "title": "brain project summary",
+      "slug": "brain_project_summary"
+    },
+    {
+      "title": "brain project doctor",
+      "slug": "brain_project_doctor"
+    }
+  ],
+  "diff": [
+    {
+      "title": "brain diff show",
+      "slug": "brain_diff_show"
+    },
+    {
+      "title": "brain diff review",
+      "slug": "brain_diff_review"
+    },
+    {
+      "title": "brain diff explain",
+      "slug": "brain_diff_explain"
+    }
+  ],
+  "export": [
+    {
+      "title": "brain export full_code",
+      "slug": "brain_export_full_code"
+    },
+    {
+      "title": "brain export file",
+      "slug": "brain_export_file"
+    },
+    {
+      "title": "brain export dir",
+      "slug": "brain_export_dir"
+    },
+    {
+      "title": "brain export code_changes",
+      "slug": "brain_export_code_changes"
+    }
+  ],
+  "llm": [
+    {
+      "title": "brain testllm test",
+      "slug": "brain_testllm_test"
+    }
+  ]
+}

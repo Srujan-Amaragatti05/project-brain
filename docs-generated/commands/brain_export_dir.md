@@ -1,18 +1,26 @@
 # brain export dir
 
-## Purpose
+## Overview
 
 Manually add a directory to export
 
 ---
 
-## Syntax
+## When To Use
 
-    brain export dir
+This command is intended for **export** workflows.
 
 ---
 
-## Parameters
+## Syntax
+
+```bash
+brain export dir
+```
+
+---
+
+## Arguments
 
 | Name | Type | Required | Kind | Default | Description |
 |---|---|---|---|---|---|
@@ -26,9 +34,15 @@ Manually add a directory to export
 
 ---
 
-## Outputs
+## Expected Outputs
 
 - .brain/exports/manual_export.txt
+
+---
+
+## Error Reference
+
+_None_
 
 ---
 
@@ -39,13 +53,7 @@ Manually add a directory to export
 
 ---
 
-## Error Codes
-
-_None_
-
----
-
-## Notes
+## Operational Notes
 
 - Adds directory recursively into export bundle.
 

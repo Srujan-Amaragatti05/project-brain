@@ -1,18 +1,26 @@
 # brain diff review
 
-## Purpose
+## Overview
 
 Explain code changes using LLM
 
 ---
 
-## Syntax
+## When To Use
 
-    brain diff review
+This command is intended for **diff** workflows.
 
 ---
 
-## Parameters
+## Syntax
+
+```bash
+brain diff review
+```
+
+---
+
+## Arguments
 
 | Name | Type | Required | Kind | Default | Description |
 |---|---|---|---|---|---|
@@ -28,10 +36,17 @@ Explain code changes using LLM
 
 ---
 
-## Outputs
+## Expected Outputs
 
 - .brain/reports/*.json
 - .brain/reports/*.html
+
+---
+
+## Error Reference
+
+- INVALID_GIT_REF
+- LLM_PROVIDER_FAILURE
 
 ---
 
@@ -42,14 +57,7 @@ Explain code changes using LLM
 
 ---
 
-## Error Codes
-
-- INVALID_GIT_REF
-- LLM_PROVIDER_FAILURE
-
----
-
-## Notes
+## Operational Notes
 
 - Uses configured LLM provider to explain changes.
 

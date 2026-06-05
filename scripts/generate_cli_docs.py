@@ -64,35 +64,67 @@ def generate_markdown(command_data):
 
     title = command_data["command"]
 
+    help_text = command_data["help"]
+
+    if not help_text.strip():
+        help_text = "No description available."
+
     markdown = (
         f"# {title}\n\n"
-        f"## Purpose\n\n"
-        f"{command_data['help']}\n\n"
+
+        f"## Overview\n\n"
+        f"{help_text}\n\n"
+
         f"---\n\n"
+
+        f"## When To Use\n\n"
+        f"This command is intended for "
+        f"**{metadata['category']}** workflows.\n\n"
+
+        f"---\n\n"
+
         f"## Syntax\n\n"
-        f"    {title}\n\n"
+        f"```bash\n"
+        f"{title}\n"
+        f"```\n\n"
+
         f"---\n\n"
-        f"## Parameters\n\n"
+
+        f"## Arguments\n\n"
         f"{render_parameters(command_data['parameters'])}\n\n"
+
         f"---\n\n"
+
         f"## Examples\n\n"
         f"{render_list(metadata['examples'])}\n\n"
+
         f"---\n\n"
-        f"## Outputs\n\n"
+
+        f"## Expected Outputs\n\n"
         f"{render_list(metadata['outputs'])}\n\n"
+
         f"---\n\n"
+
+        f"## Error Reference\n\n"
+        f"{render_list(metadata['errors'])}\n\n"
+
+        f"---\n\n"
+
         f"## Related Commands\n\n"
         f"{render_list(metadata['related'])}\n\n"
+
         f"---\n\n"
-        f"## Error Codes\n\n"
-        f"{render_list(metadata['errors'])}\n\n"
-        f"---\n\n"
-        f"## Notes\n\n"
+
+        f"## Operational Notes\n\n"
         f"{render_list(metadata['notes'])}\n\n"
+
         f"---\n\n"
+
         f"## Edge Cases\n\n"
         f"{render_list(metadata['edge_cases'])}\n\n"
+
         f"---\n\n"
+
         f"## Demo\n\n"
         f"{render_gifs(metadata['gifs'])}\n"
     )

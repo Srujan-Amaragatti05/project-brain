@@ -1,18 +1,26 @@
 # brain export code_changes
 
-## Purpose
+## Overview
 
 Export changed code between two git references
 
 ---
 
-## Syntax
+## When To Use
 
-    brain export code_changes
+This command is intended for **export** workflows.
 
 ---
 
-## Parameters
+## Syntax
+
+```bash
+brain export code_changes
+```
+
+---
+
+## Arguments
 
 | Name | Type | Required | Kind | Default | Description |
 |---|---|---|---|---|---|
@@ -27,9 +35,15 @@ Export changed code between two git references
 
 ---
 
-## Outputs
+## Expected Outputs
 
 - .brain/exports/code_changes.txt
+
+---
+
+## Error Reference
+
+- INVALID_GIT_REF
 
 ---
 
@@ -40,13 +54,7 @@ Export changed code between two git references
 
 ---
 
-## Error Codes
-
-- INVALID_GIT_REF
-
----
-
-## Notes
+## Operational Notes
 
 - Exports changed files between git references.
 

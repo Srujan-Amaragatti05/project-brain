@@ -1,18 +1,26 @@
 # brain project init
 
-## Purpose
+## Overview
 
 Initialize project-brain in the current directory
 
 ---
 
-## Syntax
+## When To Use
 
-    brain project init
+This command is intended for **project** workflows.
 
 ---
 
-## Parameters
+## Syntax
+
+```bash
+brain project init
+```
+
+---
+
+## Arguments
 
 _No parameters._
 
@@ -24,10 +32,16 @@ _No parameters._
 
 ---
 
-## Outputs
+## Expected Outputs
 
 - .brain/
 - brain.yaml
+
+---
+
+## Error Reference
+
+_None_
 
 ---
 
@@ -38,13 +52,7 @@ _No parameters._
 
 ---
 
-## Error Codes
-
-_None_
-
----
-
-## Notes
+## Operational Notes
 
 - Safe to rerun.
 

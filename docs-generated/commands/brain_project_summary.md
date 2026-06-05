@@ -1,18 +1,26 @@
 # brain project summary
 
-## Purpose
+## Overview
 
 Summarize the analyzed data
 
 ---
 
-## Syntax
+## When To Use
 
-    brain project summary
+This command is intended for **project** workflows.
 
 ---
 
-## Parameters
+## Syntax
+
+```bash
+brain project summary
+```
+
+---
+
+## Arguments
 
 _No parameters._
 
@@ -24,7 +32,13 @@ _No parameters._
 
 ---
 
-## Outputs
+## Expected Outputs
+
+_None_
+
+---
+
+## Error Reference
 
 _None_
 
@@ -36,13 +50,7 @@ _None_
 
 ---
 
-## Error Codes
-
-_None_
-
----
-
-## Notes
+## Operational Notes
 
 - Displays summarized repository analysis.
 

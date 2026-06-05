@@ -1,18 +1,26 @@
 # brain diff show
 
-## Purpose
+## Overview
 
 Show semantic git differences between references.
 
 ---
 
-## Syntax
+## When To Use
 
-    brain diff show
+This command is intended for **diff** workflows.
 
 ---
 
-## Parameters
+## Syntax
+
+```bash
+brain diff show
+```
+
+---
+
+## Arguments
 
 | Name | Type | Required | Kind | Default | Description |
 |---|---|---|---|---|---|
@@ -29,9 +37,16 @@ Show semantic git differences between references.
 
 ---
 
-## Outputs
+## Expected Outputs
 
 _None_
+
+---
+
+## Error Reference
+
+- INVALID_GIT_REF
+- NOT_GIT_REPO
 
 ---
 
@@ -42,14 +57,7 @@ _None_
 
 ---
 
-## Error Codes
-
-- INVALID_GIT_REF
-- NOT_GIT_REPO
-
----
-
-## Notes
+## Operational Notes
 
 - Supports file-level and function-level diff modes.
 

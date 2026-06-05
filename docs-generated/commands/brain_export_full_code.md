@@ -1,18 +1,26 @@
 # brain export full_code
 
-## Purpose
+## Overview
 
 Export entire codebase into structured file
 
 ---
 
-## Syntax
+## When To Use
 
-    brain export full_code
+This command is intended for **export** workflows.
 
 ---
 
-## Parameters
+## Syntax
+
+```bash
+brain export full_code
+```
+
+---
+
+## Arguments
 
 _No parameters._
 
@@ -24,9 +32,15 @@ _No parameters._
 
 ---
 
-## Outputs
+## Expected Outputs
 
 - .brain/exports/full_code.txt
+
+---
+
+## Error Reference
+
+_None_
 
 ---
 
@@ -37,13 +51,7 @@ _No parameters._
 
 ---
 
-## Error Codes
-
-_None_
-
----
-
-## Notes
+## Operational Notes
 
 - Exports repository into AI-friendly format.
 

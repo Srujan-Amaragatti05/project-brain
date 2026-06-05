@@ -1,6 +1,6 @@
 # brain project analyze
 
-## Purpose
+## Overview
 
 Analyze repository structure using AST parsing.
 
@@ -18,13 +18,21 @@ Example:
 
 ---
 
-## Syntax
+## When To Use
 
-    brain project analyze
+This command is intended for **project** workflows.
 
 ---
 
-## Parameters
+## Syntax
+
+```bash
+brain project analyze
+```
+
+---
+
+## Arguments
 
 | Name | Type | Required | Kind | Default | Description |
 |---|---|---|---|---|---|
@@ -39,9 +47,15 @@ Example:
 
 ---
 
-## Outputs
+## Expected Outputs
 
 - .brain/data.json
+
+---
+
+## Error Reference
+
+- NOT_GIT_REPO
 
 ---
 
@@ -52,13 +66,7 @@ Example:
 
 ---
 
-## Error Codes
-
-- NOT_GIT_REPO
-
----
-
-## Notes
+## Operational Notes
 
 - Uses AST parsing for repository analysis.
 

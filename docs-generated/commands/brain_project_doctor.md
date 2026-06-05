@@ -1,18 +1,26 @@
 # brain project doctor
 
-## Purpose
+## Overview
 
 Repository diagnostics and environment health checks.
 
 ---
 
-## Syntax
+## When To Use
 
-    brain project doctor
+This command is intended for **project** workflows.
 
 ---
 
-## Parameters
+## Syntax
+
+```bash
+brain project doctor
+```
+
+---
+
+## Arguments
 
 _No parameters._
 
@@ -24,7 +32,13 @@ _No parameters._
 
 ---
 
-## Outputs
+## Expected Outputs
+
+_None_
+
+---
+
+## Error Reference
 
 _None_
 
@@ -37,13 +51,7 @@ _None_
 
 ---
 
-## Error Codes
-
-_None_
-
----
-
-## Notes
+## Operational Notes
 
 - Runs repository and environment diagnostics.
 

@@ -1,18 +1,26 @@
 # brain testllm test
 
-## Purpose
+## Overview
 
 Test configured LLM provider connectivity.
 
 ---
 
-## Syntax
+## When To Use
 
-    brain testllm test
+This command is intended for **llm** workflows.
 
 ---
 
-## Parameters
+## Syntax
+
+```bash
+brain testllm test
+```
+
+---
+
+## Arguments
 
 _No parameters._
 
@@ -24,9 +32,15 @@ _No parameters._
 
 ---
 
-## Outputs
+## Expected Outputs
 
 _None_
+
+---
+
+## Error Reference
+
+- LLM_PROVIDER_FAILURE
 
 ---
 
@@ -36,13 +50,7 @@ _None_
 
 ---
 
-## Error Codes
-
-- LLM_PROVIDER_FAILURE
-
----
-
-## Notes
+## Operational Notes
 
 - Verifies configured LLM provider connectivity.
 

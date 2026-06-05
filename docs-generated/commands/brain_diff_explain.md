@@ -1,18 +1,26 @@
 # brain diff explain
 
-## Purpose
+## Overview
 
 Explain a file or function
 
 ---
 
-## Syntax
+## When To Use
 
-    brain diff explain
+This command is intended for **diff** workflows.
 
 ---
 
-## Parameters
+## Syntax
+
+```bash
+brain diff explain
+```
+
+---
+
+## Arguments
 
 | Name | Type | Required | Kind | Default | Description |
 |---|---|---|---|---|---|
@@ -27,7 +35,13 @@ Explain a file or function
 
 ---
 
-## Outputs
+## Expected Outputs
+
+_None_
+
+---
+
+## Error Reference
 
 _None_
 
@@ -39,13 +53,7 @@ _None_
 
 ---
 
-## Error Codes
-
-_None_
-
----
-
-## Notes
+## Operational Notes
 
 - Supports file-level and function-level explanation.
 

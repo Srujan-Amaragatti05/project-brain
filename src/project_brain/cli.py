@@ -45,6 +45,8 @@ from project_brain.cli_ui import (
 
 from project_brain.community import open_feedback
 
+from project_brain.docs.decorators import docs
+
 typer.rich_utils.STYLE_HELPTEXT = "bold"
 typer.rich_utils.STYLE_OPTIONS_PANEL_BORDER = "cyan"
 typer.rich_utils.STYLE_COMMANDS_PANEL_BORDER = "cyan"
@@ -154,6 +156,30 @@ def create_file(path: Path, content: str):
     return True
 
 
+@docs(
+    command="brain project init",
+    category="project",
+    examples=[
+        "brain project init",
+    ],
+    related=[
+        "brain project analyze",
+        "brain project doctor",
+    ],
+    outputs=[
+        ".brain/",
+        "brain.yaml",
+    ],
+    gifs=[
+        "init.gif",
+    ],
+    notes=[
+        "Safe to rerun.",
+    ],
+    edge_cases=[
+        "Existing files are preserved.",
+    ],
+)
 @project_app.command()
 def init():
     """Initialize project-brain in the current directory"""
@@ -202,6 +228,33 @@ def init():
         info("Project already initialized")
 
 
+@docs(
+    command="brain project analyze",
+    category="project",
+    examples=[
+        "brain project analyze .",
+        "brain project analyze ./src",
+    ],
+    related=[
+        "brain project summary",
+        "brain project doctor",
+    ],
+    outputs=[
+        ".brain/data.json",
+    ],
+    gifs=[
+        "analyze.gif",
+    ],
+    errors=[
+        "NOT_GIT_REPO",
+    ],
+    notes=[
+        "Uses AST parsing for repository analysis.",
+    ],
+    edge_cases=[
+        "Large repositories may take longer to analyze.",
+    ],
+)
 @project_app.command()
 def analyze(
     path: str = typer.Argument(
@@ -253,7 +306,25 @@ def analyze(
         next_step="brain project summary",
     )
 
-
+@docs(
+    command="brain project summary",
+    category="project",
+    examples=[
+        "brain project summary",
+    ],
+    related=[
+        "brain project analyze",
+    ],
+    outputs=[],
+    gifs=[],
+    errors=[],
+    notes=[
+        "Displays summarized repository analysis.",
+    ],
+    edge_cases=[
+        "Requires previous analysis.",
+    ],
+)
 @project_app.command()
 def summary():
     """Summarize the analyzed data"""
@@ -296,13 +367,50 @@ def diff(ctx: typer.Context):
         typer.echo("👉 Use: brain diff show or brain diff review")
         raise typer.Exit(code=1)
     
+def validate_ref(ref: str, root: Path):
+        return run_git_command(["rev-parse", "--verify", ref], root) is not None
 
+@docs(
+    command="brain diff show",
+    category="diff",
+    examples=[
+        "brain diff show",
+        "brain diff show HEAD~3 HEAD",
+        "brain diff show main dev",
+    ],
+    related=[
+        "brain diff review",
+        "brain export code_changes",
+    ],
+    outputs=[],
+    gifs=[
+        "diff.gif",
+    ],
+    errors=[
+        "INVALID_GIT_REF",
+        "NOT_GIT_REPO",
+    ],
+    notes=[
+        "Supports file-level and function-level diff modes.",
+    ],
+    edge_cases=[
+        "Requires valid git history.",
+    ],
+)
 @diff_app.command()
 def show(
-    from_ref: str = typer.Argument(None),
-    to_ref: str = typer.Argument(None),
+    from_ref: str = typer.Argument(
+        None,
+        help="Starting git reference",
+    ),
+    to_ref: str = typer.Argument(
+        None,
+        help="Ending git reference",
+    ),
 ):
-
+    """
+    Show semantic git differences between references.
+    """
     # Defaults
     if not from_ref and not to_ref:
         from_ref, to_ref = "HEAD~1", "HEAD"
@@ -317,10 +425,8 @@ def show(
     config = load_config(root)
     mode = config.get("diff", {}).get("mode", "function")
 
-    def validate_ref(ref: str):
-        return run_git_command(["rev-parse", "--verify", ref], root) is not None
 
-    if not validate_ref(from_ref) or not validate_ref(to_ref):
+    if not validate_ref(from_ref, root) or not validate_ref(to_ref, root):
         error(
             f"Invalid git reference: {from_ref} {to_ref}",
             suggestion="""
@@ -400,11 +506,45 @@ def show(
 
         typer.echo("")
 
-
+@docs(
+    command="brain diff review",
+    category="diff",
+    examples=[
+        "brain diff review",
+        "brain diff review HEAD~1 HEAD",
+    ],
+    related=[
+        "brain diff show",
+        "brain export code_changes",
+    ],
+    outputs=[
+        ".brain/reports/*.json",
+        ".brain/reports/*.html",
+    ],
+    gifs=[
+        "review.gif",
+    ],
+    errors=[
+        "INVALID_GIT_REF",
+        "LLM_PROVIDER_FAILURE",
+    ],
+    notes=[
+        "Uses configured LLM provider to explain changes.",
+    ],
+    edge_cases=[
+        "Large diffs may increase LLM response time.",
+    ],
+)
 @diff_app.command()
 def review(
-    from_ref: str = typer.Argument(None),
-    to_ref: str = typer.Argument(None),
+    from_ref: str = typer.Argument(
+        None,
+        help="Starting git reference",
+    ),
+    to_ref: str = typer.Argument(
+        None,
+        help="Ending git reference",
+    ),
 ):
     """
     Explain code changes using LLM
@@ -418,10 +558,8 @@ def review(
     root = Path.cwd()
 
     require_git_repo(root)
-    def validate_ref(ref: str):
-        return run_git_command(["rev-parse", "--verify", ref], root) is not None
     
-    if not validate_ref(from_ref) or not validate_ref(to_ref):
+    if not validate_ref(from_ref, root) or not validate_ref(to_ref, root):
         error(
             f"Invalid git reference: {from_ref} {to_ref}",
             suggestion="""
@@ -459,7 +597,28 @@ def review(
     webbrowser.open(str(html_path))
 
 
-
+@docs(
+    command="brain project doctor",
+    category="project",
+    examples=[
+        "brain project doctor",
+    ],
+    related=[
+        "brain project init",
+        "brain project analyze",
+    ],
+    outputs=[],
+    gifs=[
+        "doctor.gif",
+    ],
+    errors=[],
+    notes=[
+        "Runs repository and environment diagnostics.",
+    ],
+    edge_cases=[
+        "Some checks depend on internet connectivity.",
+    ],
+)
 @project_app.command()
 def doctor():
     """
@@ -529,6 +688,30 @@ brain project analyze .
 """,
         )
 
+@docs(
+    command="brain export full_code",
+    category="export",
+    examples=[
+        "brain export full_code",
+    ],
+    related=[
+        "brain export file",
+        "brain export dir",
+    ],
+    outputs=[
+        ".brain/exports/full_code.txt",
+    ],
+    gifs=[
+        "full_code.gif",
+    ],
+    errors=[],
+    notes=[
+        "Exports repository into AI-friendly format.",
+    ],
+    edge_cases=[
+        "Large repositories generate large export files.",
+    ],
+)
 @export_app.command()
 def full_code():
     """
@@ -547,9 +730,35 @@ def full_code():
     formatted_paths = "\n\t\t".join(files_path)
     typer.echo(f"📋 File Paths: {formatted_paths}")
 
-
+@docs(
+    command="brain export file",
+    category="export",
+    examples=[
+        "brain export file src/main.py",
+    ],
+    related=[
+        "brain export full_code",
+        "brain export dir",
+    ],
+    outputs=[
+        ".brain/exports/manual_export.txt",
+    ],
+    gifs=[],
+    errors=[],
+    notes=[
+        "Adds a single file into export bundle.",
+    ],
+    edge_cases=[
+        "File must exist.",
+    ],
+)
 @export_app.command("file")
-def add_code_file_cmd(path: str):
+def add_code_file_cmd(
+    path: str = typer.Argument(
+        ...,
+        help="File path to include",
+    )
+):
     """
     Manually add a single file to export
     """
@@ -564,9 +773,35 @@ def add_code_file_cmd(path: str):
     typer.echo(f"📦 Files added: {count}")
     typer.echo(f"📄 Output: {output_path}")
 
-
+@docs(
+    command="brain export dir",
+    category="export",
+    examples=[
+        "brain export dir src/",
+    ],
+    related=[
+        "brain export full_code",
+        "brain export file",
+    ],
+    outputs=[
+        ".brain/exports/manual_export.txt",
+    ],
+    gifs=[],
+    errors=[],
+    notes=[
+        "Adds directory recursively into export bundle.",
+    ],
+    edge_cases=[
+        "Large directories increase export size.",
+    ],
+)
 @export_app.command("dir")
-def add_code_dir_cmd(path: str):
+def add_code_dir_cmd(
+    path: str = typer.Argument(
+        ...,
+        help="Directory path to include",
+    )
+):
     """
     Manually add a directory to export
     """
@@ -581,9 +816,41 @@ def add_code_dir_cmd(path: str):
     typer.echo(f"📦 Files added: {count}")
     typer.echo(f"📄 Output: {output_path}")
 
-
+@docs(
+    command="brain export code_changes",
+    category="export",
+    examples=[
+        "brain export code_changes HEAD~1 HEAD",
+    ],
+    related=[
+        "brain diff show",
+        "brain diff review",
+    ],
+    outputs=[
+        ".brain/exports/code_changes.txt",
+    ],
+    gifs=[],
+    errors=[
+        "INVALID_GIT_REF",
+    ],
+    notes=[
+        "Exports changed files between git references.",
+    ],
+    edge_cases=[
+        "Requires valid git history.",
+    ],
+)
 @export_app.command()
-def code_changes(from_ref: str, to_ref: str):
+def code_changes(
+    from_ref: str = typer.Argument(
+        ...,
+        help="Starting git reference",
+    ),
+    to_ref: str = typer.Argument(
+        ...,
+        help="Ending git reference",
+    ),
+):
     """
     Export changed code between two git references
     """
@@ -594,9 +861,35 @@ def code_changes(from_ref: str, to_ref: str):
     typer.echo(f"📦 Files processed: {count}")
     typer.echo(f"📄 Output: {output_path}")
 
-
+@docs(
+    command="brain diff explain",
+    category="diff",
+    examples=[
+        "brain diff explain src/main.py",
+        "brain diff explain src/main.py:function_name",
+    ],
+    related=[
+        "brain diff review",
+    ],
+    outputs=[],
+    gifs=[
+        "explain.gif",
+    ],
+    errors=[],
+    notes=[
+        "Supports file-level and function-level explanation.",
+    ],
+    edge_cases=[
+        "Function name must exist in file.",
+    ],
+)
 @diff_app.command()
-def explain(target: str):
+def explain(
+    target: str = typer.Argument(
+        ...,
+        help="File path or file:function target",
+    )
+):
     """
     Explain a file or function
     """
@@ -610,9 +903,32 @@ def explain(target: str):
 
     typer.echo(output)
 
-
+@docs(
+    command="brain testllm test",
+    category="llm",
+    examples=[
+        "brain testllm test",
+    ],
+    related=[
+        "brain diff review",
+    ],
+    outputs=[],
+    gifs=[],
+    errors=[
+        "LLM_PROVIDER_FAILURE",
+    ],
+    notes=[
+        "Verifies configured LLM provider connectivity.",
+    ],
+    edge_cases=[
+        "Provider must be configured in brain.yaml.",
+    ],
+)
 @llm_app.command()
 def test():
+    """
+    Test configured LLM provider connectivity.
+    """
     root = Path.cwd()
     config = load_config(root)
 

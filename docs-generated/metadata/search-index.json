@@ -1,0 +1,244 @@
+[
+  {
+    "command": "brain project init",
+    "category": "project",
+    "help": "Initialize project-brain in the current directory",
+    "examples": [
+      "brain project init"
+    ],
+    "errors": [],
+    "related": [
+      "brain project analyze",
+      "brain project doctor"
+    ],
+    "keywords": [
+      "brain project init",
+      "project",
+      "brain project init"
+    ]
+  },
+  {
+    "command": "brain project analyze",
+    "category": "project",
+    "help": "Analyze repository structure using AST parsing.\n\nExtracts:\n- files\n- functions\n- classes\n- metadata\n\nStores results inside:\n.brain/data.json\n\nExample:\n    brain project analyze .",
+    "examples": [
+      "brain project analyze .",
+      "brain project analyze ./src"
+    ],
+    "errors": [
+      "NOT_GIT_REPO"
+    ],
+    "related": [
+      "brain project summary",
+      "brain project doctor"
+    ],
+    "keywords": [
+      "brain project analyze",
+      "project",
+      "brain project analyze .",
+      "brain project analyze ./src",
+      "NOT_GIT_REPO"
+    ]
+  },
+  {
+    "command": "brain project summary",
+    "category": "project",
+    "help": "Summarize the analyzed data",
+    "examples": [
+      "brain project summary"
+    ],
+    "errors": [],
+    "related": [
+      "brain project analyze"
+    ],
+    "keywords": [
+      "brain project summary",
+      "project",
+      "brain project summary"
+    ]
+  },
+  {
+    "command": "brain project doctor",
+    "category": "project",
+    "help": "Repository diagnostics and environment health checks.",
+    "examples": [
+      "brain project doctor"
+    ],
+    "errors": [],
+    "related": [
+      "brain project init",
+      "brain project analyze"
+    ],
+    "keywords": [
+      "brain project doctor",
+      "project",
+      "brain project doctor"
+    ]
+  },
+  {
+    "command": "brain diff show",
+    "category": "diff",
+    "help": "Show semantic git differences between references.",
+    "examples": [
+      "brain diff show",
+      "brain diff show HEAD~3 HEAD",
+      "brain diff show main dev"
+    ],
+    "errors": [
+      "INVALID_GIT_REF",
+      "NOT_GIT_REPO"
+    ],
+    "related": [
+      "brain diff review",
+      "brain export code_changes"
+    ],
+    "keywords": [
+      "brain diff show",
+      "diff",
+      "brain diff show",
+      "brain diff show HEAD~3 HEAD",
+      "brain diff show main dev",
+      "INVALID_GIT_REF",
+      "NOT_GIT_REPO"
+    ]
+  },
+  {
+    "command": "brain diff review",
+    "category": "diff",
+    "help": "Explain code changes using LLM",
+    "examples": [
+      "brain diff review",
+      "brain diff review HEAD~1 HEAD"
+    ],
+    "errors": [
+      "INVALID_GIT_REF",
+      "LLM_PROVIDER_FAILURE"
+    ],
+    "related": [
+      "brain diff show",
+      "brain export code_changes"
+    ],
+    "keywords": [
+      "brain diff review",
+      "diff",
+      "brain diff review",
+      "brain diff review HEAD~1 HEAD",
+      "INVALID_GIT_REF",
+      "LLM_PROVIDER_FAILURE"
+    ]
+  },
+  {
+    "command": "brain diff explain",
+    "category": "diff",
+    "help": "Explain a file or function",
+    "examples": [
+      "brain diff explain src/main.py",
+      "brain diff explain src/main.py:function_name"
+    ],
+    "errors": [],
+    "related": [
+      "brain diff review"
+    ],
+    "keywords": [
+      "brain diff explain",
+      "diff",
+      "brain diff explain src/main.py",
+      "brain diff explain src/main.py:function_name"
+    ]
+  },
+  {
+    "command": "brain export full_code",
+    "category": "export",
+    "help": "Export entire codebase into structured file",
+    "examples": [
+      "brain export full_code"
+    ],
+    "errors": [],
+    "related": [
+      "brain export file",
+      "brain export dir"
+    ],
+    "keywords": [
+      "brain export full_code",
+      "export",
+      "brain export full_code"
+    ]
+  },
+  {
+    "command": "brain export file",
+    "category": "export",
+    "help": "Manually add a single file to export",
+    "examples": [
+      "brain export file src/main.py"
+    ],
+    "errors": [],
+    "related": [
+      "brain export full_code",
+      "brain export dir"
+    ],
+    "keywords": [
+      "brain export file",
+      "export",
+      "brain export file src/main.py"
+    ]
+  },
+  {
+    "command": "brain export dir",
+    "category": "export",
+    "help": "Manually add a directory to export",
+    "examples": [
+      "brain export dir src/"
+    ],
+    "errors": [],
+    "related": [
+      "brain export full_code",
+      "brain export file"
+    ],
+    "keywords": [
+      "brain export dir",
+      "export",
+      "brain export dir src/"
+    ]
+  },
+  {
+    "command": "brain export code_changes",
+    "category": "export",
+    "help": "Export changed code between two git references",
+    "examples": [
+      "brain export code_changes HEAD~1 HEAD"
+    ],
+    "errors": [
+      "INVALID_GIT_REF"
+    ],
+    "related": [
+      "brain diff show",
+      "brain diff review"
+    ],
+    "keywords": [
+      "brain export code_changes",
+      "export",
+      "brain export code_changes HEAD~1 HEAD",
+      "INVALID_GIT_REF"
+    ]
+  },
+  {
+    "command": "brain testllm test",
+    "category": "llm",
+    "help": "Test configured LLM provider connectivity.",
+    "examples": [
+      "brain testllm test"
+    ],
+    "errors": [
+      "LLM_PROVIDER_FAILURE"
+    ],
+    "related": [
+      "brain diff review"
+    ],
+    "keywords": [
+      "brain testllm test",
+      "llm",
+      "brain testllm test",
+      "LLM_PROVIDER_FAILURE"
+    ]
+  }
+]

@@ -31,7 +31,7 @@ POPULAR COMMANDS
 EXAMPLES
 
   brain diff show HEAD~3 HEAD
-  brain export full_code
+  brain export full-code
   brain diff explain src/api.py:create_user
 """
 

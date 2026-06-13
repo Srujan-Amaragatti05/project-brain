@@ -3,160 +3,180 @@ from __future__ import annotations
 from pathlib import Path
 
 from lib.cli_introspector import generate_command_graph
-
+from lib.atomic_write import safe_write
 
 OUTPUT_DIR = Path("docs-generated/commands")
 
 
-def render_parameters(parameters):
+from project_brain.docs.errors import ERROR_REGISTRY
 
+# ---------------------------------------------------------------------------
+# Render helpers
+# ---------------------------------------------------------------------------
+
+def render_parameters(parameters: list) -> str:
     if not parameters:
         return "_No parameters._"
 
     lines = [
-        "| Name | Type | Required | Kind | Default | Description |",
-        "|---|---|---|---|---|---|",
+        "| Parameter | Type | Required | Default | Description |",
+        "|-----------|------|:--------:|---------|-------------|",
     ]
-
-    for param in parameters:
-
-        required = "Yes" if param["default"] == "REQUIRED" else "No"
-
-        default = param["default"]
-
-        if default is None:
-            default = "-"
-
+    for p in parameters:
+        required = "✓" if p["default"] == "REQUIRED" else ""
+        default = p["default"] if p["default"] not in (None, "REQUIRED") else "—"
         lines.append(
-            f"| {param['name']} "
-            f"| {param['type']} "
-            f"| {required} "
-            f"| {param['kind']} "
-            f"| {default} "
-            f"| {param['help']} |"
+            f"| `{p['name']}` | `{p['type']}` | {required} | `{default}` | {p['help']} |"
         )
-
     return "\n".join(lines)
 
 
-def render_list(items):
-
+def render_list(items: list, code: bool = False) -> str:
     if not items:
         return "_None_"
+    fmt = "`{}`" if code else "{}"
+    return "\n".join(f"- {fmt.format(item)}" for item in items)
 
-    return "\n".join(f"- {item}" for item in items)
 
-
-def render_gifs(gifs):
-
+def render_gifs(gifs: list) -> str:
     if not gifs:
         return "_No demo available._"
-
-    return "\n".join(
-        f"![Demo](../../demo/gifs/{gif})"
-        for gif in gifs
+    return "\n\n".join(
+        f"![Demo: {gif}](../../../demo/gifs/{gif})" for gif in gifs
     )
 
 
-def generate_markdown(command_data):
+def render_errors(errors: list) -> str:
+    if not errors:
+        return "_None_"
+    lines = [
+        "| Code | Description |",
+        "|------|-------------|",
+    ]
+    for e in errors:
+        error_data = ERROR_REGISTRY.get(e, {})
+        desc = error_data.get("message", "See error reference for details.")
+        lines.append(f"| `{e}` | {desc} |")
+    return "\n".join(lines)
 
-    metadata = command_data["metadata"]
 
+# ---------------------------------------------------------------------------
+# Main markdown builder
+# ---------------------------------------------------------------------------
+
+def generate_markdown(command_data: dict) -> str:
+    meta = command_data["metadata"]
     title = command_data["command"]
+    help_text = command_data["help"].strip() or "No description available."
+    category = meta["category"]
 
-    help_text = command_data["help"]
-
-    if not help_text.strip():
-        help_text = "No description available."
-
-    markdown = (
-        f"# {title}\n\n"
-
-        f"## Overview\n\n"
-        f"{help_text}\n\n"
-
-        f"---\n\n"
-
-        f"## When To Use\n\n"
-        f"This command is intended for "
-        f"**{metadata['category']}** workflows.\n\n"
-
-        f"---\n\n"
-
-        f"## Syntax\n\n"
-        f"```bash\n"
-        f"{title}\n"
-        f"```\n\n"
-
-        f"---\n\n"
-
-        f"## Arguments\n\n"
-        f"{render_parameters(command_data['parameters'])}\n\n"
-
-        f"---\n\n"
-
-        f"## Examples\n\n"
-        f"{render_list(metadata['examples'])}\n\n"
-
-        f"---\n\n"
-
-        f"## Expected Outputs\n\n"
-        f"{render_list(metadata['outputs'])}\n\n"
-
-        f"---\n\n"
-
-        f"## Error Reference\n\n"
-        f"{render_list(metadata['errors'])}\n\n"
-
-        f"---\n\n"
-
-        f"## Related Commands\n\n"
-        f"{render_list(metadata['related'])}\n\n"
-
-        f"---\n\n"
-
-        f"## Operational Notes\n\n"
-        f"{render_list(metadata['notes'])}\n\n"
-
-        f"---\n\n"
-
-        f"## Edge Cases\n\n"
-        f"{render_list(metadata['edge_cases'])}\n\n"
-
-        f"---\n\n"
-
-        f"## Demo\n\n"
-        f"{render_gifs(metadata['gifs'])}\n"
+    # Build examples block
+    examples_block = (
+        "\n".join(f"```bash\n{ex}\n```" for ex in meta["examples"])
+        if meta["examples"]
+        else "_No examples._"
     )
 
-    return markdown
+    md = f"""\
+# `{title}`
+
+> {help_text.splitlines()[0]}
+
+---
+
+## Overview
+
+{help_text}
+
+---
+
+## When to use
+
+This command is part of the **{category}** workflow.
+
+---
+
+## Syntax
+
+```bash
+{title} [options]
+```
+
+---
+
+## Parameters
+
+{render_parameters(command_data["parameters"])}
+
+---
+
+## Examples
+
+{examples_block}
+
+---
+
+## Outputs
+
+{render_list(meta["outputs"], code=True)}
+
+---
+
+## Errors
+
+{render_errors(meta["errors"])}
+
+---
+
+## Related commands
+
+{render_list(meta["related"], code=True)}
+
+---
+
+## Notes
+
+{render_list(meta["notes"])}
+
+---
+
+## Edge cases
+
+{render_list(meta["edge_cases"])}
+
+---
+
+## Demo
+
+{render_gifs(meta["gifs"])}
+"""
+    return md
 
 
-def generate_slug(command_name: str):
-
+def generate_slug(command_name: str) -> str:
     return command_name.replace(" ", "_")
 
 
-def main():
-
+def main() -> None:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-
     commands = generate_command_graph()
 
+    success = True
     for command in commands:
-
+        category = command["metadata"]["category"]
+        category_dir = OUTPUT_DIR / category
+        category_dir.mkdir(parents=True, exist_ok=True)
+        
         slug = generate_slug(command["command"])
+        output_file = category_dir / f"{slug}.md"
+        # newline="\n" ensures LF on all platforms — prevents Windows CRLF drift
+        if not safe_write(
+            output_file, generate_markdown(command), newline="\n"
+        ):
+            success = False
 
-        output_file = OUTPUT_DIR / f"{slug}.md"
-
-        markdown = generate_markdown(command)
-
-        output_file.write_text(
-            markdown,
-            encoding="utf-8",
-        )
-
-        print(f"Generated: {output_file}")
+    if not success:
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

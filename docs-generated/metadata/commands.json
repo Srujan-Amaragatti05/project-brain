@@ -18,6 +18,30 @@
           ".brain/",
           "brain.yaml"
         ],
+        "consumes": [],
+        "produces": [
+          ".brain/",
+          ".brain/cache/",
+          ".brain/data.json",
+          ".brain/index.json",
+          "brain.yaml"
+        ],
+        "prerequisites": [],
+        "use_cases": [
+          "Project Setup",
+          "First Time Installation"
+        ],
+        "personas": [
+          "developer",
+          "maintainer"
+        ],
+        "tags": [
+          "setup",
+          "bootstrap",
+          "initialization"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
         "gifs": [
           "init.gif"
         ],
@@ -27,6 +51,11 @@
         ],
         "edge_cases": [
           "Existing files are preserved."
+        ],
+        "workflow": [
+          "brain project init",
+          "brain project analyze",
+          "brain project summary"
         ]
       }
     },
@@ -57,6 +86,33 @@
         "outputs": [
           ".brain/data.json"
         ],
+        "consumes": [
+          ".brain/",
+          "source code"
+        ],
+        "produces": [
+          ".brain/data.json"
+        ],
+        "prerequisites": [
+          "brain project init"
+        ],
+        "use_cases": [
+          "Repository Analysis",
+          "Project Onboarding",
+          "Code Understanding"
+        ],
+        "personas": [
+          "developer",
+          "architect",
+          "reviewer"
+        ],
+        "tags": [
+          "analysis",
+          "ast",
+          "repository"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
         "gifs": [
           "analyze.gif"
         ],
@@ -68,6 +124,11 @@
         ],
         "edge_cases": [
           "Large repositories may take longer to analyze."
+        ],
+        "workflow": [
+          "brain project init",
+          "brain project analyze",
+          "brain project summary"
         ]
       }
     },
@@ -84,7 +145,32 @@
         "related": [
           "brain project analyze"
         ],
-        "outputs": [],
+        "outputs": [
+          "terminal summary"
+        ],
+        "consumes": [
+          ".brain/data.json"
+        ],
+        "produces": [
+          "terminal summary"
+        ],
+        "prerequisites": [
+          "brain project analyze"
+        ],
+        "use_cases": [
+          "Repository Analysis",
+          "Project Onboarding"
+        ],
+        "personas": [
+          "developer",
+          "architect"
+        ],
+        "tags": [
+          "summary",
+          "analysis"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
         "gifs": [],
         "errors": [],
         "notes": [
@@ -92,6 +178,10 @@
         ],
         "edge_cases": [
           "Requires previous analysis."
+        ],
+        "workflow": [
+          "brain project analyze",
+          "brain project summary"
         ]
       }
     },
@@ -109,16 +199,44 @@
           "brain project init",
           "brain project analyze"
         ],
-        "outputs": [],
+        "outputs": [
+          "terminal diagnostics"
+        ],
+        "consumes": [
+          "repository configuration"
+        ],
+        "produces": [
+          "health report"
+        ],
+        "prerequisites": [],
+        "use_cases": [
+          "Troubleshooting",
+          "Environment Validation"
+        ],
+        "personas": [
+          "developer",
+          "maintainer"
+        ],
+        "tags": [
+          "healthcheck",
+          "diagnostics"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
         "gifs": [
           "doctor.gif"
         ],
-        "errors": [],
+        "errors": [
+          "NOT_GIT_REPO"
+        ],
         "notes": [
           "Runs repository and environment diagnostics."
         ],
         "edge_cases": [
           "Some checks depend on internet connectivity."
+        ],
+        "workflow": [
+          "brain project doctor"
         ]
       }
     },
@@ -153,9 +271,35 @@
         ],
         "related": [
           "brain diff review",
-          "brain export code_changes"
+          "brain export code-changes"
         ],
         "outputs": [],
+        "consumes": [
+          "git repository",
+          "git history"
+        ],
+        "produces": [
+          "terminal diff report"
+        ],
+        "prerequisites": [],
+        "use_cases": [
+          "Code Review",
+          "Git Investigation",
+          "Change Analysis"
+        ],
+        "personas": [
+          "developer",
+          "reviewer",
+          "maintainer"
+        ],
+        "tags": [
+          "git",
+          "diff",
+          "review",
+          "changes"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
         "gifs": [
           "diff.gif"
         ],
@@ -168,6 +312,9 @@
         ],
         "edge_cases": [
           "Requires valid git history."
+        ],
+        "workflow": [
+          "brain diff show"
         ]
       }
     },
@@ -201,12 +348,40 @@
         ],
         "related": [
           "brain diff show",
-          "brain export code_changes"
+          "brain export code-changes"
         ],
         "outputs": [
           ".brain/reports/*.json",
           ".brain/reports/*.html"
         ],
+        "consumes": [
+          "git history"
+        ],
+        "produces": [
+          ".brain/reports/*.json",
+          ".brain/reports/*.html"
+        ],
+        "prerequisites": [
+          "brain testllm test"
+        ],
+        "use_cases": [
+          "AI Code Review",
+          "Pull Request Review",
+          "Code Change Explanation"
+        ],
+        "personas": [
+          "developer",
+          "reviewer",
+          "tech lead"
+        ],
+        "tags": [
+          "llm",
+          "git",
+          "review",
+          "changes"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
         "gifs": [
           "review.gif"
         ],
@@ -219,6 +394,10 @@
         ],
         "edge_cases": [
           "Large diffs may increase LLM response time."
+        ],
+        "workflow": [
+          "brain diff show",
+          "brain diff review"
         ]
       }
     },
@@ -246,6 +425,32 @@
           "brain diff review"
         ],
         "outputs": [],
+        "consumes": [
+          "source code"
+        ],
+        "produces": [
+          "terminal explanation"
+        ],
+        "prerequisites": [
+          "brain testllm test"
+        ],
+        "use_cases": [
+          "Code Understanding",
+          "Developer Onboarding",
+          "Function Investigation"
+        ],
+        "personas": [
+          "developer",
+          "new contributor",
+          "reviewer"
+        ],
+        "tags": [
+          "llm",
+          "explanation",
+          "code"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
         "gifs": [
           "explain.gif"
         ],
@@ -255,18 +460,22 @@
         ],
         "edge_cases": [
           "Function name must exist in file."
+        ],
+        "workflow": [
+          "brain project analyze",
+          "brain diff explain"
         ]
       }
     },
     {
-      "command": "brain export full_code",
+      "command": "brain export full-code",
       "help": "Export entire codebase into structured file",
       "parameters": [],
       "metadata": {
-        "command": "brain export full_code",
+        "command": "brain export full-code",
         "category": "export",
         "examples": [
-          "brain export full_code"
+          "brain export full-code"
         ],
         "related": [
           "brain export file",
@@ -275,6 +484,30 @@
         "outputs": [
           ".brain/exports/full_code.txt"
         ],
+        "consumes": [
+          "repository source code"
+        ],
+        "produces": [
+          ".brain/exports/full_code.txt"
+        ],
+        "prerequisites": [],
+        "use_cases": [
+          "LLM Context Export",
+          "Repository Sharing",
+          "AI Analysis"
+        ],
+        "personas": [
+          "developer",
+          "architect",
+          "ai assistant"
+        ],
+        "tags": [
+          "export",
+          "repository",
+          "llm"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
         "gifs": [
           "full_code.gif"
         ],
@@ -284,6 +517,10 @@
         ],
         "edge_cases": [
           "Large repositories generate large export files."
+        ],
+        "workflow": [
+          "brain project analyze",
+          "brain export full-code"
         ]
       }
     },
@@ -307,12 +544,32 @@
           "brain export file src/main.py"
         ],
         "related": [
-          "brain export full_code",
+          "brain export full-code",
           "brain export dir"
         ],
         "outputs": [
           ".brain/exports/manual_export.txt"
         ],
+        "consumes": [
+          "single file"
+        ],
+        "produces": [
+          ".brain/exports/manual_export.txt"
+        ],
+        "prerequisites": [],
+        "use_cases": [
+          "Targeted Export",
+          "File Sharing"
+        ],
+        "personas": [
+          "developer"
+        ],
+        "tags": [
+          "export",
+          "file"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
         "gifs": [],
         "errors": [],
         "notes": [
@@ -320,6 +577,9 @@
         ],
         "edge_cases": [
           "File must exist."
+        ],
+        "workflow": [
+          "brain export file"
         ]
       }
     },
@@ -343,12 +603,32 @@
           "brain export dir src/"
         ],
         "related": [
-          "brain export full_code",
+          "brain export full-code",
           "brain export file"
         ],
         "outputs": [
           ".brain/exports/manual_export.txt"
         ],
+        "consumes": [
+          "directory"
+        ],
+        "produces": [
+          ".brain/exports/manual_export.txt"
+        ],
+        "prerequisites": [],
+        "use_cases": [
+          "Targeted Export",
+          "Folder Sharing"
+        ],
+        "personas": [
+          "developer"
+        ],
+        "tags": [
+          "export",
+          "directory"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
         "gifs": [],
         "errors": [],
         "notes": [
@@ -356,11 +636,14 @@
         ],
         "edge_cases": [
           "Large directories increase export size."
+        ],
+        "workflow": [
+          "brain export dir"
         ]
       }
     },
     {
-      "command": "brain export code_changes",
+      "command": "brain export code-changes",
       "help": "Export changed code between two git references",
       "parameters": [
         {
@@ -381,18 +664,43 @@
         }
       ],
       "metadata": {
-        "command": "brain export code_changes",
+        "command": "brain export code-changes",
         "category": "export",
         "examples": [
-          "brain export code_changes HEAD~1 HEAD"
+          "brain export code-changes HEAD~1 HEAD"
         ],
         "related": [
           "brain diff show",
           "brain diff review"
         ],
         "outputs": [
-          ".brain/exports/code_changes.txt"
+          ".brain/exports/code-changes.txt"
         ],
+        "consumes": [
+          "git history"
+        ],
+        "produces": [
+          ".brain/exports/code-changes.txt"
+        ],
+        "prerequisites": [
+          "brain diff show"
+        ],
+        "use_cases": [
+          "PR Export",
+          "Change Review",
+          "LLM Review"
+        ],
+        "personas": [
+          "developer",
+          "reviewer"
+        ],
+        "tags": [
+          "git",
+          "changes",
+          "export"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
         "gifs": [],
         "errors": [
           "INVALID_GIT_REF"
@@ -402,6 +710,10 @@
         ],
         "edge_cases": [
           "Requires valid git history."
+        ],
+        "workflow": [
+          "brain diff show",
+          "brain export code-changes"
         ]
       }
     },
@@ -411,7 +723,7 @@
       "parameters": [],
       "metadata": {
         "command": "brain testllm test",
-        "category": "llm",
+        "category": "testllm",
         "examples": [
           "brain testllm test"
         ],
@@ -419,6 +731,31 @@
           "brain diff review"
         ],
         "outputs": [],
+        "consumes": [
+          "llm configuration"
+        ],
+        "produces": [
+          "provider connectivity report"
+        ],
+        "prerequisites": [
+          "brain project init",
+          "brain project doctor"
+        ],
+        "use_cases": [
+          "LLM Setup",
+          "Provider Validation",
+          "Environment Verification"
+        ],
+        "personas": [
+          "developer"
+        ],
+        "tags": [
+          "llm",
+          "provider",
+          "diagnostics"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
         "gifs": [],
         "errors": [
           "LLM_PROVIDER_FAILURE"
@@ -428,6 +765,10 @@
         ],
         "edge_cases": [
           "Provider must be configured in brain.yaml."
+        ],
+        "workflow": [
+          "brain testllm test",
+          "brain diff review"
         ]
       }
     }

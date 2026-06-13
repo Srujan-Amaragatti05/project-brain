@@ -1,0 +1,336 @@
+{
+  "brain project init": {
+    "related": [
+      "brain project analyze",
+      "brain project doctor"
+    ],
+    "consumes": [],
+    "produces": [
+      ".brain/",
+      ".brain/cache/",
+      ".brain/data.json",
+      ".brain/index.json",
+      "brain.yaml"
+    ],
+    "prerequisites": [],
+    "use_cases": [
+      "Project Setup",
+      "First Time Installation"
+    ],
+    "personas": [
+      "developer",
+      "maintainer"
+    ],
+    "tags": [
+      "setup",
+      "bootstrap",
+      "initialization"
+    ]
+  },
+  "brain project analyze": {
+    "related": [
+      "brain project summary",
+      "brain project doctor"
+    ],
+    "consumes": [
+      ".brain/",
+      "source code"
+    ],
+    "produces": [
+      ".brain/data.json"
+    ],
+    "prerequisites": [
+      "brain project init"
+    ],
+    "use_cases": [
+      "Repository Analysis",
+      "Project Onboarding",
+      "Code Understanding"
+    ],
+    "personas": [
+      "developer",
+      "architect",
+      "reviewer"
+    ],
+    "tags": [
+      "analysis",
+      "ast",
+      "repository"
+    ]
+  },
+  "brain project summary": {
+    "related": [
+      "brain project analyze"
+    ],
+    "consumes": [
+      ".brain/data.json"
+    ],
+    "produces": [
+      "terminal summary"
+    ],
+    "prerequisites": [
+      "brain project analyze"
+    ],
+    "use_cases": [
+      "Repository Analysis",
+      "Project Onboarding"
+    ],
+    "personas": [
+      "developer",
+      "architect"
+    ],
+    "tags": [
+      "summary",
+      "analysis"
+    ]
+  },
+  "brain project doctor": {
+    "related": [
+      "brain project init",
+      "brain project analyze"
+    ],
+    "consumes": [
+      "repository configuration"
+    ],
+    "produces": [
+      "health report"
+    ],
+    "prerequisites": [],
+    "use_cases": [
+      "Troubleshooting",
+      "Environment Validation"
+    ],
+    "personas": [
+      "developer",
+      "maintainer"
+    ],
+    "tags": [
+      "healthcheck",
+      "diagnostics"
+    ]
+  },
+  "brain diff show": {
+    "related": [
+      "brain diff review",
+      "brain export code-changes"
+    ],
+    "consumes": [
+      "git repository",
+      "git history"
+    ],
+    "produces": [
+      "terminal diff report"
+    ],
+    "prerequisites": [],
+    "use_cases": [
+      "Code Review",
+      "Git Investigation",
+      "Change Analysis"
+    ],
+    "personas": [
+      "developer",
+      "reviewer",
+      "maintainer"
+    ],
+    "tags": [
+      "git",
+      "diff",
+      "review",
+      "changes"
+    ]
+  },
+  "brain diff review": {
+    "related": [
+      "brain diff show",
+      "brain export code-changes"
+    ],
+    "consumes": [
+      "git history"
+    ],
+    "produces": [
+      ".brain/reports/*.json",
+      ".brain/reports/*.html"
+    ],
+    "prerequisites": [
+      "brain testllm test"
+    ],
+    "use_cases": [
+      "AI Code Review",
+      "Pull Request Review",
+      "Code Change Explanation"
+    ],
+    "personas": [
+      "developer",
+      "reviewer",
+      "tech lead"
+    ],
+    "tags": [
+      "llm",
+      "git",
+      "review",
+      "changes"
+    ]
+  },
+  "brain diff explain": {
+    "related": [
+      "brain diff review"
+    ],
+    "consumes": [
+      "source code"
+    ],
+    "produces": [
+      "terminal explanation"
+    ],
+    "prerequisites": [
+      "brain testllm test"
+    ],
+    "use_cases": [
+      "Code Understanding",
+      "Developer Onboarding",
+      "Function Investigation"
+    ],
+    "personas": [
+      "developer",
+      "new contributor",
+      "reviewer"
+    ],
+    "tags": [
+      "llm",
+      "explanation",
+      "code"
+    ]
+  },
+  "brain export full-code": {
+    "related": [
+      "brain export file",
+      "brain export dir"
+    ],
+    "consumes": [
+      "repository source code"
+    ],
+    "produces": [
+      ".brain/exports/full_code.txt"
+    ],
+    "prerequisites": [],
+    "use_cases": [
+      "LLM Context Export",
+      "Repository Sharing",
+      "AI Analysis"
+    ],
+    "personas": [
+      "developer",
+      "architect",
+      "ai assistant"
+    ],
+    "tags": [
+      "export",
+      "repository",
+      "llm"
+    ]
+  },
+  "brain export file": {
+    "related": [
+      "brain export full-code",
+      "brain export dir"
+    ],
+    "consumes": [
+      "single file"
+    ],
+    "produces": [
+      ".brain/exports/manual_export.txt"
+    ],
+    "prerequisites": [],
+    "use_cases": [
+      "Targeted Export",
+      "File Sharing"
+    ],
+    "personas": [
+      "developer"
+    ],
+    "tags": [
+      "export",
+      "file"
+    ]
+  },
+  "brain export dir": {
+    "related": [
+      "brain export full-code",
+      "brain export file"
+    ],
+    "consumes": [
+      "directory"
+    ],
+    "produces": [
+      ".brain/exports/manual_export.txt"
+    ],
+    "prerequisites": [],
+    "use_cases": [
+      "Targeted Export",
+      "Folder Sharing"
+    ],
+    "personas": [
+      "developer"
+    ],
+    "tags": [
+      "export",
+      "directory"
+    ]
+  },
+  "brain export code-changes": {
+    "related": [
+      "brain diff show",
+      "brain diff review"
+    ],
+    "consumes": [
+      "git history"
+    ],
+    "produces": [
+      ".brain/exports/code-changes.txt"
+    ],
+    "prerequisites": [
+      "brain diff show"
+    ],
+    "use_cases": [
+      "PR Export",
+      "Change Review",
+      "LLM Review"
+    ],
+    "personas": [
+      "developer",
+      "reviewer"
+    ],
+    "tags": [
+      "git",
+      "changes",
+      "export"
+    ]
+  },
+  "brain testllm test": {
+    "related": [
+      "brain diff review"
+    ],
+    "consumes": [
+      "llm configuration"
+    ],
+    "produces": [
+      "provider connectivity report"
+    ],
+    "prerequisites": [
+      "brain project init",
+      "brain project doctor"
+    ],
+    "use_cases": [
+      "LLM Setup",
+      "Provider Validation",
+      "Environment Verification"
+    ],
+    "personas": [
+      "developer"
+    ],
+    "tags": [
+      "llm",
+      "provider",
+      "diagnostics"
+    ]
+  }
+}

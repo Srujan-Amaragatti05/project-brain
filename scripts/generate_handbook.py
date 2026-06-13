@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from lib.atomic_write import safe_write
 
 METADATA_FILE = Path(
     "docs-generated/metadata/commands.json"
@@ -17,44 +18,106 @@ def render_command(command):
 
     metadata = command["metadata"]
 
-    lines = []
+    lines = [
+        f"## {command['command']}",
+        "",
+        command["help"],
+        "",
+        f"**Category:** {metadata['category']}",
+        "",
+    ]
 
-    lines.append(
-        f"## {command['command']}\n"
-    )
+    if command["parameters"]:
 
-    if command["help"]:
-        lines.append(
-            f"{command['help']}\n"
+        lines.extend(
+            [
+                "### Parameters",
+                "",
+                "| Name | Type | Required | Default |",
+                "|------|------|----------|---------|",
+            ]
         )
 
-    lines.append(
-        f"**Category:** {metadata['category']}\n"
-    )
+        for parameter in command["parameters"]:
+
+            required = (
+                "Yes"
+                if parameter["default"] == "REQUIRED"
+                else "No"
+            )
+
+            default = (
+                parameter["default"]
+                if parameter["default"] is not None
+                else "-"
+            )
+
+            lines.append(
+                f"| {parameter['name']} "
+                f"| {parameter['type']} "
+                f"| {required} "
+                f"| {default} |"
+            )
+
+        lines.append("")
 
     if metadata["examples"]:
 
-        lines.append(
-            "\n### Examples\n"
+        lines.extend(
+            [
+                "### Examples",
+                "",
+            ]
         )
 
         for example in metadata["examples"]:
+
             lines.append(
-                f"- `{example}`"
+                f"```bash\n{example}\n```"
             )
 
-    if metadata["related"]:
+        lines.append("")
 
-        lines.append(
-            "\n### Related Commands\n"
+    if metadata.get("outputs"):
+
+        lines.extend(
+            [
+                "### Outputs",
+                "",
+            ]
+        )
+
+        for output in metadata["outputs"]:
+
+            lines.append(
+                f"- {output}"
+            )
+
+        lines.append("")
+
+    if metadata.get("related"):
+
+        lines.extend(
+            [
+                "### Related Commands",
+                "",
+            ]
         )
 
         for related in metadata["related"]:
+
             lines.append(
                 f"- `{related}`"
             )
 
-    lines.append("\n---\n")
+        lines.append("")
+
+    lines.extend(
+        [
+            "---",
+            "",
+        ]
+    )
 
     return "\n".join(lines)
 
@@ -117,14 +180,11 @@ def main():
         "CLI_REFERENCE.md"
     )
 
-    output_file.write_text(
+    if not safe_write(
+        output_file,
         content,
-        encoding="utf-8",
-    )
-
-    print(
-        f"Generated: {output_file}"
-    )
+    ):
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

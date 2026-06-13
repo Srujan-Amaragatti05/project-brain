@@ -13,17 +13,29 @@ Show semantic git differences between references.
 
 **Category:** diff
 
+### Parameters
+
+| Name | Type | Required | Default |
+|------|------|----------|---------|
+| from_ref | str | No | - |
+| to_ref | str | No | - |
 
 ### Examples
 
-- `brain diff show`
-- `brain diff show HEAD~3 HEAD`
-- `brain diff show main dev`
+```bash
+brain diff show
+```
+```bash
+brain diff show HEAD~3 HEAD
+```
+```bash
+brain diff show main dev
+```
 
 ### Related Commands
 
 - `brain diff review`
-- `brain export code_changes`
+- `brain export code-changes`
 
 ---
 
@@ -33,16 +45,31 @@ Explain code changes using LLM
 
 **Category:** diff
 
+### Parameters
+
+| Name | Type | Required | Default |
+|------|------|----------|---------|
+| from_ref | str | No | - |
+| to_ref | str | No | - |
 
 ### Examples
 
-- `brain diff review`
-- `brain diff review HEAD~1 HEAD`
+```bash
+brain diff review
+```
+```bash
+brain diff review HEAD~1 HEAD
+```
+
+### Outputs
+
+- .brain/reports/*.json
+- .brain/reports/*.html
 
 ### Related Commands
 
 - `brain diff show`
-- `brain export code_changes`
+- `brain export code-changes`
 
 ---
 
@@ -52,11 +79,20 @@ Explain a file or function
 
 **Category:** diff
 
+### Parameters
+
+| Name | Type | Required | Default |
+|------|------|----------|---------|
+| target | str | Yes | REQUIRED |
 
 ### Examples
 
-- `brain diff explain src/main.py`
-- `brain diff explain src/main.py:function_name`
+```bash
+brain diff explain src/main.py
+```
+```bash
+brain diff explain src/main.py:function_name
+```
 
 ### Related Commands
 
@@ -67,16 +103,21 @@ Explain a file or function
 
 # Export Commands
 
-## brain export full_code
+## brain export full-code
 
 Export entire codebase into structured file
 
 **Category:** export
 
-
 ### Examples
 
-- `brain export full_code`
+```bash
+brain export full-code
+```
+
+### Outputs
+
+- .brain/exports/full_code.txt
 
 ### Related Commands
 
@@ -91,14 +132,25 @@ Manually add a single file to export
 
 **Category:** export
 
+### Parameters
+
+| Name | Type | Required | Default |
+|------|------|----------|---------|
+| path | str | Yes | REQUIRED |
 
 ### Examples
 
-- `brain export file src/main.py`
+```bash
+brain export file src/main.py
+```
+
+### Outputs
+
+- .brain/exports/manual_export.txt
 
 ### Related Commands
 
-- `brain export full_code`
+- `brain export full-code`
 - `brain export dir`
 
 ---
@@ -109,52 +161,55 @@ Manually add a directory to export
 
 **Category:** export
 
+### Parameters
+
+| Name | Type | Required | Default |
+|------|------|----------|---------|
+| path | str | Yes | REQUIRED |
 
 ### Examples
 
-- `brain export dir src/`
+```bash
+brain export dir src/
+```
+
+### Outputs
+
+- .brain/exports/manual_export.txt
 
 ### Related Commands
 
-- `brain export full_code`
+- `brain export full-code`
 - `brain export file`
 
 ---
 
-## brain export code_changes
+## brain export code-changes
 
 Export changed code between two git references
 
 **Category:** export
 
+### Parameters
+
+| Name | Type | Required | Default |
+|------|------|----------|---------|
+| from_ref | str | Yes | REQUIRED |
+| to_ref | str | Yes | REQUIRED |
 
 ### Examples
 
-- `brain export code_changes HEAD~1 HEAD`
+```bash
+brain export code-changes HEAD~1 HEAD
+```
+
+### Outputs
+
+- .brain/exports/code-changes.txt
 
 ### Related Commands
 
 - `brain diff show`
-- `brain diff review`
-
----
-
-
-# Llm Commands
-
-## brain testllm test
-
-Test configured LLM provider connectivity.
-
-**Category:** llm
-
-
-### Examples
-
-- `brain testllm test`
-
-### Related Commands
-
 - `brain diff review`
 
 ---
@@ -168,10 +223,16 @@ Initialize project-brain in the current directory
 
 **Category:** project
 
-
 ### Examples
 
-- `brain project init`
+```bash
+brain project init
+```
+
+### Outputs
+
+- .brain/
+- brain.yaml
 
 ### Related Commands
 
@@ -198,11 +259,24 @@ Example:
 
 **Category:** project
 
+### Parameters
+
+| Name | Type | Required | Default |
+|------|------|----------|---------|
+| path | str | No | . |
 
 ### Examples
 
-- `brain project analyze .`
-- `brain project analyze ./src`
+```bash
+brain project analyze .
+```
+```bash
+brain project analyze ./src
+```
+
+### Outputs
+
+- .brain/data.json
 
 ### Related Commands
 
@@ -217,10 +291,15 @@ Summarize the analyzed data
 
 **Category:** project
 
-
 ### Examples
 
-- `brain project summary`
+```bash
+brain project summary
+```
+
+### Outputs
+
+- terminal summary
 
 ### Related Commands
 
@@ -234,14 +313,40 @@ Repository diagnostics and environment health checks.
 
 **Category:** project
 
-
 ### Examples
 
-- `brain project doctor`
+```bash
+brain project doctor
+```
+
+### Outputs
+
+- terminal diagnostics
 
 ### Related Commands
 
 - `brain project init`
 - `brain project analyze`
+
+---
+
+
+# Testllm Commands
+
+## brain testllm test
+
+Test configured LLM provider connectivity.
+
+**Category:** testllm
+
+### Examples
+
+```bash
+brain testllm test
+```
+
+### Related Commands
+
+- `brain diff review`
 
 ---

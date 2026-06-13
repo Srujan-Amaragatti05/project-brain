@@ -1,0 +1,21 @@
+provider: gemini
+
+model: gemini-3.1-flash-lite
+#gemma-4-26b-a4b-it , gemini-2.5-flash, gemma-4-31b-it
+timeout: 120
+
+max_retries: 3
+
+fallbacks:
+
+  - provider: gemini
+    model: gemma-4-26b-a4b-it
+
+  - provider: openai
+    model: gpt-4.1-mini
+
+  - provider: huggingface
+    model: Qwen/Qwen3-Coder-480B-A35B-Instruct
+
+  - provider: ollama
+    model: phi3

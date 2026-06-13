@@ -105,7 +105,7 @@ brain diff show
 brain diff review
 brain diff explain
 
-brain export full_code
+brain export full-code
 brain export file
 brain export dir
 brain export code_changes

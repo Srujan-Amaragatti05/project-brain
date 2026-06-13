@@ -5,6 +5,6 @@ GIF_REGISTRY = {
     "brain diff show": "diff.gif",
     "brain diff review": "review.gif",
     "brain diff explain": "explain.gif",
-    "brain export full_code": "full_code.gif",
+    "brain export full-code": "full_code.gif",
     "brain community": "community.gif",
 }

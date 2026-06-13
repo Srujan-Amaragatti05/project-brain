@@ -1,0 +1,43 @@
+name: Deploy Docs Data
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+          
+      - name: Build Docs Data
+        run: |
+          export PYTHONPATH=src
+          python scripts/build_docs.py
+          
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload only the web-bundle JSON files
+          path: 'docs-generated/web/'
+          
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

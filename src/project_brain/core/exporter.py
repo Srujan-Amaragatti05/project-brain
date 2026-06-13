@@ -5,27 +5,7 @@ from pathlib import Path
 from project_brain.core.config_loader import load_config
 from project_brain.core.differ import compute_diff, get_file_from_ref
 from project_brain.core.logger import log_error
-
-
-def should_skip(path: Path, ignore_patterns):
-    if not ignore_patterns:
-        return False
-
-    path_parts = set(path.parts)
-
-    for pattern in ignore_patterns:
-        pattern = pattern.strip().rstrip("/")
-
-        # 1. Directory match (exact)
-        if pattern in path_parts:
-            return True
-
-        # 2. Extension match (*.pyc etc.)
-        if pattern.startswith("*."):
-            if path.name.endswith(pattern[1:]):
-                return True
-
-    return False
+from project_brain.core.analyzer import should_skip
 
 
 def is_test_file(path: Path):

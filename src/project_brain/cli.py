@@ -159,26 +159,68 @@ def create_file(path: Path, content: str):
 @docs(
     command="brain project init",
     category="project",
+
     examples=[
         "brain project init",
     ],
+
     related=[
         "brain project analyze",
         "brain project doctor",
     ],
+
     outputs=[
         ".brain/",
         "brain.yaml",
     ],
+
+    produces=[
+        ".brain/",
+        ".brain/cache/",
+        ".brain/data.json",
+        ".brain/index.json",
+        "brain.yaml",
+    ],
+
+    use_cases=[
+        "Project Setup",
+        "First Time Installation",
+    ],
+
+    personas=[
+        "developer",
+        "maintainer",
+    ],
+
+    tags=[
+        "setup",
+        "bootstrap",
+        "initialization",
+    ],
+
     gifs=[
         "init.gif",
     ],
+
     notes=[
         "Safe to rerun.",
     ],
+
     edge_cases=[
         "Existing files are preserved.",
     ],
+    workflow=[
+        "brain project init",
+        "brain project analyze",
+        "brain project summary",
+    ],
+
+    prerequisites=[],
+
+    consumes=[],
+
+    stability="stable",
+    introduced="0.1.0",
 )
 @project_app.command()
 def init():
@@ -231,29 +273,75 @@ def init():
 @docs(
     command="brain project analyze",
     category="project",
+
     examples=[
         "brain project analyze .",
         "brain project analyze ./src",
     ],
+
     related=[
         "brain project summary",
         "brain project doctor",
     ],
+
     outputs=[
         ".brain/data.json",
     ],
+
+    consumes=[
+        ".brain/",
+        "source code",
+    ],
+
+    produces=[
+        ".brain/data.json",
+    ],
+
+    prerequisites=[
+        "brain project init",
+    ],
+
+    use_cases=[
+        "Repository Analysis",
+        "Project Onboarding",
+        "Code Understanding",
+    ],
+
+    personas=[
+        "developer",
+        "architect",
+        "reviewer",
+    ],
+
+    tags=[
+        "analysis",
+        "ast",
+        "repository",
+    ],
+
     gifs=[
         "analyze.gif",
     ],
+
     errors=[
         "NOT_GIT_REPO",
     ],
+
     notes=[
         "Uses AST parsing for repository analysis.",
     ],
+
     edge_cases=[
         "Large repositories may take longer to analyze.",
     ],
+    workflow=[
+        "brain project init",
+        "brain project analyze",
+        "brain project summary",
+    ],
+
+    stability="stable",
+    introduced="0.1.0",
 )
 @project_app.command()
 def analyze(
@@ -309,21 +397,60 @@ def analyze(
 @docs(
     command="brain project summary",
     category="project",
+
     examples=[
         "brain project summary",
     ],
+
     related=[
         "brain project analyze",
     ],
-    outputs=[],
-    gifs=[],
-    errors=[],
+
+    consumes=[
+        ".brain/data.json",
+    ],
+
+    prerequisites=[
+        "brain project analyze",
+    ],
+
+    use_cases=[
+        "Repository Analysis",
+        "Project Onboarding",
+    ],
+
+    personas=[
+        "developer",
+        "architect",
+    ],
+
+    tags=[
+        "summary",
+        "analysis",
+    ],
+
     notes=[
         "Displays summarized repository analysis.",
     ],
+
     edge_cases=[
         "Requires previous analysis.",
     ],
+    outputs=[
+        "terminal summary",
+    ],
+
+    produces=[
+        "terminal summary",
+    ],
+
+    workflow=[
+        "brain project analyze",
+        "brain project summary",
+    ],
+
+    stability="stable",
+    introduced="0.1.0",
 )
 @project_app.command()
 def summary():
@@ -373,28 +500,68 @@ def validate_ref(ref: str, root: Path):
 @docs(
     command="brain diff show",
     category="diff",
+
     examples=[
         "brain diff show",
         "brain diff show HEAD~3 HEAD",
         "brain diff show main dev",
     ],
+
     related=[
         "brain diff review",
-        "brain export code_changes",
+        "brain export code-changes",
     ],
+
     outputs=[],
+
+    consumes=[
+        "git repository",
+        "git history",
+    ],
+
+    produces=[
+        "terminal diff report",
+    ],
+
+    prerequisites=[],
+
+    use_cases=[
+        "Code Review",
+        "Git Investigation",
+        "Change Analysis",
+    ],
+
+    personas=[
+        "developer",
+        "reviewer",
+        "maintainer",
+    ],
+
+    tags=[
+        "git",
+        "diff",
+        "review",
+        "changes",
+    ],
+
     gifs=[
         "diff.gif",
     ],
+
     errors=[
         "INVALID_GIT_REF",
         "NOT_GIT_REPO",
     ],
+
     notes=[
         "Supports file-level and function-level diff modes.",
     ],
+
     edge_cases=[
         "Requires valid git history.",
+    ],
+    workflow=[
+        "brain diff show",
     ],
 )
 @diff_app.command()
@@ -509,30 +676,73 @@ def show(
 @docs(
     command="brain diff review",
     category="diff",
+
     examples=[
         "brain diff review",
         "brain diff review HEAD~1 HEAD",
     ],
+
     related=[
         "brain diff show",
-        "brain export code_changes",
+        "brain export code-changes",
     ],
+
     outputs=[
         ".brain/reports/*.json",
         ".brain/reports/*.html",
     ],
+
+    consumes=[
+        "git history",
+    ],
+
+    produces=[
+        ".brain/reports/*.json",
+        ".brain/reports/*.html",
+    ],
+
+    prerequisites=[
+        "brain testllm test",
+    ],
+
+    use_cases=[
+        "AI Code Review",
+        "Pull Request Review",
+        "Code Change Explanation",
+    ],
+
+    personas=[
+        "developer",
+        "reviewer",
+        "tech lead",
+    ],
+
+    tags=[
+        "llm",
+        "git",
+        "review",
+        "changes",
+    ],
+
     gifs=[
         "review.gif",
     ],
+
     errors=[
         "INVALID_GIT_REF",
         "LLM_PROVIDER_FAILURE",
     ],
+
     notes=[
         "Uses configured LLM provider to explain changes.",
     ],
+
     edge_cases=[
         "Large diffs may increase LLM response time.",
+    ],
+    workflow=[
+        "brain diff show",
+        "brain diff review",
     ],
 )
 @diff_app.command()
@@ -600,24 +810,66 @@ def review(
 @docs(
     command="brain project doctor",
     category="project",
+
     examples=[
         "brain project doctor",
     ],
+
     related=[
         "brain project init",
         "brain project analyze",
     ],
-    outputs=[],
+
+    use_cases=[
+        "Troubleshooting",
+        "Environment Validation",
+    ],
+
+    personas=[
+        "developer",
+        "maintainer",
+    ],
+
+    tags=[
+        "healthcheck",
+        "diagnostics",
+    ],
+
     gifs=[
         "doctor.gif",
     ],
-    errors=[],
+
     notes=[
         "Runs repository and environment diagnostics.",
     ],
+
     edge_cases=[
         "Some checks depend on internet connectivity.",
     ],
+    outputs=[
+        "terminal diagnostics",
+    ],
+
+    consumes=[
+        "repository configuration",
+    ],
+
+    produces=[
+        "health report",
+    ],
+
+    prerequisites=[],
+
+    workflow=[
+        "brain project doctor",
+    ],
+
+    errors=[
+        "NOT_GIT_REPO",
+    ],
+
+    stability="stable",
+    introduced="0.1.0",
 )
 @project_app.command()
 def doctor():
@@ -689,30 +941,72 @@ brain project analyze .
         )
 
 @docs(
-    command="brain export full_code",
+    command="brain export full-code",
     category="export",
+
     examples=[
-        "brain export full_code",
+        "brain export full-code",
     ],
+
     related=[
         "brain export file",
         "brain export dir",
     ],
+
     outputs=[
         ".brain/exports/full_code.txt",
     ],
+
+    consumes=[
+        "repository source code",
+    ],
+
+    produces=[
+        ".brain/exports/full_code.txt",
+    ],
+
+    prerequisites=[],
+
+    use_cases=[
+        "LLM Context Export",
+        "Repository Sharing",
+        "AI Analysis",
+    ],
+
+    personas=[
+        "developer",
+        "architect",
+        "ai assistant",
+    ],
+
+    tags=[
+        "export",
+        "repository",
+        "llm",
+    ],
+
     gifs=[
         "full_code.gif",
     ],
+
     errors=[],
+
     notes=[
         "Exports repository into AI-friendly format.",
     ],
+
     edge_cases=[
         "Large repositories generate large export files.",
     ],
+    workflow=[
+        "brain project analyze",
+        "brain export full-code",
+    ],
+
+    stability="stable",
+    introduced="0.1.0",
 )
-@export_app.command()
+@export_app.command(name="full-code")
 def full_code():
     """
     Export entire codebase into structured file
@@ -723,7 +1017,7 @@ def full_code():
 
     success(
         f"Exported {count} files",
-        next_step="brain export code_changes HEAD~1 HEAD",
+        next_step="brain export code-changes HEAD~1 HEAD",
     )
 
     info(f"Output: {output_path}")
@@ -733,24 +1027,61 @@ def full_code():
 @docs(
     command="brain export file",
     category="export",
+
     examples=[
         "brain export file src/main.py",
     ],
+
     related=[
-        "brain export full_code",
+        "brain export full-code",
         "brain export dir",
     ],
+
     outputs=[
         ".brain/exports/manual_export.txt",
     ],
+
+    consumes=[
+        "single file",
+    ],
+
+    produces=[
+        ".brain/exports/manual_export.txt",
+    ],
+
+    prerequisites=[],
+
+    use_cases=[
+        "Targeted Export",
+        "File Sharing",
+    ],
+
+    personas=[
+        "developer",
+    ],
+
+    tags=[
+        "export",
+        "file",
+    ],
+
     gifs=[],
+
     errors=[],
+
     notes=[
         "Adds a single file into export bundle.",
     ],
+
     edge_cases=[
         "File must exist.",
     ],
+    workflow=[
+        "brain export file",
+    ],
+
+    stability="stable",
+    introduced="0.1.0",
 )
 @export_app.command("file")
 def add_code_file_cmd(
@@ -776,24 +1107,61 @@ def add_code_file_cmd(
 @docs(
     command="brain export dir",
     category="export",
+
     examples=[
         "brain export dir src/",
     ],
+
     related=[
-        "brain export full_code",
+        "brain export full-code",
         "brain export file",
     ],
+
     outputs=[
         ".brain/exports/manual_export.txt",
     ],
+
+    consumes=[
+        "directory",
+    ],
+
+    produces=[
+        ".brain/exports/manual_export.txt",
+    ],
+
+    prerequisites=[],
+
+    use_cases=[
+        "Targeted Export",
+        "Folder Sharing",
+    ],
+
+    personas=[
+        "developer",
+    ],
+
+    tags=[
+        "export",
+        "directory",
+    ],
+
     gifs=[],
+
     errors=[],
+
     notes=[
         "Adds directory recursively into export bundle.",
     ],
+
     edge_cases=[
         "Large directories increase export size.",
     ],
+    workflow=[
+    "brain export dir",
+    ],
+
+    stability="stable",
+    introduced="0.1.0",
 )
 @export_app.command("dir")
 def add_code_dir_cmd(
@@ -817,30 +1185,73 @@ def add_code_dir_cmd(
     typer.echo(f"📄 Output: {output_path}")
 
 @docs(
-    command="brain export code_changes",
+    command="brain export code-changes",
     category="export",
+
     examples=[
-        "brain export code_changes HEAD~1 HEAD",
+        "brain export code-changes HEAD~1 HEAD",
     ],
+
     related=[
         "brain diff show",
         "brain diff review",
     ],
+
     outputs=[
-        ".brain/exports/code_changes.txt",
+        ".brain/exports/code-changes.txt",
     ],
+
+    consumes=[
+        "git history",
+    ],
+
+    produces=[
+        ".brain/exports/code-changes.txt",
+    ],
+
+    prerequisites=[
+        "brain diff show",
+    ],
+
+    use_cases=[
+        "PR Export",
+        "Change Review",
+        "LLM Review",
+    ],
+
+    personas=[
+        "developer",
+        "reviewer",
+    ],
+
+    tags=[
+        "git",
+        "changes",
+        "export",
+    ],
+
     gifs=[],
+
     errors=[
         "INVALID_GIT_REF",
     ],
+
     notes=[
         "Exports changed files between git references.",
     ],
+
     edge_cases=[
         "Requires valid git history.",
     ],
+    workflow=[
+        "brain diff show",
+        "brain export code-changes",
+    ],
+
+    stability="stable",
+    introduced="0.1.0",
 )
-@export_app.command()
+@export_app.command(name="code-changes")
 def code_changes(
     from_ref: str = typer.Argument(
         ...,
@@ -864,24 +1275,68 @@ def code_changes(
 @docs(
     command="brain diff explain",
     category="diff",
+
     examples=[
         "brain diff explain src/main.py",
         "brain diff explain src/main.py:function_name",
     ],
+
     related=[
         "brain diff review",
     ],
+
     outputs=[],
+
+    consumes=[
+        "source code",
+    ],
+
+    produces=[
+        "terminal explanation",
+    ],
+
+    prerequisites=[
+        "brain testllm test",
+    ],
+
+    use_cases=[
+        "Code Understanding",
+        "Developer Onboarding",
+        "Function Investigation",
+    ],
+
+    personas=[
+        "developer",
+        "new contributor",
+        "reviewer",
+    ],
+
+    tags=[
+        "llm",
+        "explanation",
+        "code",
+    ],
+
     gifs=[
         "explain.gif",
     ],
+
     errors=[],
+
     notes=[
         "Supports file-level and function-level explanation.",
     ],
+
     edge_cases=[
         "Function name must exist in file.",
     ],
+    workflow=[
+        "brain project analyze",
+        "brain diff explain",
+    ],
+
+    stability="stable",
+    introduced="0.1.0",
 )
 @diff_app.command()
 def explain(
@@ -905,24 +1360,67 @@ def explain(
 
 @docs(
     command="brain testllm test",
-    category="llm",
+    category="testllm",
+
     examples=[
         "brain testllm test",
     ],
+
     related=[
         "brain diff review",
     ],
+
     outputs=[],
+
+    consumes=[
+        "llm configuration",
+    ],
+
+    produces=[
+        "provider connectivity report",
+    ],
+
+    prerequisites=[
+        "brain project init",
+        "brain project doctor",
+    ],
+
+    use_cases=[
+        "LLM Setup",
+        "Provider Validation",
+        "Environment Verification",
+    ],
+
+    personas=[
+        "developer",
+    ],
+
+    tags=[
+        "llm",
+        "provider",
+        "diagnostics",
+    ],
+
     gifs=[],
+
     errors=[
         "LLM_PROVIDER_FAILURE",
     ],
+
     notes=[
         "Verifies configured LLM provider connectivity.",
     ],
+
     edge_cases=[
         "Provider must be configured in brain.yaml.",
     ],
+    workflow=[
+        "brain testllm test",
+        "brain diff review",
+    ],
+
+    stability="stable",
+    introduced="0.1.0",
 )
 @llm_app.command()
 def test():

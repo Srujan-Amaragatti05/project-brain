@@ -1,0 +1,918 @@
+{
+  "project": {
+    "brain_project_init": {
+      "command": "brain project init",
+      "help": "Initialize project-brain in the current directory",
+      "parameters": [],
+      "metadata": {
+        "command": "brain project init",
+        "category": "project",
+        "examples": [
+          "brain project init"
+        ],
+        "related": [
+          "brain project analyze",
+          "brain project doctor"
+        ],
+        "outputs": [
+          ".brain/",
+          "brain.yaml"
+        ],
+        "consumes": [],
+        "produces": [
+          ".brain/",
+          ".brain/cache/",
+          ".brain/data.json",
+          ".brain/index.json",
+          "brain.yaml"
+        ],
+        "prerequisites": [],
+        "use_cases": [
+          "Project Setup",
+          "First Time Installation"
+        ],
+        "personas": [
+          "developer",
+          "maintainer"
+        ],
+        "tags": [
+          "setup",
+          "bootstrap",
+          "initialization"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
+        "gifs": [
+          "init.gif"
+        ],
+        "errors": [],
+        "notes": [
+          "Safe to rerun."
+        ],
+        "edge_cases": [
+          "Existing files are preserved."
+        ],
+        "workflow": [
+          "brain project init",
+          "brain project analyze",
+          "brain project summary"
+        ]
+      },
+      "navigation": {
+        "prev": null,
+        "next": {
+          "title": "brain project analyze",
+          "category": "project",
+          "slug": "brain_project_analyze"
+        }
+      }
+    },
+    "brain_project_analyze": {
+      "command": "brain project analyze",
+      "help": "Analyze repository structure using AST parsing.\n\nExtracts:\n- files\n- functions\n- classes\n- metadata\n\nStores results inside:\n.brain/data.json\n\nExample:\n    brain project analyze .",
+      "parameters": [
+        {
+          "name": "path",
+          "required": false,
+          "default": ".",
+          "type": "str",
+          "kind": "argument",
+          "help": "Repository path to analyze"
+        }
+      ],
+      "metadata": {
+        "command": "brain project analyze",
+        "category": "project",
+        "examples": [
+          "brain project analyze .",
+          "brain project analyze ./src"
+        ],
+        "related": [
+          "brain project summary",
+          "brain project doctor"
+        ],
+        "outputs": [
+          ".brain/data.json"
+        ],
+        "consumes": [
+          ".brain/",
+          "source code"
+        ],
+        "produces": [
+          ".brain/data.json"
+        ],
+        "prerequisites": [
+          "brain project init"
+        ],
+        "use_cases": [
+          "Repository Analysis",
+          "Project Onboarding",
+          "Code Understanding"
+        ],
+        "personas": [
+          "developer",
+          "architect",
+          "reviewer"
+        ],
+        "tags": [
+          "analysis",
+          "ast",
+          "repository"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
+        "gifs": [
+          "analyze.gif"
+        ],
+        "errors": [
+          "NOT_GIT_REPO"
+        ],
+        "notes": [
+          "Uses AST parsing for repository analysis."
+        ],
+        "edge_cases": [
+          "Large repositories may take longer to analyze."
+        ],
+        "workflow": [
+          "brain project init",
+          "brain project analyze",
+          "brain project summary"
+        ]
+      },
+      "navigation": {
+        "prev": {
+          "title": "brain project init",
+          "category": "project",
+          "slug": "brain_project_init"
+        },
+        "next": {
+          "title": "brain project summary",
+          "category": "project",
+          "slug": "brain_project_summary"
+        }
+      }
+    },
+    "brain_project_summary": {
+      "command": "brain project summary",
+      "help": "Summarize the analyzed data",
+      "parameters": [],
+      "metadata": {
+        "command": "brain project summary",
+        "category": "project",
+        "examples": [
+          "brain project summary"
+        ],
+        "related": [
+          "brain project analyze"
+        ],
+        "outputs": [
+          "terminal summary"
+        ],
+        "consumes": [
+          ".brain/data.json"
+        ],
+        "produces": [
+          "terminal summary"
+        ],
+        "prerequisites": [
+          "brain project analyze"
+        ],
+        "use_cases": [
+          "Repository Analysis",
+          "Project Onboarding"
+        ],
+        "personas": [
+          "developer",
+          "architect"
+        ],
+        "tags": [
+          "summary",
+          "analysis"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
+        "gifs": [],
+        "errors": [],
+        "notes": [
+          "Displays summarized repository analysis."
+        ],
+        "edge_cases": [
+          "Requires previous analysis."
+        ],
+        "workflow": [
+          "brain project analyze",
+          "brain project summary"
+        ]
+      },
+      "navigation": {
+        "prev": {
+          "title": "brain project analyze",
+          "category": "project",
+          "slug": "brain_project_analyze"
+        },
+        "next": {
+          "title": "brain project doctor",
+          "category": "project",
+          "slug": "brain_project_doctor"
+        }
+      }
+    },
+    "brain_project_doctor": {
+      "command": "brain project doctor",
+      "help": "Repository diagnostics and environment health checks.",
+      "parameters": [],
+      "metadata": {
+        "command": "brain project doctor",
+        "category": "project",
+        "examples": [
+          "brain project doctor"
+        ],
+        "related": [
+          "brain project init",
+          "brain project analyze"
+        ],
+        "outputs": [
+          "terminal diagnostics"
+        ],
+        "consumes": [
+          "repository configuration"
+        ],
+        "produces": [
+          "health report"
+        ],
+        "prerequisites": [],
+        "use_cases": [
+          "Troubleshooting",
+          "Environment Validation"
+        ],
+        "personas": [
+          "developer",
+          "maintainer"
+        ],
+        "tags": [
+          "healthcheck",
+          "diagnostics"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
+        "gifs": [
+          "doctor.gif"
+        ],
+        "errors": [
+          "NOT_GIT_REPO"
+        ],
+        "notes": [
+          "Runs repository and environment diagnostics."
+        ],
+        "edge_cases": [
+          "Some checks depend on internet connectivity."
+        ],
+        "workflow": [
+          "brain project doctor"
+        ]
+      },
+      "navigation": {
+        "prev": {
+          "title": "brain project summary",
+          "category": "project",
+          "slug": "brain_project_summary"
+        },
+        "next": {
+          "title": "brain diff show",
+          "category": "diff",
+          "slug": "brain_diff_show"
+        }
+      }
+    }
+  },
+  "diff": {
+    "brain_diff_show": {
+      "command": "brain diff show",
+      "help": "Show semantic git differences between references.",
+      "parameters": [
+        {
+          "name": "from_ref",
+          "required": false,
+          "default": null,
+          "type": "str",
+          "kind": "argument",
+          "help": "Starting git reference"
+        },
+        {
+          "name": "to_ref",
+          "required": false,
+          "default": null,
+          "type": "str",
+          "kind": "argument",
+          "help": "Ending git reference"
+        }
+      ],
+      "metadata": {
+        "command": "brain diff show",
+        "category": "diff",
+        "examples": [
+          "brain diff show",
+          "brain diff show HEAD~3 HEAD",
+          "brain diff show main dev"
+        ],
+        "related": [
+          "brain diff review",
+          "brain export code-changes"
+        ],
+        "outputs": [],
+        "consumes": [
+          "git repository",
+          "git history"
+        ],
+        "produces": [
+          "terminal diff report"
+        ],
+        "prerequisites": [],
+        "use_cases": [
+          "Code Review",
+          "Git Investigation",
+          "Change Analysis"
+        ],
+        "personas": [
+          "developer",
+          "reviewer",
+          "maintainer"
+        ],
+        "tags": [
+          "git",
+          "diff",
+          "review",
+          "changes"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
+        "gifs": [
+          "diff.gif"
+        ],
+        "errors": [
+          "INVALID_GIT_REF",
+          "NOT_GIT_REPO"
+        ],
+        "notes": [
+          "Supports file-level and function-level diff modes."
+        ],
+        "edge_cases": [
+          "Requires valid git history."
+        ],
+        "workflow": [
+          "brain diff show"
+        ]
+      },
+      "navigation": {
+        "prev": {
+          "title": "brain project doctor",
+          "category": "project",
+          "slug": "brain_project_doctor"
+        },
+        "next": {
+          "title": "brain diff review",
+          "category": "diff",
+          "slug": "brain_diff_review"
+        }
+      }
+    },
+    "brain_diff_review": {
+      "command": "brain diff review",
+      "help": "Explain code changes using LLM",
+      "parameters": [
+        {
+          "name": "from_ref",
+          "required": false,
+          "default": null,
+          "type": "str",
+          "kind": "argument",
+          "help": "Starting git reference"
+        },
+        {
+          "name": "to_ref",
+          "required": false,
+          "default": null,
+          "type": "str",
+          "kind": "argument",
+          "help": "Ending git reference"
+        }
+      ],
+      "metadata": {
+        "command": "brain diff review",
+        "category": "diff",
+        "examples": [
+          "brain diff review",
+          "brain diff review HEAD~1 HEAD"
+        ],
+        "related": [
+          "brain diff show",
+          "brain export code-changes"
+        ],
+        "outputs": [
+          ".brain/reports/*.json",
+          ".brain/reports/*.html"
+        ],
+        "consumes": [
+          "git history"
+        ],
+        "produces": [
+          ".brain/reports/*.json",
+          ".brain/reports/*.html"
+        ],
+        "prerequisites": [
+          "brain testllm test"
+        ],
+        "use_cases": [
+          "AI Code Review",
+          "Pull Request Review",
+          "Code Change Explanation"
+        ],
+        "personas": [
+          "developer",
+          "reviewer",
+          "tech lead"
+        ],
+        "tags": [
+          "llm",
+          "git",
+          "review",
+          "changes"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
+        "gifs": [
+          "review.gif"
+        ],
+        "errors": [
+          "INVALID_GIT_REF",
+          "LLM_PROVIDER_FAILURE"
+        ],
+        "notes": [
+          "Uses configured LLM provider to explain changes."
+        ],
+        "edge_cases": [
+          "Large diffs may increase LLM response time."
+        ],
+        "workflow": [
+          "brain diff show",
+          "brain diff review"
+        ]
+      },
+      "navigation": {
+        "prev": {
+          "title": "brain diff show",
+          "category": "diff",
+          "slug": "brain_diff_show"
+        },
+        "next": {
+          "title": "brain diff explain",
+          "category": "diff",
+          "slug": "brain_diff_explain"
+        }
+      }
+    },
+    "brain_diff_explain": {
+      "command": "brain diff explain",
+      "help": "Explain a file or function",
+      "parameters": [
+        {
+          "name": "target",
+          "required": false,
+          "default": "REQUIRED",
+          "type": "str",
+          "kind": "argument",
+          "help": "File path or file:function target"
+        }
+      ],
+      "metadata": {
+        "command": "brain diff explain",
+        "category": "diff",
+        "examples": [
+          "brain diff explain src/main.py",
+          "brain diff explain src/main.py:function_name"
+        ],
+        "related": [
+          "brain diff review"
+        ],
+        "outputs": [],
+        "consumes": [
+          "source code"
+        ],
+        "produces": [
+          "terminal explanation"
+        ],
+        "prerequisites": [
+          "brain testllm test"
+        ],
+        "use_cases": [
+          "Code Understanding",
+          "Developer Onboarding",
+          "Function Investigation"
+        ],
+        "personas": [
+          "developer",
+          "new contributor",
+          "reviewer"
+        ],
+        "tags": [
+          "llm",
+          "explanation",
+          "code"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
+        "gifs": [
+          "explain.gif"
+        ],
+        "errors": [],
+        "notes": [
+          "Supports file-level and function-level explanation."
+        ],
+        "edge_cases": [
+          "Function name must exist in file."
+        ],
+        "workflow": [
+          "brain project analyze",
+          "brain diff explain"
+        ]
+      },
+      "navigation": {
+        "prev": {
+          "title": "brain diff review",
+          "category": "diff",
+          "slug": "brain_diff_review"
+        },
+        "next": {
+          "title": "brain export full-code",
+          "category": "export",
+          "slug": "brain_export_full-code"
+        }
+      }
+    }
+  },
+  "export": {
+    "brain_export_full-code": {
+      "command": "brain export full-code",
+      "help": "Export entire codebase into structured file",
+      "parameters": [],
+      "metadata": {
+        "command": "brain export full-code",
+        "category": "export",
+        "examples": [
+          "brain export full-code"
+        ],
+        "related": [
+          "brain export file",
+          "brain export dir"
+        ],
+        "outputs": [
+          ".brain/exports/full_code.txt"
+        ],
+        "consumes": [
+          "repository source code"
+        ],
+        "produces": [
+          ".brain/exports/full_code.txt"
+        ],
+        "prerequisites": [],
+        "use_cases": [
+          "LLM Context Export",
+          "Repository Sharing",
+          "AI Analysis"
+        ],
+        "personas": [
+          "developer",
+          "architect",
+          "ai assistant"
+        ],
+        "tags": [
+          "export",
+          "repository",
+          "llm"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
+        "gifs": [
+          "full_code.gif"
+        ],
+        "errors": [],
+        "notes": [
+          "Exports repository into AI-friendly format."
+        ],
+        "edge_cases": [
+          "Large repositories generate large export files."
+        ],
+        "workflow": [
+          "brain project analyze",
+          "brain export full-code"
+        ]
+      },
+      "navigation": {
+        "prev": {
+          "title": "brain diff explain",
+          "category": "diff",
+          "slug": "brain_diff_explain"
+        },
+        "next": {
+          "title": "brain export file",
+          "category": "export",
+          "slug": "brain_export_file"
+        }
+      }
+    },
+    "brain_export_file": {
+      "command": "brain export file",
+      "help": "Manually add a single file to export",
+      "parameters": [
+        {
+          "name": "path",
+          "required": false,
+          "default": "REQUIRED",
+          "type": "str",
+          "kind": "argument",
+          "help": "File path to include"
+        }
+      ],
+      "metadata": {
+        "command": "brain export file",
+        "category": "export",
+        "examples": [
+          "brain export file src/main.py"
+        ],
+        "related": [
+          "brain export full-code",
+          "brain export dir"
+        ],
+        "outputs": [
+          ".brain/exports/manual_export.txt"
+        ],
+        "consumes": [
+          "single file"
+        ],
+        "produces": [
+          ".brain/exports/manual_export.txt"
+        ],
+        "prerequisites": [],
+        "use_cases": [
+          "Targeted Export",
+          "File Sharing"
+        ],
+        "personas": [
+          "developer"
+        ],
+        "tags": [
+          "export",
+          "file"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
+        "gifs": [],
+        "errors": [],
+        "notes": [
+          "Adds a single file into export bundle."
+        ],
+        "edge_cases": [
+          "File must exist."
+        ],
+        "workflow": [
+          "brain export file"
+        ]
+      },
+      "navigation": {
+        "prev": {
+          "title": "brain export full-code",
+          "category": "export",
+          "slug": "brain_export_full-code"
+        },
+        "next": {
+          "title": "brain export dir",
+          "category": "export",
+          "slug": "brain_export_dir"
+        }
+      }
+    },
+    "brain_export_dir": {
+      "command": "brain export dir",
+      "help": "Manually add a directory to export",
+      "parameters": [
+        {
+          "name": "path",
+          "required": false,
+          "default": "REQUIRED",
+          "type": "str",
+          "kind": "argument",
+          "help": "Directory path to include"
+        }
+      ],
+      "metadata": {
+        "command": "brain export dir",
+        "category": "export",
+        "examples": [
+          "brain export dir src/"
+        ],
+        "related": [
+          "brain export full-code",
+          "brain export file"
+        ],
+        "outputs": [
+          ".brain/exports/manual_export.txt"
+        ],
+        "consumes": [
+          "directory"
+        ],
+        "produces": [
+          ".brain/exports/manual_export.txt"
+        ],
+        "prerequisites": [],
+        "use_cases": [
+          "Targeted Export",
+          "Folder Sharing"
+        ],
+        "personas": [
+          "developer"
+        ],
+        "tags": [
+          "export",
+          "directory"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
+        "gifs": [],
+        "errors": [],
+        "notes": [
+          "Adds directory recursively into export bundle."
+        ],
+        "edge_cases": [
+          "Large directories increase export size."
+        ],
+        "workflow": [
+          "brain export dir"
+        ]
+      },
+      "navigation": {
+        "prev": {
+          "title": "brain export file",
+          "category": "export",
+          "slug": "brain_export_file"
+        },
+        "next": {
+          "title": "brain export code-changes",
+          "category": "export",
+          "slug": "brain_export_code-changes"
+        }
+      }
+    },
+    "brain_export_code-changes": {
+      "command": "brain export code-changes",
+      "help": "Export changed code between two git references",
+      "parameters": [
+        {
+          "name": "from_ref",
+          "required": false,
+          "default": "REQUIRED",
+          "type": "str",
+          "kind": "argument",
+          "help": "Starting git reference"
+        },
+        {
+          "name": "to_ref",
+          "required": false,
+          "default": "REQUIRED",
+          "type": "str",
+          "kind": "argument",
+          "help": "Ending git reference"
+        }
+      ],
+      "metadata": {
+        "command": "brain export code-changes",
+        "category": "export",
+        "examples": [
+          "brain export code-changes HEAD~1 HEAD"
+        ],
+        "related": [
+          "brain diff show",
+          "brain diff review"
+        ],
+        "outputs": [
+          ".brain/exports/code-changes.txt"
+        ],
+        "consumes": [
+          "git history"
+        ],
+        "produces": [
+          ".brain/exports/code-changes.txt"
+        ],
+        "prerequisites": [
+          "brain diff show"
+        ],
+        "use_cases": [
+          "PR Export",
+          "Change Review",
+          "LLM Review"
+        ],
+        "personas": [
+          "developer",
+          "reviewer"
+        ],
+        "tags": [
+          "git",
+          "changes",
+          "export"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
+        "gifs": [],
+        "errors": [
+          "INVALID_GIT_REF"
+        ],
+        "notes": [
+          "Exports changed files between git references."
+        ],
+        "edge_cases": [
+          "Requires valid git history."
+        ],
+        "workflow": [
+          "brain diff show",
+          "brain export code-changes"
+        ]
+      },
+      "navigation": {
+        "prev": {
+          "title": "brain export dir",
+          "category": "export",
+          "slug": "brain_export_dir"
+        },
+        "next": {
+          "title": "brain testllm test",
+          "category": "testllm",
+          "slug": "brain_testllm_test"
+        }
+      }
+    }
+  },
+  "testllm": {
+    "brain_testllm_test": {
+      "command": "brain testllm test",
+      "help": "Test configured LLM provider connectivity.",
+      "parameters": [],
+      "metadata": {
+        "command": "brain testllm test",
+        "category": "testllm",
+        "examples": [
+          "brain testllm test"
+        ],
+        "related": [
+          "brain diff review"
+        ],
+        "outputs": [],
+        "consumes": [
+          "llm configuration"
+        ],
+        "produces": [
+          "provider connectivity report"
+        ],
+        "prerequisites": [
+          "brain project init",
+          "brain project doctor"
+        ],
+        "use_cases": [
+          "LLM Setup",
+          "Provider Validation",
+          "Environment Verification"
+        ],
+        "personas": [
+          "developer"
+        ],
+        "tags": [
+          "llm",
+          "provider",
+          "diagnostics"
+        ],
+        "stability": "stable",
+        "introduced": "0.1.0",
+        "gifs": [],
+        "errors": [
+          "LLM_PROVIDER_FAILURE"
+        ],
+        "notes": [
+          "Verifies configured LLM provider connectivity."
+        ],
+        "edge_cases": [
+          "Provider must be configured in brain.yaml."
+        ],
+        "workflow": [
+          "brain testllm test",
+          "brain diff review"
+        ]
+      },
+      "navigation": {
+        "prev": {
+          "title": "brain export code-changes",
+          "category": "export",
+          "slug": "brain_export_code-changes"
+        },
+        "next": null
+      }
+    }
+  }
+}

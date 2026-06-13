@@ -1,0 +1,98 @@
+{
+  "brain project init": {
+    "examples": true,
+    "workflow": true,
+    "personas": true,
+    "use_cases": true,
+    "gifs": true,
+    "errors": false
+  },
+  "brain project analyze": {
+    "examples": true,
+    "workflow": true,
+    "personas": true,
+    "use_cases": true,
+    "gifs": true,
+    "errors": true
+  },
+  "brain project summary": {
+    "examples": true,
+    "workflow": true,
+    "personas": true,
+    "use_cases": true,
+    "gifs": false,
+    "errors": false
+  },
+  "brain project doctor": {
+    "examples": true,
+    "workflow": true,
+    "personas": true,
+    "use_cases": true,
+    "gifs": true,
+    "errors": true
+  },
+  "brain diff show": {
+    "examples": true,
+    "workflow": true,
+    "personas": true,
+    "use_cases": true,
+    "gifs": true,
+    "errors": true
+  },
+  "brain diff review": {
+    "examples": true,
+    "workflow": true,
+    "personas": true,
+    "use_cases": true,
+    "gifs": true,
+    "errors": true
+  },
+  "brain diff explain": {
+    "examples": true,
+    "workflow": true,
+    "personas": true,
+    "use_cases": true,
+    "gifs": true,
+    "errors": false
+  },
+  "brain export full-code": {
+    "examples": true,
+    "workflow": true,
+    "personas": true,
+    "use_cases": true,
+    "gifs": true,
+    "errors": false
+  },
+  "brain export file": {
+    "examples": true,
+    "workflow": true,
+    "personas": true,
+    "use_cases": true,
+    "gifs": false,
+    "errors": false
+  },
+  "brain export dir": {
+    "examples": true,
+    "workflow": true,
+    "personas": true,
+    "use_cases": true,
+    "gifs": false,
+    "errors": false
+  },
+  "brain export code-changes": {
+    "examples": true,
+    "workflow": true,
+    "personas": true,
+    "use_cases": true,
+    "gifs": false,
+    "errors": true
+  },
+  "brain testllm test": {
+    "examples": true,
+    "workflow": true,
+    "personas": true,
+    "use_cases": true,
+    "gifs": false,
+    "errors": true
+  }
+}

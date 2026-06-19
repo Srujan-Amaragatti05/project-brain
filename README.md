@@ -186,7 +186,7 @@ brain diff show
 ```
 Demo:
 ---
-![](demo/gifs/diff.gif)
+![](demo/gifs/diff_show.gif)
 ---
 Default behavior:
 
@@ -210,7 +210,7 @@ brain export full-code
 ```
 Demo:
 ---
-![](demo/gifs/full_code.gif)
+![](demo/gifs/export_full_code.gif)
 ---
 Creates:
 

@@ -72,7 +72,7 @@ _None_
 
 ## Demo
 
-_No demo available._
+![Demo: testllm.gif](../../../demo/gifs/testllm.gif)
 
 
 ---
@@ -81,31 +81,33 @@ _No demo available._
 
 ### When would I use this?
 
-Use this command when you need to verify that your LLM provider is correctly configured and reachable. It is the primary tool for troubleshooting connection issues between your environment and the LLM API.
+Use this command to verify that your environment is correctly connected to the configured Large Language Model (LLM) provider. It is the primary diagnostic step to ensure that API keys, network settings, and provider availability are functioning as expected before running resource-intensive operations.
 
 ### How it fits in the workflow
 
-Before initiating complex tasks like `brain diff review` or executing automated code generation, run this command to ensure your credentials and API endpoints are functional. It serves as a pre-flight check to validate that the underlying communication channel is stable.
+1. **Configuration**: Edit `brain.yaml` to define your LLM provider and credentials.
+2. **Verification**: Execute `brain testllm test` to confirm the handshake with the provider.
+3. **Execution**: Proceed to use features like `brain diff review` once the connectivity report confirms a successful status.
 
 ### Practical tips
 
-*   Run this command immediately after updating your `brain.yaml` file to confirm your API keys are valid.
-*   Use this as the first step in your debugging process if you receive unexpected response errors during normal operation.
-*   Incorporate this into your CI/CD pipeline or environment setup scripts to ensure developers have configured their local access correctly.
+*   Run this command immediately after updating your `brain.yaml` file to validate syntax and credential integrity.
+*   If you are switching between different LLM providers, use this command to ensure the new configuration is active and responsive.
+*   Integrate this into your local environment setup script to ensure all dependencies are reachable for team members.
 
 ### Common failure causes
 
-*   **LLM_PROVIDER_FAILURE**: The configured provider is returning an error, usually due to an expired API key, network restrictions, or service outages.
-*   **Misconfiguration**: The credentials or endpoint URL defined in `brain.yaml` are incorrect or improperly formatted.
-*   **Network/Proxy**: Local firewall settings or corporate proxy requirements are blocking the connection to the LLM provider's API.
+*   **LLM_PROVIDER_FAILURE**: The configured provider is returning an error (e.g., 401 Unauthorized, 429 Too Many Requests, or 503 Service Unavailable).
+*   **Missing Configuration**: The `brain.yaml` file is missing the required provider settings or is incorrectly formatted.
+*   **Network Restrictions**: Corporate firewalls or proxy settings are blocking the outbound connection to the LLM API endpoints.
 
 ### FAQ
 
-**Does this command consume tokens?**
-No, this is a connectivity check and does not perform significant processing, though it may trigger a minor heartbeat request depending on your provider.
+**Does this command send data to the LLM?**
+No, it only performs a lightweight handshake to test connectivity.
 
-**What if I receive an LLM_PROVIDER_FAILURE error?**
-Check your `brain.yaml` file to ensure the provider is correctly defined and that your API credentials have not expired. Verify your internet connection or proxy settings if necessary.
+**What should I do if the test fails?**
+Check your `brain.yaml` file for valid API keys and ensure your network environment allows traffic to the LLM provider's API.
 
-**Is it required to run this every time?**
-No, it is only necessary when you suspect connectivity issues or after modifying your configuration.
+**Do I need an internet connection to run this?**
+Yes, the command requires an active connection to reach the external LLM provider service.

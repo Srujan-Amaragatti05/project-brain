@@ -83,7 +83,7 @@ _None_
 
 ## Demo
 
-![Demo: diff.gif](../../../demo/gifs/diff.gif)
+![Demo: diff_show.gif](../../../demo/gifs/diff_show.gif)
 
 
 ---
@@ -92,33 +92,31 @@ _None_
 
 ### When would I use this?
 
-Use `brain diff show` to perform a semantic analysis of code changes between two git references. This command is ideal for understanding the logic behind a commit or a branch merge rather than relying on standard line-by-line diffs.
+Use `brain diff show` to identify semantic changes between two git references. It is ideal for code reviews, auditing logic shifts, or summarizing modifications between branches, commits, or tags.
 
 ### How it fits in the workflow
 
-1.  **Code Review:** Use this to gain a high-level overview of complex changes before performing a line-by-line manual audit.
-2.  **Context Switching:** Use it when returning to a long-running feature branch to quickly summarize the semantic intent of your recent work.
-3.  **Debugging:** Use it to isolate changes in specific functions across commits to identify when a particular behavior was introduced.
+This command consumes the `git repository` and `git history` to generate a `terminal diff report`. It acts as an intermediary step during development cycles, positioned between initial code modification and final review, helping developers isolate logic changes rather than just raw character differences.
 
 ### Practical tips
 
-*   **Specify references:** Run `brain diff show HEAD~3 HEAD` to review the semantic evolution of the last three commits.
-*   **Compare branches:** Use `brain diff show main dev` to see the functional differences between your current development branch and the production baseline.
-*   **Target scopes:** Leverage the built-in support for function-level diffs when you need to ignore boilerplate changes and focus on logic updates.
+*   **Compare recent progress:** Use `brain diff show HEAD~3 HEAD` to review the last three commits for a quick pulse check on your current feature branch.
+*   **Branch validation:** Use `brain diff show main dev` to see exactly what logic has drifted between your development and production branches before merging.
+*   **Targeted analysis:** Utilize the file-level or function-level modes to filter noise and focus specifically on high-impact areas of the codebase.
 
 ### Common failure causes
 
-*   **NOT_GIT_REPO:** The command is being executed outside of a initialized git directory.
-*   **INVALID_GIT_REF:** One or both of the provided commit hashes, tags, or branch names do not exist in the current repository history.
-*   **Insufficient History:** The repository lacks enough commit history to perform a meaningful comparison between the specified references.
+*   **NOT_GIT_REPO:** Executing the command outside of a directory initialized with git.
+*   **INVALID_GIT_REF:** Providing reference strings (such as commit hashes, branch names, or tags) that do not exist or are malformed within the current history.
+*   **Insufficient history:** Attempting to diff references that do not share a common ancestor or exist in a shallow clone where history has been truncated.
 
 ### FAQ
 
-**Q: Does this replace `git diff`?**  
-A: No, it complements it. While `git diff` shows textual changes, `brain diff show` highlights the semantic impact of the code changes.
+**Does this command show raw line changes or semantic changes?**
+The command focuses on semantic differences, meaning it identifies changes in code structure, function logic, and behavioral patterns rather than simple character-based line additions or deletions.
 
-**Q: Can I use this for non-git directories?**  
-A: No, this command requires a valid git repository to track references and history.
+**Can I use this without arguments?**
+Yes, running `brain diff show` without parameters defaults to standard reference comparisons, typically between the last commit and the current working state.
 
-**Q: Does it support file-level filtering?**  
-A: Yes, the tool supports both file-level and function-level modes to help you narrow down the analysis to specific areas of your codebase.
+**Does this produce permanent side effects?**
+No, this is a read-only operation. It only produces a `terminal diff report` and does not modify the git repository or state.

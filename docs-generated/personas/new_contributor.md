@@ -10,28 +10,27 @@
 
 **Workflow:** ['brain project analyze', 'brain project summary', 'brain diff explain']
 
-**Commands:** ['brain diff explain']
-
 ## Typical Responsibilities
 
-*   Environment setup and dependency installation.
-*   Exploring the project structure and architectural patterns.
-*   Reading documentation and understanding codebase conventions.
-*   Reviewing existing pull requests to understand peer review expectations.
-*   Executing initial bug fixes or documentation improvements.
+*   Reviewing existing documentation and architectural overviews.
+*   Identifying key entry points and core modules within the repository.
+*   Familiarizing oneself with the CI/CD pipeline and local development setup.
+*   Analyzing existing pull requests to understand code quality standards and patterns.
+*   Executing exploratory tasks to grasp the project's logic and business domain.
 
 ## Recommended Approach
 
-1.  **Analyze:** Use `brain project analyze` to get a high-level overview of the repository structure and key modules.
-2.  **Summarize:** Run `brain project summary` to gain context on the core functionalities and current project focus.
-3.  **Contextualize:** Use `brain diff explain` on recent commits or pull requests to understand how features are implemented and how the team writes code.
-4.  **Experiment:** Start with minor issues labeled "good first issue" to gain familiarity with the development cycle.
+1.  **Project Analysis:** Start by using `brain project analyze` to get a high-level overview of the architectural structure and dependencies.
+2.  **Summarization:** Run `brain project summary` to extract the core purpose, feature sets, and critical paths of the codebase.
+3.  **Contextual Learning:** Select a few merged pull requests and utilize `brain diff explain` to understand the rationale behind specific code changes and how they integrate into the system.
+4.  **Environment Setup:** Follow repository-specific setup guides to ensure the local development environment mirrors production standards.
 
 ## Common Scenarios
 
-*   **Initial Repository Exploration:** Determining where the main logic, tests, and configuration files reside.
-*   **Understanding Feature Implementation:** Reviewing specific commits to see how a new feature or fix was integrated into the codebase.
-*   **Onboarding:** Transitioning from reading documentation to actively navigating and contributing to the project files.
+*   **Onboarding:** A developer joins the team and needs an accelerated path to contributing their first commit.
+*   **Codebase Exploration:** Researching how a specific feature is implemented to avoid duplicating logic or introducing regressions.
+*   **PR Review Preparation:** Getting up to speed on a specific subsystem before taking on tasks or reviewing code for that area.
+*   **Debugging Assistance:** Using historical diffs to understand when and why a particular configuration or piece of logic was introduced.
 
 ---
 

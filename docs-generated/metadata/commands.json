@@ -171,7 +171,9 @@
         ],
         "stability": "stable",
         "introduced": "0.1.0",
-        "gifs": [],
+        "gifs": [
+          "summary.gif"
+        ],
         "errors": [],
         "notes": [
           "Displays summarized repository analysis."
@@ -299,9 +301,9 @@
           "changes"
         ],
         "stability": "stable",
-        "introduced": "0.1.0",
+        "introduced": "0.3.0",
         "gifs": [
-          "diff.gif"
+          "diff_show.gif"
         ],
         "errors": [
           "INVALID_GIT_REF",
@@ -381,9 +383,9 @@
           "changes"
         ],
         "stability": "stable",
-        "introduced": "0.1.0",
+        "introduced": "0.3.0",
         "gifs": [
-          "review.gif"
+          "diff_review.gif"
         ],
         "errors": [
           "INVALID_GIT_REF",
@@ -452,7 +454,7 @@
         "stability": "stable",
         "introduced": "0.1.0",
         "gifs": [
-          "explain.gif"
+          "explain_file.gif"
         ],
         "errors": [],
         "notes": [
@@ -509,7 +511,7 @@
         "stability": "stable",
         "introduced": "0.1.0",
         "gifs": [
-          "full_code.gif"
+          "export_full_code.gif"
         ],
         "errors": [],
         "notes": [
@@ -570,7 +572,9 @@
         ],
         "stability": "stable",
         "introduced": "0.1.0",
-        "gifs": [],
+        "gifs": [
+          "export_file.gif"
+        ],
         "errors": [],
         "notes": [
           "Adds a single file into export bundle."
@@ -629,7 +633,9 @@
         ],
         "stability": "stable",
         "introduced": "0.1.0",
-        "gifs": [],
+        "gifs": [
+          "export_dir.gif"
+        ],
         "errors": [],
         "notes": [
           "Adds directory recursively into export bundle."
@@ -701,7 +707,9 @@
         ],
         "stability": "stable",
         "introduced": "0.1.0",
-        "gifs": [],
+        "gifs": [
+          "code_changes.gif"
+        ],
         "errors": [
           "INVALID_GIT_REF"
         ],
@@ -756,7 +764,9 @@
         ],
         "stability": "stable",
         "introduced": "0.1.0",
-        "gifs": [],
+        "gifs": [
+          "testllm.gif"
+        ],
         "errors": [
           "LLM_PROVIDER_FAILURE"
         ],

@@ -73,7 +73,7 @@ _None_
 
 ## Demo
 
-_No demo available._
+![Demo: export_file.gif](../../../demo/gifs/export_file.gif)
 
 
 ---
@@ -82,31 +82,34 @@ _No demo available._
 
 ### When would I use this?
 
-Use `brain export file` when you need to selectively include a single, specific file in your export bundle rather than generating a full repository dump or an entire directory. This is ideal for sharing individual configuration files, specific logic modules, or debugging isolated code segments.
+Use this command when you need to selectively include a specific source file in your project export bundle without including the entire directory or repository. This is ideal for isolating specific modules, configuration files, or documentation pieces for targeted review or sharing.
 
 ### How it fits in the workflow
 
-This command acts as a surgical tool within your versioning or documentation pipeline. By integrating it into your workflow, you maintain a clean export structure, allowing you to curate the content of your output manually. It typically serves as a building block for automated scripts where only unique or modified files need to be bundled for review or transfer.
+This command acts as a granular control mechanism within the `brain export` ecosystem. After identifying specific files that require external analysis or backup, you run `brain export file` to add them to the `.brain/exports/manual_export.txt` manifest. It functions as a precise alternative to `brain export full-code` or `brain export dir`, allowing you to curate the final export contents incrementally.
 
 ### Practical tips
 
-*   **Specify Paths Carefully:** Always provide the relative or absolute path from the project root to ensure the correct file is targeted.
-*   **Sequential Execution:** You can run the command multiple times to build a custom bundle of disparate files that do not share a common parent directory.
-*   **Validation:** Use `ls` or your IDE’s file explorer to verify the path before executing the command to avoid "file not found" errors.
+*   **Verify paths:** Ensure the path provided is relative to the project root to maintain consistency in your manifest.
+*   **Incremental addition:** You can run the command multiple times to build a customized export list; each execution appends the specified file to `manual_export.txt`.
+*   **Manifest review:** Always inspect the contents of `.brain/exports/manual_export.txt` after using this command to confirm that the expected files have been correctly registered.
 
 ### Common failure causes
 
-*   **Missing File:** The command will fail if the provided file path does not exist on the filesystem.
-*   **Permission Denied:** Attempting to export a file that your user account does not have read access to.
-*   **Incorrect Pathing:** Providing a path relative to a subdirectory instead of the project root can result in a failure to locate the target.
+*   **Non-existent files:** The command will fail if the provided file path does not point to an existing file in the current working directory.
+*   **Permissions:** Lack of write access to the `.brain/exports/` directory will prevent the command from updating the manifest.
+*   **Typographical errors:** Incorrect file paths will result in a failure to locate the resource, preventing it from being consumed by the export process.
 
 ### FAQ
 
-**Can I export multiple files at once using this command?**
-No, this command is designed to process exactly one file per invocation. For multiple files, you may need to chain the commands or use `brain export dir`.
+**Can I export multiple files at once?**
+No, this command is designed to add one file at a time. To include multiple files, execute the command sequentially for each file path.
 
-**Does this command overwrite existing exports?**
-It adds the specified file to the active export bundle. Ensure your bundle management system handles versioning or appending correctly.
+**Where does the file information go?**
+The command tracks your selections by updating the `.brain/exports/manual_export.txt` file, which serves as the registry for your manual export bundle.
 
-**What happens if I target a directory instead of a file?**
-The command is strictly defined for files; targeting a directory may result in an error or unexpected behavior depending on the underlying implementation. Use `brain export dir` for folder-level operations.
+**What happens if I run the command twice on the same file?**
+The system will attempt to register the file again. Depending on the implementation of the manifest writer, it may either ignore the duplicate or create redundant entries; ensure your workflow accounts for unique file selections.
+
+**Does this command move the file?**
+No, this command only registers the file path within the export system's manifest. It does not alter, move, or duplicate the actual source file until the final export process is triggered.

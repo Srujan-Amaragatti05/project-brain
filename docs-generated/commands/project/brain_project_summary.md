@@ -70,7 +70,7 @@ _None_
 
 ## Demo
 
-_No demo available._
+![Demo: summary.gif](../../../demo/gifs/summary.gif)
 
 
 ---
@@ -79,33 +79,32 @@ _No demo available._
 
 ### When would I use this?
 
-Use this command when you need to generate a high-level overview of a repository's current status, health, or structure after you have completed an initial data examination. It is intended for creating executive reports, team briefings, or quick status updates based on the processed information.
+Use this command when you need to view a concise, high-level overview of a project's repository analysis. It is intended to provide immediate insights after the data has been processed by the analysis engine.
 
 ### How it fits in the workflow
 
-1.  **Analyze**: Execute the `brain project analyze` command to parse the repository data.
-2.  **Summarize**: Run `brain project summary` to condense that technical analysis into a readable report.
-3.  **Review**: Present the summary to stakeholders or use it to inform your next development sprint or refactoring tasks.
+1. Execute `brain project analyze` to process the repository and generate the required data file.
+2. Run `brain project summary` to parse the `.brain/data.json` file and display the distilled findings in the terminal.
 
 ### Practical tips
 
-*   **Run after analysis**: Always ensure `brain project analyze` has been successfully executed in the current session; otherwise, the summary will fail due to missing dependencies.
-*   **Automate updates**: Integrate this command into your CI/CD pipelines to automatically generate project status artifacts after every major commit or nightly build.
-*   **Focus on metrics**: Use the summary output to identify "hot spots" in your code that require immediate developer attention.
+* Ensure you have performed a fresh analysis before running the summary to reflect the most recent state of the codebase.
+* Use the terminal output to quickly identify key metrics or bottlenecks without manually inspecting large JSON files.
+* Pipe the output to other terminal utilities (e.g., `grep` or `less`) if the summary exceeds the visible buffer length.
 
 ### Common failure causes
 
-*   **Missing Analysis Data**: The most frequent cause is attempting to summarize without first running the analysis command.
-*   **Repository Access Issues**: If the tool cannot access the local directory or file structures required for the analysis, the summary output will be incomplete or error out.
-*   **Large Dataset Overload**: On extremely massive repositories, the summary generation may time out if the initial analysis phase was not optimized.
+* **Missing Data:** Attempting to run the command before `brain project analyze` has successfully created the `.brain/data.json` file.
+* **Corrupted Cache:** The underlying `.brain/data.json` file has been modified or corrupted by an external process, preventing the parser from reading it.
+* **Insufficient Permissions:** The user lacks read access to the `.brain/` directory or the data file within it.
 
 ### FAQ
 
-**Q: Can I customize the format of the summary?**
-A: Depending on your current configuration, the summary output usually follows a standardized template; check your local settings to see if alternative report schemas are supported.
+**Does this command modify my source code?**
+No, it is a read-only operation that accesses the JSON data generated during the analysis phase.
 
-**Q: Does this command change my code?**
-A: No, this is a read-only operation. It strictly generates a report based on existing analysis data and does not modify source files.
+**Can I export this summary to a file?**
+The command produces a terminal summary; however, you can redirect the output to a text file using standard shell operators (e.g., `brain project summary > summary.txt`).
 
-**Q: Why is my summary empty?**
-A: This usually indicates that the `brain project analyze` process did not identify any actionable data or that the repository contains no supported file types for the current analysis configuration.
+**Why is the output empty?**
+If the command executes without returning information, verify that the `brain project analyze` process completed successfully and that `.brain/data.json` is not empty.

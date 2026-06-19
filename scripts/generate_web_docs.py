@@ -4,6 +4,7 @@ import copy
 from datetime import UTC, datetime
 import json
 import re
+import shutil
 from pathlib import Path
 
 from lib.atomic_write import safe_write
@@ -14,6 +15,10 @@ INPUT_SIDEBAR = Path("docs-generated/metadata/sidebar.json")
 INPUT_SEARCH = Path("docs-generated/metadata/search-index.json")
 OUTPUT_WEB_DIR = Path("docs-generated/web")
 VERSION_FILE = Path("src/project_brain/__init__.py")
+
+# Assets
+GIF_SOURCE_DIR = Path("demo/gifs")
+GIF_OUTPUT_DIR = OUTPUT_WEB_DIR / "gifs"
 
 
 def get_version() -> str:
@@ -31,6 +36,7 @@ def main():
         raise SystemExit(1)
 
     OUTPUT_WEB_DIR.mkdir(parents=True, exist_ok=True)
+    GIF_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     commands_raw = json.loads(INPUT_COMMANDS.read_text(encoding="utf-8"))["commands"]
     sidebar_raw = json.loads(INPUT_SIDEBAR.read_text(encoding="utf-8"))
@@ -44,6 +50,28 @@ def main():
             print(f"[ERROR] Duplicate command name detected in commands.json: {name}")
             raise SystemExit(1)
         all_cmd_names.add(name)
+
+    # Asset Handling: GIFs
+    referenced_gifs = set()
+    for cmd in commands_raw:
+        gifs = cmd.get("metadata", {}).get("gifs", [])
+        for gif in gifs:
+            referenced_gifs.add(gif)
+
+    for gif_name in referenced_gifs:
+        src_path = GIF_SOURCE_DIR / gif_name
+        dest_path = GIF_OUTPUT_DIR / gif_name
+
+        if not src_path.exists():
+            print(f"[ERROR] GIF asset referenced in metadata does not exist: {src_path}")
+            raise SystemExit(1)
+        
+        # Copy asset
+        try:
+            shutil.copy2(src_path, dest_path)
+        except Exception as e:
+            print(f"[ERROR] Failed to copy GIF {gif_name}: {e}")
+            raise SystemExit(1)
 
     # 3. Optimization: Command Map for O(1) lookups
     commands_map = {cmd["command"]: cmd for cmd in commands_raw}

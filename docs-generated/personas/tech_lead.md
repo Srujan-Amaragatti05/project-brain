@@ -6,35 +6,40 @@
 
 **Description:** Leads engineering decisions and reviews.
 
-**Goals:** ['Review implementations', 'Guide architecture', 'Coordinate development']
+**Goals:**
+* Review implementations
+* Guide architecture
+* Coordinate development
 
-**Workflow:** ['brain project analyze', 'brain diff review', 'brain export code-changes']
+**Workflow:**
+* brain project analyze
+* brain diff review
+* brain export code-changes
 
-**Commands:** ['brain diff review']
+**Commands:**
+* brain diff review
 
 ## Typical Responsibilities
 
-*   **Architectural Oversight:** Establishing technical standards and ensuring long-term maintainability of the codebase.
-*   **Code Quality Assurance:** Performing deep-dive reviews to ensure adherence to design patterns, security standards, and performance benchmarks.
-*   **Technical Mentorship:** guiding engineers through complex challenges and promoting best practices.
-*   **Strategic Alignment:** Bridging the gap between product requirements and technical feasibility.
-*   **Cross-team Coordination:** Synchronizing efforts across engineering pods to prevent technical debt and integration friction.
+* **Technical Oversight:** Setting standards for code quality, architectural patterns, and engineering best practices.
+* **Architecture Design:** Defining the high-level structure of systems and evaluating trade-offs between various technical approaches.
+* **Mentorship:** Providing constructive feedback during code reviews to elevate team skill levels.
+* **Process Optimization:** Streamlining the development lifecycle by identifying bottlenecks and enforcing consistent patterns.
+* **Cross-functional Alignment:** Bridging the gap between product requirements and technical feasibility.
 
 ## Recommended Approach
 
-*   **Systemic Analysis:** Prioritize the use of `brain project analyze` to gain a holistic understanding of the current state before initiating changes.
-*   **Iterative Reviews:** Utilize `brain diff review` to provide granular, constructive feedback that focuses on structural integrity rather than just syntax.
-*   **Incremental Refactoring:** Favor small, verifiable changes exported via `brain export code-changes` to minimize risk and simplify debugging.
-*   **Decoupled Logic:** Enforce strict interface contracts to ensure individual components remain testable and modular.
-*   **Evidence-Based Decisions:** Base architectural pivots on objective data (performance metrics, complexity analysis) rather than subjective preference.
+* **Review-First Mindset:** Prioritize technical debt management and security by rigorously using `brain diff review` before any merge.
+* **Context-Aware Decision Making:** Use `brain project analyze` to deeply understand the existing codebase before proposing architectural pivots or refactors.
+* **Actionable Feedback:** Ensure code review comments are prescriptive, referencing design principles rather than just pointing out syntax errors.
+* **Iterative Refinement:** Utilize `brain export code-changes` to maintain documentation and sync stakeholders on architectural evolution.
 
 ## Common Scenarios
 
-*   **Pull Request Bottlenecks:** Resolving high-complexity code reviews where logic is unclear or violates established architectural patterns.
-*   **Legacy System Integration:** Auditing an existing codebase to determine the most effective path for introducing a new, scalable module.
-*   **Performance Optimization:** Identifying bottlenecks during a project analysis and implementing targeted refactors to improve system throughput.
-*   **Onboarding New Features:** Translating high-level product requirements into actionable architectural blueprints for the engineering team.
-*   **Technical Debt Management:** Conducting scheduled reviews to identify and prioritize the elimination of technical debt that hinders velocity.
+* **Legacy Refactoring:** Analyzing a module to replace outdated patterns with modern, maintainable solutions.
+* **Code Review Bottlenecks:** Resolving complex merge conflicts and ensuring feature implementations align with the long-term system roadmap.
+* **New Feature Kickoff:** Translating high-level product requirements into a technical specification that the rest of the team can execute.
+* **Production Incident Response:** Investigating system failures by analyzing diffs and logs to identify the root cause of regressions.
 
 ---
 

@@ -10,24 +10,25 @@
 
 ## Typical Responsibilities
 
-*   **Codebase Indexing:** Parsing and internalizing the structural and logical dependencies of the provided repository export.
-*   **Contextual Analysis:** Synthesizing provided code snippets to provide high-fidelity answers related to architectural patterns and logic flow.
-*   **Quality Assurance:** Identifying potential bugs, security vulnerabilities, or refactoring opportunities within the exported codebase.
-*   **Knowledge Transfer:** Documenting complex functions and documenting existing implementation details for easier onboarding or maintenance.
+*   Parsing and indexing repository structures and source code files.
+*   Synthesizing high-level summaries of complex logic and architecture.
+*   Identifying potential bugs, security vulnerabilities, or refactoring opportunities within the codebase.
+*   Drafting documentation, docstrings, and commit messages based on code changes.
+*   Assisting developers in navigating large codebases by providing cross-reference context.
 
 ## Recommended Approach
 
-1.  **Initialization:** Execute `brain export full-code` to ensure the most recent state of the repository is available for analysis.
-2.  **Contextual Mapping:** Build a dependency graph of the codebase to understand how modules interact before performing deep analysis.
-3.  **Iterative Querying:** Break down complex codebases into logical segments (e.g., by service, module, or feature) to maintain clarity.
-4.  **Verification:** Cross-reference generated insights against existing test suites or documentation within the repository.
+*   **Contextual Integrity:** Always initiate the workflow with `brain export full-code` to ensure the most current state of the repository is being referenced.
+*   **Modular Analysis:** Break down large files into logical segments to maintain deep focus on specific functions or classes.
+*   **Iterative Querying:** Use specific questions regarding dependencies, data flow, and state management rather than broad, general prompts.
+*   **Verification:** Cross-check generated insights against the exported raw code to ensure alignment with existing patterns.
 
 ## Common Scenarios
 
-*   **Onboarding:** Helping new developers understand the structure and design patterns of an existing project after a `brain export full-code`.
-*   **Refactoring Assistance:** Reviewing proposed changes against the global codebase context to ensure backward compatibility and consistency.
-*   **Technical Debt Identification:** Scanning the repository for legacy code patterns or inefficient algorithms that deviate from modern project standards.
-*   **Documentation Generation:** Automatically creating README files or internal API documentation based on the current codebase state.
+*   **Onboarding:** Helping a new developer understand the architecture and style conventions of a project.
+*   **Code Review:** Performing a preliminary pass on a Pull Request to identify style violations or logic errors before human review.
+*   **Refactoring:** Suggesting optimal ways to modularize legacy code while preserving functionality.
+*   **Bug Triaging:** Analyzing stack traces in conjunction with the codebase to pinpoint the source of an issue.
 
 ---
 

@@ -76,7 +76,7 @@ brain export code-changes HEAD~1 HEAD
 
 ## Demo
 
-_No demo available._
+![Demo: code_changes.gif](../../../demo/gifs/code_changes.gif)
 
 
 ---
@@ -85,34 +85,36 @@ _No demo available._
 
 ### When would I use this?
 
-Use this command when you need to extract or isolate specific files that have been modified between two points in your git history. This is particularly useful for generating patches, preparing code bundles for audits, or archiving changesets for documentation purposes.
+Use this command when you need to generate a comprehensive record of source code modifications between two specific points in your git history. It is ideal for audit trails, documenting feature implementation progress, or extracting specific deltas for external review.
 
 ### How it fits in the workflow
 
-1.  **Code Review**: Isolate changes for external review without sharing the entire repository.
-2.  **Deployment Prep**: Identify and export only the files modified since the last production release.
-3.  **CI/CD Pipelines**: Automate the collection of changed artifacts to trigger targeted builds.
-4.  **Version Archiving**: Create snapshots of code differences for specific project milestones.
+1.  **Preparation**: Ensure your local repository has the necessary commit history for `from_ref` and `to_ref`.
+2.  **Execution**: Run `brain export code-changes <from_ref> <to_ref>` to generate the diff report.
+3.  **Consumption**: Access the generated file at `.brain/exports/code-changes.txt` for integration into reports, documentation, or change logs.
 
 ### Practical tips
 
-*   **Specify Ref Ranges**: Always define the range clearly. For example, use `brain export code-changes main feature-branch` to export all changes made in your feature branch relative to `main`.
-*   **Verify History**: Ensure your local repository is updated with `git fetch` before running the command to ensure the references exist.
-*   **Pipeline Integration**: Pipe the output of this command into a compression utility if you need to generate a portable archive of the changed code.
+*   Use tags or commit hashes for precise control over the range.
+*   Check the contents of `.brain/exports/` immediately after execution to verify the export was generated successfully.
+*   Combine this command with `brain diff show` if you need to inspect the changes in your terminal before exporting them to a file.
 
 ### Common failure causes
 
-*   **INVALID_GIT_REF**: Occurs when one or both of the provided git references do not exist in the local repository history.
-*   **Disconnected History**: Attempting to export changes between two commits that do not share a common ancestor.
-*   **Uncommitted Changes**: Changes not yet committed to the git history cannot be exported using reference-based commands.
+*   **INVALID_GIT_REF**: Provided references do not exist in the repository or are incorrectly formatted.
+*   **Missing History**: The repository lacks the required commit history to compute the difference between the specified points.
+*   **Permission Denied**: The system lacks write access to the `.brain/` directory.
 
 ### FAQ
 
-**Q: Does this command modify my local repository?**
-A: No, `brain export code-changes` is a read-only operation that extracts file contents based on git references.
+**Where is the output saved?**
+The output is saved to `.brain/exports/code-changes.txt`.
 
-**Q: Can I use commit hashes instead of branch names?**
-A: Yes, the command accepts any valid git reference, including full commit hashes, short hashes, or tag names.
+**What does this command consume?**
+It consumes your local `git history`.
 
-**Q: What happens if a file was deleted between the two references?**
-A: The tool will identify the deletion; check the command output to see how deleted files are handled within the export package.
+**Can I specify an output path?**
+No, the command consistently produces the output in the predefined `.brain/exports/` location.
+
+**What happens if the git references are the same?**
+If `from_ref` and `to_ref` point to the same commit, the exported file will be empty as there are no changes to report.

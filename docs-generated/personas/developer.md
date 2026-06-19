@@ -6,29 +6,33 @@
 
 **Description:** Builds and modifies application code.
 
+**Goals:**
+* Implement features
+* Debug issues
+* Understand code
+
 ## Typical Responsibilities
 
-*   Writing, testing, and maintaining clean, efficient, and scalable application code.
-*   Analyzing existing codebases to identify technical debt, bugs, and areas for performance optimization.
-*   Implementing new features based on project requirements and specifications.
-*   Conducting peer reviews and providing explanations for architectural changes.
-*   Ensuring project integrity through systematic diagnostics and automated testing.
+* Writing, testing, and maintaining clean, efficient, and scalable code.
+* Analyzing existing codebases to identify technical debt, bugs, or performance bottlenecks.
+* Reviewing code changes to ensure architectural integrity and adherence to project standards.
+* Documenting system functionality and logic for team knowledge sharing.
+* Integrating new libraries, frameworks, or APIs into existing projects.
 
 ## Recommended Approach
 
-1.  **Project Contextualization:** Use `brain project init` and `brain project analyze` to map out the codebase, understand dependency structures, and generate project summaries.
-2.  **Iterative Development:** Utilize `brain diff explain` to understand the impact of proposed changes before implementation and `brain diff review` to ensure quality.
-3.  **Diagnostic Troubleshooting:** Run `brain project doctor` to identify configuration issues and use `brain diff show` to trace the history of code modifications.
-4.  **Verification:** Integrate `brain testllm test` into the workflow to validate logic and ensure new features do not introduce regressions.
-5.  **Documentation & Portability:** Leverage `brain export` commands to share specific file segments or full-code snapshots for documentation and team collaboration.
+* **Analyze First:** Utilize `brain project analyze` to gain a comprehensive understanding of the existing codebase and architecture before making modifications.
+* **Iterative Development:** Leverage `brain project summary` to maintain context across sessions and ensure project goals remain aligned.
+* **Proactive Debugging:** Run `brain project doctor` to identify potential configuration issues or environment inconsistencies early.
+* **Contextual Reviews:** Always use `brain diff explain` and `brain diff review` to ensure changes are verified and clearly documented before integration.
+* **Knowledge Retention:** Export relevant project artifacts using the `brain export` commands to maintain external documentation or perform offline audits.
 
 ## Common Scenarios
 
-*   **Onboarding to a new repository:** Use `brain project analyze` and `brain project summary` to quickly grasp the project structure and architectural patterns.
-*   **Fixing a critical bug:** Use `brain diff show` to compare recent changes, then use `brain diff explain` to understand the logic flow of the problematic section.
-*   **Code Reviewing:** Use `brain diff review` to evaluate incoming pull requests, ensuring they align with project standards and goals.
-*   **Knowledge Sharing:** Use `brain export full-code` or `brain export dir` to provide context for cross-functional meetings or to generate documentation for stakeholders.
-*   **System Health Checks:** Regularly run `brain project doctor` to ensure the development environment and project dependencies remain stable.
+* **Onboarding to a new project:** Use `brain project init` and `brain project analyze` to map out the codebase structure and dependencies.
+* **Implementing a new feature:** Begin by analyzing the related modules, drafting the logic, and using `brain diff explain` to validate the proposed implementation path.
+* **Troubleshooting a production bug:** Run `brain project doctor` to check for environment issues, then use `brain diff show` to isolate changes that might have introduced the regression.
+* **Code Refactoring:** Use `brain export full-code` for offline review, followed by iterative diff reviews to ensure refactoring does not break existing business logic.
 
 ---
 

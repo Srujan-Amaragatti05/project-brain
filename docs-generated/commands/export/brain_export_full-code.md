@@ -71,7 +71,7 @@ _None_
 
 ## Demo
 
-![Demo: full_code.gif](../../../demo/gifs/full_code.gif)
+![Demo: export_full_code.gif](../../../demo/gifs/export_full_code.gif)
 
 
 ---
@@ -80,34 +80,34 @@ _None_
 
 ### When would I use this?
 
-Use `brain export full-code` when you need to provide a complete context of your repository to an AI model for analysis, refactoring, or documentation generation. It is ideal for large-scale architectural reviews, debugging complex cross-file dependency issues, or preparing a codebase for migration.
+Use `brain export full-code` when you need to provide an entire codebase as context to an AI model for deep analysis, architectural review, or refactoring assistance. It is ideal for scenarios where global code knowledge is required to maintain consistency across the project.
 
 ### How it fits in the workflow
 
-This command acts as a data preparation layer. By consolidating the codebase into a single, structured, AI-readable file, it bypasses the limitations of manual file uploading. Once generated, the resulting file serves as the primary input for AI-driven code reviews, documentation extraction, or automated system explanations.
+1.  **Preparation**: Navigate to the root directory of your project.
+2.  **Execution**: Run `brain export full-code` to aggregate the repository source code.
+3.  **Consumption**: The system produces `.brain/exports/full_code.txt`, which acts as the source for AI-assisted documentation, debugging, or code generation tasks.
+4.  **Integration**: Upload or paste the resulting file into your AI interface to perform holistic analysis.
 
 ### Practical tips
 
-* **Ignore redundant files:** Ensure your `.gitignore` is correctly configured before running the export to prevent the inclusion of unnecessary build artifacts, logs, or dependency folders that waste tokens.
-* **Review the output:** Scan the generated file briefly before uploading to a chat interface to confirm that no sensitive credentials or environment variables were captured.
-* **Chunking:** For exceptionally large repositories, consider using `brain export dir` to export specific modules if the full export exceeds your target AI's context window.
+*   **Cleanup**: Remove unnecessary files (like build artifacts or dependency folders) before running the command to ensure the exported content remains relevant.
+*   **Version Control**: Always verify that your repository is in a clean state before exporting to ensure the generated file reflects the desired source code version.
+*   **Large Repositories**: Be aware that large repositories will generate large export files; consider using `brain export file` or `brain export dir` if you only require specific modules.
 
 ### Common failure causes
 
-* **Memory constraints:** Large repositories can cause system timeouts or memory overflows during the file compilation process.
-* **Permission errors:** Attempting to export directories or files that the current user does not have read access to will result in partial or empty exports.
-* **Encoding conflicts:** Files with non-standard character encodings may cause the export process to stall or generate corrupted output text.
+*   **Insufficient Permissions**: Failure to write to the `.brain/exports/` directory due to system-level access restrictions.
+*   **Disk Space**: Running the command on a repository that exceeds available storage when converted into a single text file.
+*   **Non-standard Structure**: Attempting to run the command outside of a recognized repository root.
 
 ### FAQ
 
-**Does this command compress the files?**  
-No, `brain export full-code` produces a structured plaintext file. Compression is not applied to ensure immediate readability by LLMs.
+**Q: Where is the generated file located?**
+A: The output is saved to `.brain/exports/full_code.txt` within your project root.
 
-**Will this include files listed in `.gitignore`?**  
-No, the command respects standard ignore files to ensure the export remains focused on relevant source code.
+**Q: Does this export my local configuration files?**
+A: It exports the repository source code; ensure sensitive configuration files (e.g., `.env`) are ignored or excluded to maintain security.
 
-**How does this differ from `brain export dir`?**  
-`brain export full-code` processes the entire repository starting from the root directory, whereas `brain export dir` is scoped to a specific subdirectory.
-
-**Is the generated output file proprietary?**  
-No, it is a standard structured text file designed to be portable and compatible with all major AI analysis platforms.
+**Q: How do I handle very large projects that exceed context windows?**
+A: If the generated `full_code.txt` is too large for your AI's context window, use the related commands `brain export file` or `brain export dir` to export specific components.

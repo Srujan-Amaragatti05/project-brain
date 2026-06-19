@@ -2,7 +2,7 @@
 
 ## Who Is This Persona
 
-**Persona:** maintainer
+**Persona:** Maintainer
 
 **Description:** Maintains repository health and tooling.
 
@@ -21,25 +21,25 @@
 
 ## Typical Responsibilities
 
-* Ensuring all project dependencies and configurations meet current environment requirements.
-* Monitoring repository health through automated diagnostic checks.
-* Managing CI/CD workflows to ensure consistent build and deployment quality.
-* Auditing code changes via diff analysis to prevent regression.
-* Provisioning new development environments to ensure project consistency.
+* Ensuring all environment dependencies are correctly configured and up to date.
+* Monitoring repository health through automated diagnostics.
+* Streamlining developer workflows to reduce friction and technical debt.
+* Auditing code changes for consistency with project standards.
+* Resolving configuration drifts or broken integration pipelines.
 
 ## Recommended Approach
 
-* **Proactive Diagnosis:** Run diagnostic checks regularly to identify potential environment drift before it affects development.
-* **Standardization:** Use initialization scripts to ensure all contributors operate within a unified, tested environment.
-* **Transparency:** Utilize diff tools to conduct thorough reviews of structural changes, ensuring that configuration updates align with project standards.
-* **Iterative Improvement:** Treat workflow maintenance as a core task, applying feedback from the "doctor" commands to refine project tooling.
+* **Proactive Validation:** Execute `brain project doctor` frequently to preemptively identify potential issues before they impact development.
+* **Standardization:** Utilize `brain project init` to enforce uniform tooling and configurations across new or existing environments.
+* **Continuous Review:** Use `brain diff show` to maintain visibility over architectural changes and ensure alignment with established project patterns.
+* **Documentation-First:** Maintain clear instructions for workflow execution to ensure team autonomy.
 
 ## Common Scenarios
 
-* **Onboarding New Contributors:** Running `brain project init` to configure the local environment and verify system prerequisites.
-* **Resolving CI Failures:** Executing `brain project doctor` to pinpoint discrepancies between the local environment and the project's expected configuration.
-* **Reviewing Configuration Changes:** Using `brain diff show` to validate updates to environment files or workflow definitions before committing them to the repository.
-* **Post-Update Verification:** Running diagnostic suite commands after a dependency upgrade to ensure project stability.
+* **Onboarding:** Setting up a fresh development environment for a new contributor using `brain project init`.
+* **Troubleshooting:** Investigating CI/CD failures or local build issues by running the `brain project doctor` suite.
+* **Code Review:** Inspecting granular changes via `brain diff show` to identify regressions or deviations from the repository's structural integrity.
+* **Maintenance Windows:** Performing routine environment audits to prune outdated tools or sync local configs with updated master definitions.
 
 ---
 

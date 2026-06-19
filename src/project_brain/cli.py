@@ -43,7 +43,7 @@ from project_brain.cli_ui import (
     doctor_panel,
 )
 
-from project_brain.community import open_feedback
+from project_brain.community import open_feedback, open_website
 
 from project_brain.docs.decorators import docs
 
@@ -218,6 +218,8 @@ def create_file(path: Path, content: str):
     prerequisites=[],
 
     consumes=[],
+
+    errors=[],
 
     stability="stable",
     introduced="0.1.0",
@@ -433,6 +435,8 @@ def analyze(
         "Displays summarized repository analysis.",
     ],
 
+    gifs=["summary.gif"],
+
     edge_cases=[
         "Requires previous analysis.",
     ],
@@ -448,6 +452,7 @@ def analyze(
         "brain project analyze",
         "brain project summary",
     ],
+    errors=[],
 
     stability="stable",
     introduced="0.1.0",
@@ -545,7 +550,7 @@ def validate_ref(ref: str, root: Path):
     ],
 
     gifs=[
-        "diff.gif",
+        "diff_show.gif",
     ],
 
     errors=[
@@ -563,6 +568,8 @@ def validate_ref(ref: str, root: Path):
     workflow=[
         "brain diff show",
     ],
+    stability="stable",
+    introduced="0.3.0",
 )
 @diff_app.command()
 def show(
@@ -725,7 +732,7 @@ def show(
     ],
 
     gifs=[
-        "review.gif",
+        "diff_review.gif",
     ],
 
     errors=[
@@ -744,6 +751,8 @@ def show(
         "brain diff show",
         "brain diff review",
     ],
+    stability="stable",
+    introduced="0.3.0",
 )
 @diff_app.command()
 def review(
@@ -986,7 +995,7 @@ brain project analyze .
     ],
 
     gifs=[
-        "full_code.gif",
+        "export_full_code.gif",
     ],
 
     errors=[],
@@ -1065,7 +1074,7 @@ def full_code():
         "file",
     ],
 
-    gifs=[],
+    gifs=["export_file.gif"],
 
     errors=[],
 
@@ -1145,7 +1154,7 @@ def add_code_file_cmd(
         "directory",
     ],
 
-    gifs=[],
+    gifs=["export_dir.gif"],
 
     errors=[],
 
@@ -1230,7 +1239,7 @@ def add_code_dir_cmd(
         "export",
     ],
 
-    gifs=[],
+    gifs=["code_changes.gif"],
 
     errors=[
         "INVALID_GIT_REF",
@@ -1318,7 +1327,7 @@ def code_changes(
     ],
 
     gifs=[
-        "explain.gif",
+        "explain_file.gif",
     ],
 
     errors=[],
@@ -1401,7 +1410,7 @@ def explain(
         "diagnostics",
     ],
 
-    gifs=[],
+    gifs=["testllm.gif"],
 
     errors=[
         "LLM_PROVIDER_FAILURE",
@@ -1466,6 +1475,62 @@ def test():
     typer.echo(f"✅ Output: {result['output']}")
     typer.echo(f"📦 Models: {result['models'][:5]}")
 
+@docs(
+    command="brain community",
+    category="community",
+
+    examples=[
+        "brain community",
+    ],
+
+    related=[
+        "brain --feedback",
+    ],
+
+    outputs=[],
+
+    consumes=[],
+
+    produces=[
+        "community resources",
+    ],
+
+    prerequisites=[],
+
+    use_cases=[
+        "Community Engagement",
+        "Provider Onboarding",
+        "Ecosystem Exploration",
+    ],
+
+    personas=[
+        "developer",
+        "contributor",
+        "user",
+    ],
+
+    tags=[
+        "community",
+        "resources",
+        "ecosystem",
+    ],
+
+    gifs=["community.gif"],
+
+    errors=[],
+
+    notes=[
+        "Provides links to community resources and feedback channels.",
+    ],
+
+    edge_cases=[],
+    workflow=[
+        "brain community",
+    ],
+
+    stability="stable",
+    introduced="0.1.0",
+)
 @community_app.callback(invoke_without_command=True)
 def community():
     panel = Panel.fit(
@@ -1481,12 +1546,16 @@ https://github.com/Srujan-Amaragatti05/project-brain/discussions
 
 [bold cyan]Issues[/bold cyan]
 https://github.com/Srujan-Amaragatti05/project-brain/issues
+
+[bold cyan]Website[/bold cyan]
+https://project-brain-web-gamma.vercel.app/
 """,
         title="🧠 project-brain Community",
         border_style="cyan",
     )
 
     console.print(panel)
+    open_website()
 
 
 def main():

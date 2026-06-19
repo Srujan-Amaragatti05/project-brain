@@ -20,7 +20,7 @@
     "workflow": true,
     "personas": true,
     "use_cases": true,
-    "gifs": false,
+    "gifs": true,
     "errors": false
   },
   "brain project doctor": {
@@ -68,7 +68,7 @@
     "workflow": true,
     "personas": true,
     "use_cases": true,
-    "gifs": false,
+    "gifs": true,
     "errors": false
   },
   "brain export dir": {
@@ -76,7 +76,7 @@
     "workflow": true,
     "personas": true,
     "use_cases": true,
-    "gifs": false,
+    "gifs": true,
     "errors": false
   },
   "brain export code-changes": {
@@ -84,7 +84,7 @@
     "workflow": true,
     "personas": true,
     "use_cases": true,
-    "gifs": false,
+    "gifs": true,
     "errors": true
   },
   "brain testllm test": {
@@ -92,7 +92,7 @@
     "workflow": true,
     "personas": true,
     "use_cases": true,
-    "gifs": false,
+    "gifs": true,
     "errors": true
   }
 }

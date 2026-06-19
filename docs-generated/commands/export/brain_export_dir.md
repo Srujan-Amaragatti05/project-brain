@@ -73,7 +73,7 @@ _None_
 
 ## Demo
 
-_No demo available._
+![Demo: export_dir.gif](../../../demo/gifs/export_dir.gif)
 
 
 ---
@@ -82,31 +82,37 @@ _No demo available._
 
 ### When would I use this?
 
-Use `brain export dir` when you need to include an entire directory, including all its subdirectories and files, into your current export bundle. This is ideal for sharing modular components, source code trees, or structured documentation folders without having to specify each file individually.
+Use this command when you need to selectively include a specific directory—such as a module, library, or configuration folder—into your export bundle without exporting the entire project codebase.
 
 ### How it fits in the workflow
 
-This command acts as a batch processor in your export pipeline. After initializing your export context, you define the scope of your data by pointing to specific paths. By adding a directory, you ensure that all relevant project logic contained within that folder is bundled for analysis or external portability. It complements `brain export file` by handling bulk project structures, bridging the gap between isolated file exports and a `brain export full-code` operation.
+1. Identify a specific directory containing necessary assets or source code.
+2. Run `brain export dir <path>` to register the path.
+3. The command updates `.brain/exports/manual_export.txt` to include the specified directory recursively.
+4. Execute your primary export command (e.g., `brain export full-code`) to bundle the registered directories.
 
 ### Practical tips
 
-*   **Path Precision:** Always provide the path relative to your current working directory to ensure the command correctly maps the folder structure.
-*   **Selective Bundling:** Use this command to isolate specific modules (e.g., `brain export dir src/components/`) rather than the entire project when you want to focus on a particular architectural feature.
-*   **Verification:** After running the command, check the current export manifest to ensure the directory was added as expected.
+*   **Targeting sub-modules:** Use this to isolate specific feature directories if you are working on a multi-repo or large monolithic project.
+*   **Documentation bundling:** Include a `docs/` folder alongside your source code to ensure context is captured in the generated export.
+*   **Workflow automation:** Add this command to your environment initialization scripts if you frequently export the same custom directories.
 
 ### Common failure causes
 
-*   **Invalid Pathing:** Providing a path that does not exist or has incorrect permissions will cause the command to fail.
-*   **Recursive Depth:** While the command handles recursion, extremely deep nested structures may hit system path length limits on certain operating systems.
-*   **Access Denied:** Attempting to export directories that contain system-protected files or files currently locked by other processes.
+*   **Invalid Path:** Providing a non-existent path or a file path instead of a directory path may result in an empty export or an error.
+*   **Permission Denied:** Ensure your user account has read access to the specified directory.
+*   **Exceeding Limits:** Attempting to export extremely large directories (e.g., `node_modules` or `build` folders) can lead to export failures or time-outs.
 
 ### FAQ
 
-**Does this command add new files created in the directory later?**
-No, the command adds the directory contents as they exist at the moment of execution. If you add new files to the directory afterward, you may need to re-run the command or update the bundle.
+**Does this export files recursively?**
+Yes, `brain export dir` adds the directory and all of its contents recursively into your export configuration.
 
-**Will this exceed my export size limit?**
-It might. Because this command adds directories recursively, large folders can significantly increase the total export size. Always verify the size of your target directory before exporting.
+**Will this override existing exports?**
+It appends the directory to the `.brain/exports/manual_export.txt` file; it does not clear existing manual entries.
 
-**Can I exclude specific files within the added directory?**
-This command adds the entire directory structure. If you need to exclude specific files, add the directory first and then perform individual removals or use a more granular export strategy.
+**Can I export individual files using this?**
+No, this command is specifically for directories. Use `brain export file` for individual files.
+
+**How do I remove a directory once added?**
+You can manually edit the `.brain/exports/manual_export.txt` file to remove the path line.

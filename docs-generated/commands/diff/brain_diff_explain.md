@@ -75,7 +75,7 @@ _None_
 
 ## Demo
 
-![Demo: explain.gif](../../../demo/gifs/explain.gif)
+![Demo: explain_file.gif](../../../demo/gifs/explain_file.gif)
 
 
 ---
@@ -84,31 +84,31 @@ _None_
 
 ### When would I use this?
 
-Use `brain diff explain` when you need a concise, high-level summary of the logic and intent behind a specific file or a discrete function. This command is ideal for onboarding into a new codebase, reviewing complex legacy code, or generating context for documentation when you need to understand what a block of code does without manual line-by-line analysis.
+Use `brain diff explain` when you need to understand the logic, intent, or structural changes within a specific file or a designated function. It is ideal for onboarding into a new codebase, performing code reviews, or troubleshooting logic errors where the implementation details are complex or ambiguous.
 
 ### How it fits in the workflow
 
-This tool acts as an intermediary step during code reviews or refactoring. After checking the differences in a branch, you use `brain diff explain` to gain semantic understanding of changes. Once you grasp the intent, you can transition to `brain diff review` to perform a formal quality and security audit of those specific changes.
+This command acts as an analytical bridge between raw source code and developer comprehension. It is typically utilized after a code change is identified via version control tools but before a formal code review or refactoring effort begins. By parsing the `source code`, it provides a `terminal explanation` that contextualizes the implementation, allowing you to verify that the functional logic aligns with the intended requirements before committing or deploying changes.
 
 ### Practical tips
 
-*   **Be specific:** Target functions by name (e.g., `brain diff explain src/utils.py:calculate_tax`) to reduce noise and get a focused explanation of the business logic.
-*   **Use before refactoring:** Run the command on a module before modifying it to ensure you have a clear map of the current function dependencies and responsibilities.
-*   **Combine with version control:** Pipe the output into a temporary scratchpad when documenting pull requests to quickly populate "Summary of Changes" sections.
+*   **Target specific blocks:** Use the `file:function` syntax to narrow the explanation scope, which prevents information overload and focuses the output on relevant logic.
+*   **Sequential analysis:** Execute the command on individual functions within a module to build a mental map of complex file architectures.
+*   **Integrate with reviews:** Use the output as a reference point when discussing architectural choices in pull requests.
 
 ### Common failure causes
 
-*   **Non-existent targets:** Providing a function name that has been renamed or deleted in the working directory will result in an error.
-*   **Ambiguous names:** If multiple functions share the same name within different scopes or nested classes, the tool may fail to disambiguate, leading to incomplete explanations.
-*   **Contextual gaps:** If the logic depends heavily on external environment variables or hidden configuration files, the explanation may miss the "why" behind the implementation.
+*   **Invalid Target:** Providing a path that does not exist or a function name that is not present within the specified file will prevent the command from generating an explanation.
+*   **Malformed Syntax:** Neglecting the `file:function` format when targeting a specific function results in a failure to locate the code block.
+*   **Empty Files:** Attempting to explain a file with no executable source code or an empty function body will result in no meaningful output.
 
 ### FAQ
 
-**Does this command modify my code?**
-No, `brain diff explain` is a read-only analysis tool. It generates documentation based on your codebase and has no write permissions.
+**Does this command modify my source code?**
+No. It only consumes the source code to produce a textual explanation in the terminal.
 
 **Can I use this for non-Python files?**
-The command is language-agnostic regarding syntax, but efficacy depends on the tool's ability to parse the specific file structure provided.
+Yes, the command supports any file format that the underlying engine can parse, provided the target syntax is valid.
 
-**How does this differ from a standard diff?**
-A standard diff shows *what* lines changed; `brain diff explain` uses AI to interpret *what those changes achieve* in terms of functional behavior.
+**How does this differ from `brain diff review`?**
+While `explain` focuses on summarizing logic and functionality, `review` evaluates the code for quality, potential bugs, and adherence to best practices.

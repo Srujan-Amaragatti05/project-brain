@@ -97,9 +97,9 @@ def export_full_code(root: Path):
 
 def add_code_file(root: Path, target: Path):
     config = load_config(root)
-    max_kb = config["export"]["full_code"]["max_file_size_kb"]
+    # max_kb = config["export"]["full_code"]["max_file_size_kb"]
     allow_dup = config["export"]["manual_add"]["allow_duplicates"]
-    ingore_paths = config.get("export", {}).get("ignore", [])
+    # ignore_paths = config.get("export", {}).get("ignore", [])
 
     export_dir = root / ".brain" / "exports"
     export_dir.mkdir(parents=True, exist_ok=True)
@@ -109,15 +109,15 @@ def add_code_file(root: Path, target: Path):
     if not target.exists():
         return 0, output_path, "❌ File not found"
 
-    if should_skip(target, ingore_paths):
-        return 0, output_path, "⚠ Skipped (ignored path)"
+    # if should_skip(target, ignore_paths):
+    #     return 0, output_path, "⚠ Skipped (ignored path)"
 
     existing = _read_existing_entries(output_path) if not allow_dup else set()
 
     try:
-        size_kb = target.stat().st_size / 1024
-        if size_kb > max_kb:
-            return 0, output_path, "⚠ Skipped (file too large)"
+        # size_kb = target.stat().st_size / 1024
+        # if size_kb > max_kb:
+        #     return 0, output_path, "⚠ Skipped (file too large)"
 
         rel_path = str(target.resolve().relative_to(root))
 
@@ -139,7 +139,7 @@ def add_code_dir(root: Path, target: Path):
     config = load_config(root)
     max_kb = config["export"]["full_code"]["max_file_size_kb"]
     allow_dup = config["export"]["manual_add"]["allow_duplicates"]
-    ignore_paths = config.get("export", {}).get("ignore", [])
+    # ignore_paths = config.get("export", {}).get("ignore", [])
 
     export_dir = root / ".brain" / "exports"
     export_dir.mkdir(parents=True, exist_ok=True)
@@ -158,8 +158,8 @@ def add_code_dir(root: Path, target: Path):
             if path.is_dir():
                 continue
 
-            if should_skip(path, ignore_paths):
-                continue
+            # if should_skip(path, ignore_paths):
+            #     continue
 
             try:
                 size_kb = path.stat().st_size / 1024

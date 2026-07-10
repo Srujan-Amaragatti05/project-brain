@@ -1,6 +1,7 @@
 import ast
 import hashlib
 from pathlib import Path
+import json
 
 from project_brain.core.config_loader import load_config
 from project_brain.core.differ import compute_diff, get_file_from_ref
@@ -318,3 +319,132 @@ def export_code_changes(root: Path, from_ref: str, to_ref: str):
             files_processed += 1
 
     return files_processed, output_path
+
+def build_project_tree(root: Path):
+    """
+    Export project structure as:
+    - structure.tree
+    - structure.json
+
+    Returns:
+        (tree_file, json_file)
+    """
+
+    exports_dir = root / ".brain" / "exports"
+    exports_dir.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    tree_file = exports_dir / "structure.tree"
+    json_file = exports_dir / "structure.json"
+
+    tree_text = [f"{root.name}/"] + _build_tree_lines(root)
+    tree_file.write_text(
+        '\n'.join(tree_text),
+        encoding="utf-8",
+    )
+
+    structure_json = _build_json_structure(root)
+    json_file.write_text(
+        json.dumps(
+            structure_json,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+
+    return tree_file, json_file
+
+
+def _build_json_structure(path: Path):
+    config = load_config(path)  # assuming path is within the project root
+
+    export_cfg = config.get("export", {}).get("full_code", {})
+
+    include_tests = export_cfg.get("include_tests", False)
+    ignore_paths = config.get("analysis", {}).get("ignore", [])
+
+    def build(node: Path):
+        if node.is_dir():
+            children = []
+            for child in sorted(
+                node.iterdir(),
+                key=lambda x: (
+                    x.is_file(),
+                    x.name.lower(),
+                ),
+            ):
+                child_entry = build(child)
+                if child_entry is not None:
+                    children.append(child_entry)
+
+            if node == path:
+                return {
+                    "type": "directory",
+                    "name": node.name,
+                    "children": children,
+                }
+
+            if not children:
+                return None
+
+            return {
+                "type": "directory",
+                "name": node.name,
+                "children": children,
+            }
+
+        if node.is_file():
+            if should_skip(node, ignore_paths):
+                return None
+
+            if not include_tests and is_test_file(node):
+                return None
+
+            return {
+                "type": "file",
+                "name": node.name,
+            }
+
+        return None
+
+    return build(path)
+
+
+def _build_tree_lines(path: Path, prefix=""):
+    config = load_config(path)  # assuming path is within the project root
+
+    export_cfg = config.get("export", {}).get("full_code", {})
+
+    include_tests = export_cfg.get("include_tests", False)
+    ignore_paths = config.get("analysis", {}).get("ignore", [])
+    entries = sorted(
+        [
+            p
+            for p in path.iterdir()
+            if not should_skip(p, ignore_paths)
+            and (include_tests or not (p.is_file() and is_test_file(p)))
+        ],
+        key=lambda x: (x.is_file(), x.name.lower()),
+    )
+
+    lines = []
+
+    for index, entry in enumerate(entries):
+        connector = "└── " if index == len(entries) - 1 else "├── "
+
+        if entry.is_dir():
+            extension = "    " if index == len(entries) - 1 else "│   "
+
+            child_lines = _build_tree_lines(entry, prefix + extension)
+
+            if not child_lines:
+                continue
+
+            lines.append(f"{prefix}{connector}{entry.name}")
+            lines.extend(child_lines)
+        else:
+            lines.append(f"{prefix}{connector}{entry.name}")
+
+    return lines

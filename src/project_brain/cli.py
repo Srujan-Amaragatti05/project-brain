@@ -20,7 +20,7 @@ from project_brain.core.doctor import run_doctor
 from project_brain.core.explainer import explain_diff
 from project_brain.core.explainer_file import explain_file, explain_function
 from project_brain.core.exporter import (add_code_dir, add_code_file,
-                                         export_code_changes, export_full_code)
+                                         export_code_changes, export_full_code, build_project_tree)
 from project_brain.core.results import generate_html
 from project_brain.core.summarizer import format_summary, load_data
 from project_brain.llm.provider import call_llm
@@ -1366,6 +1366,77 @@ def explain(
         output = explain_file(root, target)
 
     typer.echo(output)
+
+@docs(
+    command="brain export tree", 
+    category="export",
+    examples=[
+        "brain export tree",
+    ],
+    related=[
+        "brain export full_code",
+        "brain project analyze",
+    ],
+    outputs=[
+        ".brain/exports/project_structure.tree",
+        ".brain/exports/project_structure.json",
+    ],
+    consumes=[
+        "repository source code",
+    ],
+    produces=[
+        ".brain/exports/project_structure.tree",
+        ".brain/exports/project_structure.json",
+    ],
+    prerequisites=[
+        "brain project analyze",
+    ],
+    use_cases=[
+        "Project Overview",
+        "Repository Mapping",
+    ],
+    personas=[
+        "developer",
+        "architect",
+    ],
+    tags=[
+        "export",
+        "structure",
+        "repository",
+    ],
+    gifs=[],
+    errors=[],
+    notes=[
+        "Exports repository folder structure.",
+        "Generates both tree and JSON formats.",
+    ],
+    edge_cases=[
+        "Large repositories generate large JSON output.",
+    ],
+    workflow=[
+        "brain project analyze",
+        "brain export tree",
+    ],
+    stability="stable",
+    introduced="1.1.1",
+)
+@export_app.command("tree")
+def export_tree():
+    """
+    Export repository tree structure into tree and JSON formats.
+    """
+    root = Path.cwd()
+
+    tree_file, json_file = (
+        build_project_tree(root)
+    )
+
+    success(
+        "Project structure exported"
+    )
+
+    info(f"Tree: {tree_file}")
+    info(f"JSON: {json_file}")
 
 @docs(
     command="brain testllm test",

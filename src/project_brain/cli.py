@@ -1374,7 +1374,7 @@ def explain(
         "brain export tree",
     ],
     related=[
-        "brain export full_code",
+        "brain export full-code",
         "brain project analyze",
     ],
     outputs=[

@@ -1,0 +1,60 @@
+{
+  "id": "urn:brain:doc:27a413bd-3bad-415f-865e-a55d2b92bcae",
+  "slug": "export/brain-export-dir",
+  "aliases": [
+    "brain export dir"
+  ],
+  "title": "brain export dir",
+  "summary": "Manually add a directory to export",
+  "locale": "en",
+  "versioning": {
+    "introduced_in": "0.1.0",
+    "deprecated_in": null,
+    "stability": "stable"
+  },
+  "blocks": [
+    {
+      "block_id": "blk_6b6323b9",
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "content": "Manually add a directory to export"
+        }
+      ]
+    },
+    {
+      "block_id": "blk_21ffce5b",
+      "type": "flag_table",
+      "flags": [
+        {
+          "name": "path",
+          "type": "str",
+          "required": false,
+          "default": "REQUIRED",
+          "description": [
+            {
+              "block_id": "blk_param_path",
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "content": "Directory path to include"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "graph": {
+    "relations": []
+  },
+  "type": "command",
+  "metadata": {
+    "command_name": "brain export dir",
+    "category": "export",
+    "is_plugin": false
+  }
+}

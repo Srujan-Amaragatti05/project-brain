@@ -90,36 +90,33 @@ brain diff review HEAD~1 HEAD
 
 ### When would I use this?
 
-Use `brain diff review` when you need to generate an AI-powered summary of code changes between two points in your git history. It is ideal for drafting pull request descriptions, conducting quick code audits, or documenting the evolution of a feature without manually analyzing every line of a diff.
+Use `brain diff review` when you need to generate a summary or explanation of code modifications between two git references. This is ideal for peer reviews, documentation updates, or preparing release notes by leveraging an LLM to analyze the impact of changes.
 
 ### How it fits in the workflow
 
-1. **Development**: Complete your work and commit your changes.
-2. **Review**: Execute `brain diff review` to generate analytical reports based on your git history.
-3. **Artifact Generation**: The tool automatically consumes your local git repository state and produces structured documentation in `.brain/reports/` as JSON and HTML files.
-4. **Integration**: Use the generated reports to inform team discussions or attach the summarized insights to your version control hosting platform.
+1.  **Consumption:** The command reads the `git history` between the specified `from_ref` and `to_ref`.
+2.  **Processing:** It sends the identified code changes to your configured LLM provider for analysis.
+3.  **Production:** It saves the resulting insights into `.brain/reports/*.json` for programmatic use and `.brain/reports/*.html` for human-readable review.
 
 ### Practical tips
 
-*   **Specify Ranges**: Use explicit references like `brain diff review branch-a branch-b` to isolate specific feature development cycles rather than relying on defaults.
-*   **Keep Diffs Focused**: Large diffs can increase LLM processing time significantly; perform reviews on smaller, logical commit ranges to ensure high-quality, actionable insights.
-*   **Review Outputs**: Always inspect the files generated in `.brain/reports/` to verify the context, as the output quality is dependent on the provided LLM provider's interpretation.
+*   **Specify Ranges:** Use `brain diff review HEAD~1 HEAD` to focus exclusively on the latest commit.
+*   **Default Behavior:** If no arguments are provided, the command defaults to the current working state, which is useful for checking uncommitted changes against the last commit.
+*   **Version Control:** Run this command before pushing code to generate documentation that stays synchronized with your repository state.
 
 ### Common failure causes
 
-*   **INVALID_GIT_REF**: This occurs if the provided `from_ref` or `to_ref` does not exist in your local repository or is formatted incorrectly.
-*   **LLM_PROVIDER_FAILURE**: This occurs when the configured LLM API is unreachable, authentication credentials are invalid, or rate limits have been exceeded.
+*   **INVALID_GIT_REF:** Occurs when the provided `from_ref` or `to_ref` does not exist in the local git history or is formatted incorrectly.
+*   **LLM_PROVIDER_FAILURE:** Occurs when the connection to the LLM service is interrupted, authentication is missing, or the service is temporarily unavailable.
+*   **Timeout:** Large diffs may exceed typical LLM token limits or processing windows, potentially leading to incomplete reports.
 
 ### FAQ
 
 **Does this command modify my source code?**
-No. It only reads your git history and creates report files within the `.brain/reports/` directory.
+No, `brain diff review` only reads the git history and generates report files. It does not alter your working directory.
 
-**Can I run this without arguments?**
-Yes. If no references are provided, the command will attempt to use default git references to determine the scope of the diff.
+**Where can I find the output?**
+All generated reports are stored in the `.brain/reports/` directory in your project root.
 
-**What formats are produced?**
-The command produces both `.json` files for programmatic consumption and `.html` files for human-readable documentation.
-
-**Does it require an internet connection?**
-Yes, because it consumes the git history and sends the diff data to an external LLM provider to generate the analysis.
+**What happens if I don't provide refs?**
+The command defaults to the standard git diff behavior, typically comparing your current working tree against the last commit.

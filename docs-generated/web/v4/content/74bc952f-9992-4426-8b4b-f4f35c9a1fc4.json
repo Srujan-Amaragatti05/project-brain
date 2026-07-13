@@ -1,0 +1,78 @@
+{
+  "id": "urn:brain:doc:74bc952f-9992-4426-8b4b-f4f35c9a1fc4",
+  "slug": "diff/brain-diff-review",
+  "aliases": [
+    "brain diff review"
+  ],
+  "title": "brain diff review",
+  "summary": "Explain code changes using LLM",
+  "locale": "en",
+  "versioning": {
+    "introduced_in": "0.3.0",
+    "deprecated_in": null,
+    "stability": "stable"
+  },
+  "blocks": [
+    {
+      "block_id": "blk_f394841b",
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "content": "Explain code changes using LLM"
+        }
+      ]
+    },
+    {
+      "block_id": "blk_21ffce5b",
+      "type": "flag_table",
+      "flags": [
+        {
+          "name": "from_ref",
+          "type": "str",
+          "required": false,
+          "default": null,
+          "description": [
+            {
+              "block_id": "blk_param_from_ref",
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "content": "Starting git reference"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "to_ref",
+          "type": "str",
+          "required": false,
+          "default": null,
+          "description": [
+            {
+              "block_id": "blk_param_to_ref",
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "content": "Ending git reference"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "graph": {
+    "relations": []
+  },
+  "type": "command",
+  "metadata": {
+    "command_name": "brain diff review",
+    "category": "diff",
+    "is_plugin": false
+  }
+}

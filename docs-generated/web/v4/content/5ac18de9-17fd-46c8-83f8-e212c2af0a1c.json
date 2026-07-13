@@ -1,0 +1,36 @@
+{
+  "id": "urn:brain:doc:5ac18de9-17fd-46c8-83f8-e212c2af0a1c",
+  "slug": "export/brain-export-full-code",
+  "aliases": [
+    "brain export full-code"
+  ],
+  "title": "brain export full-code",
+  "summary": "Export entire codebase into structured file",
+  "locale": "en",
+  "versioning": {
+    "introduced_in": "0.1.0",
+    "deprecated_in": null,
+    "stability": "stable"
+  },
+  "blocks": [
+    {
+      "block_id": "blk_6267728c",
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "content": "Export entire codebase into structured file"
+        }
+      ]
+    }
+  ],
+  "graph": {
+    "relations": []
+  },
+  "type": "command",
+  "metadata": {
+    "command_name": "brain export full-code",
+    "category": "export",
+    "is_plugin": false
+  }
+}

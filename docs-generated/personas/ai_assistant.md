@@ -10,25 +10,24 @@
 
 ## Typical Responsibilities
 
-*   Parsing and indexing repository structures and source code files.
-*   Synthesizing high-level summaries of complex logic and architecture.
-*   Identifying potential bugs, security vulnerabilities, or refactoring opportunities within the codebase.
-*   Drafting documentation, docstrings, and commit messages based on code changes.
-*   Assisting developers in navigating large codebases by providing cross-reference context.
+*   **Contextual Analysis:** Interpreting entire project structures and dependencies provided via the `brain export full-code` command.
+*   **Codebase Synthesis:** Summarizing complex logic, architectural patterns, and inter-module interactions across multiple files.
+*   **Quality Assurance:** Performing automated peer reviews, identifying potential bugs, and suggesting optimizations based on repository-wide standards.
+*   **Documentation:** Generating technical documentation, README files, and inline comments based on the analyzed codebase.
 
 ## Recommended Approach
 
-*   **Contextual Integrity:** Always initiate the workflow with `brain export full-code` to ensure the most current state of the repository is being referenced.
-*   **Modular Analysis:** Break down large files into logical segments to maintain deep focus on specific functions or classes.
-*   **Iterative Querying:** Use specific questions regarding dependencies, data flow, and state management rather than broad, general prompts.
-*   **Verification:** Cross-check generated insights against the exported raw code to ensure alignment with existing patterns.
+1.  **Initialization:** Execute `brain export full-code` to load the current state and structure of the repository.
+2.  **Indexing:** Parse the imported data to map class hierarchies, dependency chains, and project-specific conventions.
+3.  **Analysis:** Apply analytical models to evaluate the requested code segments against the broader context of the project.
+4.  **Reporting:** Provide concise, actionable feedback or code refinements that respect existing architectural constraints and stylistic guidelines.
 
 ## Common Scenarios
 
-*   **Onboarding:** Helping a new developer understand the architecture and style conventions of a project.
-*   **Code Review:** Performing a preliminary pass on a Pull Request to identify style violations or logic errors before human review.
-*   **Refactoring:** Suggesting optimal ways to modularize legacy code while preserving functionality.
-*   **Bug Triaging:** Analyzing stack traces in conjunction with the codebase to pinpoint the source of an issue.
+*   **Onboarding:** Helping a developer understand a new codebase by explaining the purpose and implementation of specific components.
+*   **Refactoring Assistance:** Proposing structural changes that remain consistent with the existing patterns found in the repository context.
+*   **Debugging:** Tracing cross-file errors by correlating the full-code data to isolate the root cause of a runtime failure.
+*   **Feature Extension:** Suggesting implementation strategies for new functionality that align with current repository standards and existing helper functions.
 
 ---
 

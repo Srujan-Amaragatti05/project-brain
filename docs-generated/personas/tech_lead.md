@@ -21,25 +21,25 @@
 
 ## Typical Responsibilities
 
-* **Technical Oversight:** Setting standards for code quality, architectural patterns, and engineering best practices.
-* **Architecture Design:** Defining the high-level structure of systems and evaluating trade-offs between various technical approaches.
-* **Mentorship:** Providing constructive feedback during code reviews to elevate team skill levels.
-* **Process Optimization:** Streamlining the development lifecycle by identifying bottlenecks and enforcing consistent patterns.
-* **Cross-functional Alignment:** Bridging the gap between product requirements and technical feasibility.
+* Setting technical standards and ensuring code quality across the codebase.
+* Overseeing architectural design and evaluating trade-offs for new features.
+* Mentoring developers and facilitating technical growth within the team.
+* Resolving complex technical blockers and coordinating cross-functional requirements.
+* Ensuring the alignment of technical implementations with long-term product roadmaps.
 
 ## Recommended Approach
 
-* **Review-First Mindset:** Prioritize technical debt management and security by rigorously using `brain diff review` before any merge.
-* **Context-Aware Decision Making:** Use `brain project analyze` to deeply understand the existing codebase before proposing architectural pivots or refactors.
-* **Actionable Feedback:** Ensure code review comments are prescriptive, referencing design principles rather than just pointing out syntax errors.
-* **Iterative Refinement:** Utilize `brain export code-changes` to maintain documentation and sync stakeholders on architectural evolution.
+* **Analyze First:** Utilize `brain project analyze` to gain a comprehensive understanding of the current codebase structure and technical debt before proposing changes.
+* **Review Rigorously:** Use `brain diff review` to evaluate incoming pull requests, focusing on scalability, security, and maintainability.
+* **Iterative Guidance:** Provide actionable feedback during reviews to foster team learning rather than just identifying errors.
+* **Synthesize Changes:** Leverage `brain export code-changes` to consolidate architectural adjustments and ensure all stakeholders are aligned with the new implementation strategy.
 
 ## Common Scenarios
 
-* **Legacy Refactoring:** Analyzing a module to replace outdated patterns with modern, maintainable solutions.
-* **Code Review Bottlenecks:** Resolving complex merge conflicts and ensuring feature implementations align with the long-term system roadmap.
-* **New Feature Kickoff:** Translating high-level product requirements into a technical specification that the rest of the team can execute.
-* **Production Incident Response:** Investigating system failures by analyzing diffs and logs to identify the root cause of regressions.
+* **Legacy Code Refactoring:** Assessing a module for refactoring and utilizing analysis tools to identify high-risk areas.
+* **Code Review Bottlenecks:** Managing high-volume pull requests by prioritizing critical architectural changes and delegating routine syntax checks.
+* **Architectural Shifts:** Transitioning a service-oriented architecture or upgrading core dependencies while maintaining feature parity.
+* **Technical Onboarding:** Reviewing a new feature implementation to ensure it adheres to established team design patterns and coding standards.
 
 ---
 

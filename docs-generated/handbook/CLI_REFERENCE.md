@@ -214,6 +214,30 @@ brain export code-changes HEAD~1 HEAD
 
 ---
 
+## brain export tree
+
+Export repository tree structure into tree and JSON formats.
+
+**Category:** export
+
+### Examples
+
+```bash
+brain export tree
+```
+
+### Outputs
+
+- .brain/exports/project_structure.tree
+- .brain/exports/project_structure.json
+
+### Related Commands
+
+- `brain export full-code`
+- `brain project analyze`
+
+---
+
 
 # Project Commands
 

@@ -1,6 +1,6 @@
 # Metadata Coverage Report
 
-Total Commands: 12
+Total Commands: 13
 
 ## Overall Completion
 
@@ -9,9 +9,9 @@ Total Commands: 12
 | Examples | 100.0% |
 | Use_Cases | 100.0% |
 | Personas | 100.0% |
-| Errors | 50.0% |
-| Outputs | 75.0% |
-| Consumes | 91.7% |
+| Errors | 46.2% |
+| Outputs | 76.9% |
+| Consumes | 92.3% |
 | Produces | 100.0% |
 | Workflow | 100.0% |
 | Gifs | 100.0% |
@@ -31,4 +31,5 @@ Total Commands: 12
 | `brain export file` | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | `brain export dir` | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | `brain export code-changes` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `brain export tree` | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | `brain testllm test` | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ | ✓ | ✓ |

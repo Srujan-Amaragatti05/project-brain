@@ -18,6 +18,7 @@ graph TD
     brain_export_file["brain export file"]
     brain_export_dir["brain export dir"]
     brain_export_code_changes["brain export code-changes"]
+    brain_export_tree["brain export tree"]
     brain_testllm_test["brain testllm test"]
 ```
 
@@ -206,6 +207,26 @@ graph TD
 
 1. `brain diff show`
 2. `brain export code-changes`
+
+## brain export tree
+
+**Prerequisites**
+
+- brain project analyze
+
+**Consumes**
+
+- repository source code
+
+**Produces**
+
+- .brain/exports/project_structure.tree
+- .brain/exports/project_structure.json
+
+**Workflow**
+
+1. `brain project analyze`
+2. `brain export tree`
 
 ## brain testllm test
 

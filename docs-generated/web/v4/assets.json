@@ -1,0 +1,242 @@
+{
+  "assets": {
+    "urn:brain:asset:7092b8971215": {
+      "id": "urn:brain:asset:7092b8971215",
+      "type": "image",
+      "mime": "image/gif",
+      "storage_key": "analyze.gif",
+      "checksum_sha256": "7092b8971215b5b6e55f0dde13ec8579b5ceaea66b9825b64f2fdadc666be71c",
+      "size_bytes": 3607751,
+      "dimensions": {
+        "width": 800,
+        "height": 600
+      },
+      "alt_fallback": "analyze",
+      "caption_fallback": null,
+      "referenced_by": [
+        "urn:brain:doc:1f105a58-577e-4a11-807d-53e46b0d99ed"
+      ]
+    },
+    "urn:brain:asset:c56a66b782e0": {
+      "id": "urn:brain:asset:c56a66b782e0",
+      "type": "image",
+      "mime": "image/gif",
+      "storage_key": "code_changes.gif",
+      "checksum_sha256": "c56a66b782e0cfdd6a3142ce9e15b3dbb10d82b07bbcb9091f4d3572cda55b17",
+      "size_bytes": 2197071,
+      "dimensions": {
+        "width": 800,
+        "height": 600
+      },
+      "alt_fallback": "code_changes",
+      "caption_fallback": null,
+      "referenced_by": [
+        "urn:brain:doc:1f105a58-577e-4a11-807d-53e46b0d99ed"
+      ]
+    },
+    "urn:brain:asset:eb99d01c4ea3": {
+      "id": "urn:brain:asset:eb99d01c4ea3",
+      "type": "image",
+      "mime": "image/gif",
+      "storage_key": "community.gif",
+      "checksum_sha256": "eb99d01c4ea38413bac1309d93aff6bd87ff3d199af6043ad9ae2ef355ab45c6",
+      "size_bytes": 154235,
+      "dimensions": {
+        "width": 800,
+        "height": 600
+      },
+      "alt_fallback": "community",
+      "caption_fallback": null,
+      "referenced_by": [
+        "urn:brain:doc:1f105a58-577e-4a11-807d-53e46b0d99ed"
+      ]
+    },
+    "urn:brain:asset:737a51e9c658": {
+      "id": "urn:brain:asset:737a51e9c658",
+      "type": "image",
+      "mime": "image/gif",
+      "storage_key": "diff_review.gif",
+      "checksum_sha256": "737a51e9c6587f7a2088e6d6a888f35add2ea232c21549c19f9f480638305fda",
+      "size_bytes": 6470510,
+      "dimensions": {
+        "width": 800,
+        "height": 600
+      },
+      "alt_fallback": "diff_review",
+      "caption_fallback": null,
+      "referenced_by": [
+        "urn:brain:doc:1f105a58-577e-4a11-807d-53e46b0d99ed"
+      ]
+    },
+    "urn:brain:asset:b363bcabcd6a": {
+      "id": "urn:brain:asset:b363bcabcd6a",
+      "type": "image",
+      "mime": "image/gif",
+      "storage_key": "diff_show.gif",
+      "checksum_sha256": "b363bcabcd6a8821878bca9117ae39debad99279d722bdb8fcbc62d94e21184c",
+      "size_bytes": 1350517,
+      "dimensions": {
+        "width": 800,
+        "height": 600
+      },
+      "alt_fallback": "diff_show",
+      "caption_fallback": null,
+      "referenced_by": [
+        "urn:brain:doc:1f105a58-577e-4a11-807d-53e46b0d99ed"
+      ]
+    },
+    "urn:brain:asset:c1464189c2fa": {
+      "id": "urn:brain:asset:c1464189c2fa",
+      "type": "image",
+      "mime": "image/gif",
+      "storage_key": "doctor.gif",
+      "checksum_sha256": "c1464189c2fa815643f55fa0356512eaab3cd5aa25ba5dbdacafb9a46ba0faf6",
+      "size_bytes": 1551623,
+      "dimensions": {
+        "width": 800,
+        "height": 600
+      },
+      "alt_fallback": "doctor",
+      "caption_fallback": null,
+      "referenced_by": [
+        "urn:brain:doc:1f105a58-577e-4a11-807d-53e46b0d99ed"
+      ]
+    },
+    "urn:brain:asset:8ea05f9250c7": {
+      "id": "urn:brain:asset:8ea05f9250c7",
+      "type": "image",
+      "mime": "image/gif",
+      "storage_key": "explain_file.gif",
+      "checksum_sha256": "8ea05f9250c76822823fcf5bf69892c7f0908c3c220ab3cddf567ce1d5d5a369",
+      "size_bytes": 1944355,
+      "dimensions": {
+        "width": 800,
+        "height": 600
+      },
+      "alt_fallback": "explain_file",
+      "caption_fallback": null,
+      "referenced_by": [
+        "urn:brain:doc:1f105a58-577e-4a11-807d-53e46b0d99ed"
+      ]
+    },
+    "urn:brain:asset:04e5a04c5c65": {
+      "id": "urn:brain:asset:04e5a04c5c65",
+      "type": "image",
+      "mime": "image/gif",
+      "storage_key": "export_dir.gif",
+      "checksum_sha256": "04e5a04c5c655ce80522841671827d5a5de98ab9dc64ad8c0bcbab0bc2c6d13f",
+      "size_bytes": 1813239,
+      "dimensions": {
+        "width": 800,
+        "height": 600
+      },
+      "alt_fallback": "export_dir",
+      "caption_fallback": null,
+      "referenced_by": [
+        "urn:brain:doc:1f105a58-577e-4a11-807d-53e46b0d99ed"
+      ]
+    },
+    "urn:brain:asset:0b74f143765f": {
+      "id": "urn:brain:asset:0b74f143765f",
+      "type": "image",
+      "mime": "image/gif",
+      "storage_key": "export_file.gif",
+      "checksum_sha256": "0b74f143765f5f1cb0fed1a8f0bd5e47a85bd48a9d38f23e33033cda7e84eace",
+      "size_bytes": 1633165,
+      "dimensions": {
+        "width": 800,
+        "height": 600
+      },
+      "alt_fallback": "export_file",
+      "caption_fallback": null,
+      "referenced_by": [
+        "urn:brain:doc:1f105a58-577e-4a11-807d-53e46b0d99ed"
+      ]
+    },
+    "urn:brain:asset:046380dcd3ae": {
+      "id": "urn:brain:asset:046380dcd3ae",
+      "type": "image",
+      "mime": "image/gif",
+      "storage_key": "export_full_code.gif",
+      "checksum_sha256": "046380dcd3aeb91b33954f7654e48398d8577a819da0b05d7a1045b9573ac338",
+      "size_bytes": 6006858,
+      "dimensions": {
+        "width": 800,
+        "height": 600
+      },
+      "alt_fallback": "export_full_code",
+      "caption_fallback": null,
+      "referenced_by": [
+        "urn:brain:doc:1f105a58-577e-4a11-807d-53e46b0d99ed"
+      ]
+    },
+    "urn:brain:asset:e1842aae26a3": {
+      "id": "urn:brain:asset:e1842aae26a3",
+      "type": "image",
+      "mime": "image/gif",
+      "storage_key": "init.gif",
+      "checksum_sha256": "e1842aae26a398bf4b9873a02954999930a310387f2fa18d2e1ab64593c6106c",
+      "size_bytes": 660069,
+      "dimensions": {
+        "width": 800,
+        "height": 600
+      },
+      "alt_fallback": "init",
+      "caption_fallback": null,
+      "referenced_by": [
+        "urn:brain:doc:1f105a58-577e-4a11-807d-53e46b0d99ed"
+      ]
+    },
+    "urn:brain:asset:db89d7f23f29": {
+      "id": "urn:brain:asset:db89d7f23f29",
+      "type": "image",
+      "mime": "image/gif",
+      "storage_key": "summary.gif",
+      "checksum_sha256": "db89d7f23f294a83cc0ba7b10833484a7f6f28016d50ac689038ebfc8926981c",
+      "size_bytes": 197707,
+      "dimensions": {
+        "width": 800,
+        "height": 600
+      },
+      "alt_fallback": "summary",
+      "caption_fallback": null,
+      "referenced_by": [
+        "urn:brain:doc:1f105a58-577e-4a11-807d-53e46b0d99ed"
+      ]
+    },
+    "urn:brain:asset:1b41dcf5d678": {
+      "id": "urn:brain:asset:1b41dcf5d678",
+      "type": "image",
+      "mime": "image/gif",
+      "storage_key": "testllm.gif",
+      "checksum_sha256": "1b41dcf5d678d3aea046dd45af881505eba6a2ea93cf81ffe33e606144946573",
+      "size_bytes": 172327,
+      "dimensions": {
+        "width": 800,
+        "height": 600
+      },
+      "alt_fallback": "testllm",
+      "caption_fallback": null,
+      "referenced_by": [
+        "urn:brain:doc:1f105a58-577e-4a11-807d-53e46b0d99ed"
+      ]
+    },
+    "urn:brain:asset:e3b0c44298fc": {
+      "id": "urn:brain:asset:e3b0c44298fc",
+      "type": "image",
+      "mime": "image/gif",
+      "storage_key": "tree.gif",
+      "checksum_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0,
+      "dimensions": {
+        "width": 800,
+        "height": 600
+      },
+      "alt_fallback": "tree",
+      "caption_fallback": null,
+      "referenced_by": [
+        "urn:brain:doc:1f105a58-577e-4a11-807d-53e46b0d99ed"
+      ]
+    }
+  }
+}

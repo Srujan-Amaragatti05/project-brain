@@ -329,6 +329,33 @@
     ]
   },
   {
+    "command": "brain export tree",
+    "category": "export",
+    "help": "Export repository tree structure into tree and JSON formats.",
+    "examples": [
+      "brain export tree"
+    ],
+    "errors": [],
+    "related": [
+      "brain export full-code",
+      "brain project analyze"
+    ],
+    "keywords": [
+      "brain export tree",
+      "export",
+      "brain export tree",
+      "export",
+      "structure",
+      "repository",
+      "developer",
+      "architect",
+      "Project Overview",
+      "Repository Mapping",
+      "brain export full-code",
+      "brain project analyze"
+    ]
+  },
+  {
     "command": "brain testllm test",
     "category": "testllm",
     "help": "Test configured LLM provider connectivity.",

@@ -82,33 +82,34 @@ brain project doctor
 
 ### When would I use this?
 
-Use `brain project doctor` whenever you suspect repository corruption, configuration drift, or inconsistent environment settings. It is the primary tool for performing comprehensive diagnostics on your local project structure to ensure all dependencies and tracking mechanisms are functioning as expected.
+Use `brain project doctor` whenever you suspect repository misconfiguration, environment inconsistencies, or need a baseline health assessment of your project workspace. It serves as a diagnostic tool to verify that the environment meets all requirements before performing critical operations.
 
 ### How it fits in the workflow
 
-1. **Onboarding:** Run immediately after cloning a repository to verify your local environment meets project requirements.
-2. **Maintenance:** Execute periodically to validate that build artifacts, hooks, and configuration files remain synchronized with the project schema.
-3. **Troubleshooting:** Use this as your first step when encountering unexpected behavior, build failures, or issues with version control integration.
+This command acts as a pre-flight check. It is best utilized:
+* Immediately after cloning a repository to ensure the local environment is correctly set up.
+* Before executing `brain project analyze` to guarantee that data sources and configurations are accessible.
+* After updating local dependencies or configuration files to confirm that changes have not introduced environment conflicts.
 
 ### Practical tips
 
-*   **Pre-commit check:** Run the command before opening a pull request to ensure your local environment state matches the project standards.
-*   **Log capture:** If the command reports issues, pipe the output to a text file (`brain project doctor > debug.log`) to share with team leads or support engineers.
-*   **Isolated environments:** Ensure you are running the command from the root of your project directory to allow the tool to correctly identify the workspace configuration.
+* Run `brain project doctor` in the root directory of your project to ensure the tool correctly identifies the repository configuration.
+* Pipe the output to a log file or share the generated health report with team members when troubleshooting environment-specific issues.
+* Use this command as a mandatory step in your local development cycle to prevent runtime failures caused by misaligned configurations.
 
 ### Common failure causes
 
-*   **NOT_GIT_REPO:** The tool was executed outside of a initialized Git repository, preventing it from validating branch tracking or index health.
-*   **Connectivity Issues:** Certain diagnostic checks require verifying external dependency registries; an unstable internet connection may cause these specific validations to timeout or fail.
-*   **Permission Denied:** Insufficient file system permissions may prevent the doctor from inspecting hidden configuration folders or system-level symlinks.
+* **NOT_GIT_REPO**: The command is being executed outside of a valid Git repository; ensure you are in the project root.
+* **Connectivity issues**: Some diagnostic checks require external reachability; verify your internet connection if the command hangs or returns network-related warnings.
+* **Permission errors**: Lack of read/write access to project configuration files or environment directories can trigger false negatives in the health report.
 
 ### FAQ
 
-**Q: Does `brain project doctor` modify my files?**  
-A: No, this command is strictly diagnostic. It reports findings and potential issues but will not alter, delete, or "fix" project files automatically unless explicitly prompted by a secondary command.
+**Does this command modify my files?**
+No, `brain project doctor` is a read-only diagnostic tool that strictly produces a health report.
 
-**Q: Why does the command take longer than usual?**  
-A: Diagnostic duration depends on the size of the repository and the number of remote verification checks. If the tool is checking remote dependency hashes, connectivity latency may impact response times.
+**What happens if the health report identifies errors?**
+The report will highlight specific areas of failure. Review the reported diagnostics to identify which configuration parameters need adjustment before proceeding with further project tasks.
 
-**Q: How often should I run this?**  
-A: It is recommended to run this command whenever you switch branches, pull significant upstream changes, or after installing new global development tools.
+**Do I need internet access to run this?**
+While core repository checks function offline, certain environment health checks may require internet connectivity to validate remote endpoints or dependencies.

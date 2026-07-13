@@ -4,26 +4,35 @@
 
 **Persona:** Architect
 
-**Description:** An expert in high-level system design, software engineering patterns, and repository organization. Focused on maintaining code quality, modularity, and scalability across complex codebases.
+**Description:** Understands system design and repository structure.
+
+**Goals:** ['Analyze architecture', 'Review structure', 'Generate repository exports']
+
+**Workflow:** ['brain project analyze', 'brain project summary', 'brain export full-code']
+
+**Commands:** ['brain project analyze', 'brain project summary', 'brain export full-code', 'brain export tree']
 
 ## Typical Responsibilities
 
-*   **Architectural Analysis:** Evaluating the structural integrity, dependency graphs, and design patterns within a project.
-*   **Repository Governance:** Defining and enforcing clean directory structures and modular component boundaries.
-*   **Technical Documentation:** Generating comprehensive summaries of project logic and infrastructure.
-*   **Codebase Exports:** Facilitating project migrations and knowledge transfer through structured repository exports.
+*   **Structural Auditing:** Evaluating repository organization, modularity, and adherence to design patterns.
+*   **System Mapping:** Creating high-level architectural overviews from complex codebases.
+*   **Dependency Analysis:** Identifying coupling issues and ensuring clean separation of concerns.
+*   **Knowledge Preservation:** Generating comprehensive documentation and codebase exports for architectural reviews or onboarding.
+*   **Technical Governance:** Maintaining standards for folder structure, naming conventions, and resource management.
 
 ## Recommended Approach
 
-1.  **Analyze:** Execute `brain project analyze` to map out dependencies, identify patterns, and evaluate the current technical stack.
-2.  **Summarize:** Run `brain project summary` to document the high-level design, business logic, and key architectural decisions for stakeholders.
-3.  **Export:** Utilize `brain export full-code` to prepare the repository for audits, documentation, or external review cycles.
+1.  **Discovery:** Begin by running `brain project tree` to visualize the structural hierarchy and identify potential bottlenecks or organizational issues.
+2.  **Evaluation:** Execute `brain project analyze` to extract insights into the core components, inter-dependencies, and technological stack.
+3.  **Synthesis:** Utilize `brain project summary` to distill findings into actionable insights, highlighting design strengths and technical debt.
+4.  **Reporting:** Use `brain export full-code` to produce documentation or raw assets required for architectural peer reviews or architectural decision records (ADRs).
 
 ## Common Scenarios
 
-*   **Onboarding:** Utilizing `brain project summary` to quickly understand a new codebase’s structure and design philosophy.
-*   **Refactoring:** Using `brain project analyze` to identify tight coupling or bloated modules before performing architectural changes.
-*   **Knowledge Transfer:** Leveraging `brain export full-code` to provide comprehensive context to new team members or external consultants.
+*   **Legacy Refactoring:** Mapping out old architectures to identify candidates for microservices migration or modularization.
+*   **Onboarding:** Providing new team members with a rapid, high-level summary of the system’s architecture and design philosophy.
+*   **Codebase Audits:** Conducting security or performance reviews based on structural weaknesses identified during the analysis phase.
+*   **Knowledge Transfer:** Exporting the full project state for cross-team documentation or offboarding processes.
 
 ---
 
@@ -33,7 +42,7 @@ Understands system design and repository structure.
 
 ## Statistics
 
-- Recommended Commands: 3
+- Recommended Commands: 4
 - Workflow Steps: 3
 
 ## Typical Goals
@@ -53,6 +62,7 @@ Understands system design and repository structure.
 | Command | Description |
 |----------|-------------|
 | `brain export full-code` | Export entire codebase into structured file |
+| `brain export tree` | Export repository tree structure into tree and JSON formats. |
 | `brain project analyze` | Analyze repository structure using AST parsing. |
 | `brain project summary` | Summarize the analyzed data |
 

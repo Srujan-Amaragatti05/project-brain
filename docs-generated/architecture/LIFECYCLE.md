@@ -9,6 +9,7 @@ graph LR
     brain_testllm_test --> brain_diff_review
     brain_testllm_test --> brain_diff_explain
     brain_diff_show --> brain_export_code_changes
+    brain_project_analyze --> brain_export_tree
     brain_project_init --> brain_testllm_test
     brain_project_doctor --> brain_testllm_test
 ```
@@ -107,6 +108,17 @@ graph LR
 
 1. `brain diff show`
 2. `brain export code-changes`
+
+## brain export tree
+
+### Prerequisites
+
+- brain project analyze
+
+### Workflow
+
+1. `brain project analyze`
+2. `brain export tree`
 
 ## brain testllm test
 

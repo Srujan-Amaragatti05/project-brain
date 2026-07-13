@@ -1,0 +1,78 @@
+{
+  "id": "urn:brain:doc:c79d383e-1963-495c-8ef4-cda2f16ed978",
+  "slug": "export/brain-export-code-changes",
+  "aliases": [
+    "brain export code-changes"
+  ],
+  "title": "brain export code-changes",
+  "summary": "Export changed code between two git references",
+  "locale": "en",
+  "versioning": {
+    "introduced_in": "0.2.0",
+    "deprecated_in": null,
+    "stability": "stable"
+  },
+  "blocks": [
+    {
+      "block_id": "blk_520ce051",
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "content": "Export changed code between two git references"
+        }
+      ]
+    },
+    {
+      "block_id": "blk_21ffce5b",
+      "type": "flag_table",
+      "flags": [
+        {
+          "name": "from_ref",
+          "type": "str",
+          "required": false,
+          "default": "REQUIRED",
+          "description": [
+            {
+              "block_id": "blk_param_from_ref",
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "content": "Starting git reference"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "to_ref",
+          "type": "str",
+          "required": false,
+          "default": "REQUIRED",
+          "description": [
+            {
+              "block_id": "blk_param_to_ref",
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "content": "Ending git reference"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "graph": {
+    "relations": []
+  },
+  "type": "command",
+  "metadata": {
+    "command_name": "brain export code-changes",
+    "category": "export",
+    "is_plugin": false
+  }
+}

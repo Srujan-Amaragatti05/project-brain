@@ -22,6 +22,18 @@ def success(message: str, next_step: str | None = None):
             )
         )
 
+def warning(message: str, suggestion: str | None = None):
+    console.print(f"[bold yellow]⚠ {message}[/bold yellow]")
+
+    if suggestion:
+        console.print(
+            Panel(
+                suggestion,
+                title="Try",
+                border_style="yellow",
+            )
+        )
+
 
 def error(message: str, suggestion: str | None = None):
     console.print(f"[bold red]❌ {message}[/bold red]")

@@ -1,0 +1,36 @@
+{
+  "id": "urn:brain:doc:82cb54ec-67fc-49aa-859f-9f19df23a38e",
+  "slug": "project/brain-project-doctor",
+  "aliases": [
+    "brain project doctor"
+  ],
+  "title": "brain project doctor",
+  "summary": "Repository diagnostics and environment health checks.",
+  "locale": "en",
+  "versioning": {
+    "introduced_in": "0.2.2",
+    "deprecated_in": null,
+    "stability": "stable"
+  },
+  "blocks": [
+    {
+      "block_id": "blk_ad187f88",
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "content": "Repository diagnostics and environment health checks."
+        }
+      ]
+    }
+  ],
+  "graph": {
+    "relations": []
+  },
+  "type": "command",
+  "metadata": {
+    "command_name": "brain project doctor",
+    "category": "project",
+    "is_plugin": false
+  }
+}

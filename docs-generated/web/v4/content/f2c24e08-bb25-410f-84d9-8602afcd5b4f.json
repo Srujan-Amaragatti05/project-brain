@@ -1,0 +1,60 @@
+{
+  "id": "urn:brain:doc:f2c24e08-bb25-410f-84d9-8602afcd5b4f",
+  "slug": "diff/brain-diff-explain",
+  "aliases": [
+    "brain diff explain"
+  ],
+  "title": "brain diff explain",
+  "summary": "Explain a file or function",
+  "locale": "en",
+  "versioning": {
+    "introduced_in": "0.1.0",
+    "deprecated_in": null,
+    "stability": "stable"
+  },
+  "blocks": [
+    {
+      "block_id": "blk_7f00867b",
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "content": "Explain a file or function"
+        }
+      ]
+    },
+    {
+      "block_id": "blk_21ffce5b",
+      "type": "flag_table",
+      "flags": [
+        {
+          "name": "target",
+          "type": "str",
+          "required": false,
+          "default": "REQUIRED",
+          "description": [
+            {
+              "block_id": "blk_param_target",
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "content": "File path or file:function target"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "graph": {
+    "relations": []
+  },
+  "type": "command",
+  "metadata": {
+    "command_name": "brain diff explain",
+    "category": "diff",
+    "is_plugin": false
+  }
+}

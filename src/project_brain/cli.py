@@ -878,7 +878,7 @@ def review(
     ],
 
     stability="stable",
-    introduced="0.1.0",
+    introduced="0.2.2",
 )
 @project_app.command()
 def doctor():
@@ -1258,7 +1258,7 @@ def add_code_dir_cmd(
     ],
 
     stability="stable",
-    introduced="0.1.0",
+    introduced="0.2.0",
 )
 @export_app.command(name="code-changes")
 def code_changes(
@@ -1404,7 +1404,7 @@ def explain(
         "structure",
         "repository",
     ],
-    gifs=[],
+    gifs=["tree.gif"],
     errors=[],
     notes=[
         "Exports repository folder structure.",
@@ -1418,7 +1418,7 @@ def explain(
         "brain export tree",
     ],
     stability="stable",
-    introduced="1.1.1",
+    introduced="1.2.0",
 )
 @export_app.command("tree")
 def export_tree():
@@ -1500,7 +1500,7 @@ def export_tree():
     ],
 
     stability="stable",
-    introduced="0.1.0",
+    introduced="0.2.2",
 )
 @llm_app.command()
 def test():

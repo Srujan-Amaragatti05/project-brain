@@ -1,0 +1,36 @@
+{
+  "id": "urn:brain:doc:1f105a58-577e-4a11-807d-53e46b0d99ed",
+  "slug": "project/brain-project-init",
+  "aliases": [
+    "brain project init"
+  ],
+  "title": "brain project init",
+  "summary": "Initialize project-brain in the current directory",
+  "locale": "en",
+  "versioning": {
+    "introduced_in": "0.1.0",
+    "deprecated_in": null,
+    "stability": "stable"
+  },
+  "blocks": [
+    {
+      "block_id": "blk_03b8c930",
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "content": "Initialize project-brain in the current directory"
+        }
+      ]
+    }
+  ],
+  "graph": {
+    "relations": []
+  },
+  "type": "command",
+  "metadata": {
+    "command_name": "brain project init",
+    "category": "project",
+    "is_plugin": false
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "documents": [
+    {
+      "id": "urn:brain:doc:1f105a58-577e-4a11-807d-53e46b0d99ed",
+      "slug": "project/brain-project-init",
+      "type": "command",
+      "title": "brain project init",
+      "summary": "Initialize project-brain in the current directory",
+      "checksum": "0978393e0f00e1cdec6eaeb295021efa5bf0f22dcfdb1f96199e8e8f761687ed",
+      "size_bytes": 1173,
+      "last_modified": "2026-07-11T00:00:00Z"
+    },
+    {
+      "id": "urn:brain:doc:eeda2c13-f990-4b3d-8f52-d7a1ac1a2757",
+      "slug": "project/brain-project-analyze",
+      "type": "command",
+      "title": "brain project analyze",
+      "summary": "Analyze repository structure using AST parsing.",
+      "checksum": "6d4244baa17281c88a01fb259f7f8bf9b6d5b034574c440c113aa66192e074a6",
+      "size_bytes": 1676,
+      "last_modified": "2026-07-11T00:00:00Z"
+    },
+    {
+      "id": "urn:brain:doc:c03c45d2-d528-401b-8634-106a88bf8c8a",
+      "slug": "project/brain-project-summary",
+      "type": "command",
+      "title": "brain project summary",
+      "summary": "Summarize the analyzed data",
+      "checksum": "49ad59f1e753d11189e86ef57a94c936875e676e3e699f5e8ac908d3787bc03e",
+      "size_bytes": 1089,
+      "last_modified": "2026-07-11T00:00:00Z"
+    },
+    {
+      "id": "urn:brain:doc:82cb54ec-67fc-49aa-859f-9f19df23a38e",
+      "slug": "project/brain-project-doctor",
+      "type": "command",
+      "title": "brain project doctor",
+      "summary": "Repository diagnostics and environment health checks.",
+      "checksum": "34eed6a4d0c6e693e5afeefa0f581a8d131cce1103881cb8f3d272701bf3a6d3",
+      "size_bytes": 1160,
+      "last_modified": "2026-07-11T00:00:00Z"
+    },
+    {
+      "id": "urn:brain:doc:70105d09-9906-409a-8277-437a83d07c89",
+      "slug": "diff/brain-diff-show",
+      "type": "command",
+      "title": "brain diff show",
+      "summary": "Show semantic git differences between references.",
+      "checksum": "c76ccd872d84212decd9ab3573e60cc0a051bdcf9d41a97050fffa2f16f6aeeb",
+      "size_bytes": 1647,
+      "last_modified": "2026-07-11T00:00:00Z"
+    },
+    {
+      "id": "urn:brain:doc:74bc952f-9992-4426-8b4b-f4f35c9a1fc4",
+      "slug": "diff/brain-diff-review",
+      "type": "command",
+      "title": "brain diff review",
+      "summary": "Explain code changes using LLM",
+      "checksum": "5ced0f6752a8d834b68c3252379519fcb200fc5726a1277de5ea97cac060a081",
+      "size_bytes": 1722,
+      "last_modified": "2026-07-11T00:00:00Z"
+    },
+    {
+      "id": "urn:brain:doc:f2c24e08-bb25-410f-84d9-8602afcd5b4f",
+      "slug": "diff/brain-diff-explain",
+      "type": "command",
+      "title": "brain diff explain",
+      "summary": "Explain a file or function",
+      "checksum": "0cce69c5a85f1ceb1c6958ac3b800e4fb95e883350602f0c41ed2603efc3c2bd",
+      "size_bytes": 1436,
+      "last_modified": "2026-07-11T00:00:00Z"
+    },
+    {
+      "id": "urn:brain:doc:5ac18de9-17fd-46c8-83f8-e212c2af0a1c",
+      "slug": "export/brain-export-full-code",
+      "type": "command",
+      "title": "brain export full-code",
+      "summary": "Export entire codebase into structured file",
+      "checksum": "e0e34f83e28ea78e0eb4fa1e80905185886632b012aeae7c5ae951ba808401bb",
+      "size_bytes": 1214,
+      "last_modified": "2026-07-11T00:00:00Z"
+    },
+    {
+      "id": "urn:brain:doc:b490d0f3-41d0-4013-8a69-eff2338f1942",
+      "slug": "export/brain-export-file",
+      "type": "command",
+      "title": "brain export file",
+      "summary": "Manually add a single file to export",
+      "checksum": "0b9396de03ee53a15ef7ceed40234742f65c56d6ca1db7e624bfedfca8723e34",
+      "size_bytes": 1309,
+      "last_modified": "2026-07-11T00:00:00Z"
+    },
+    {
+      "id": "urn:brain:doc:27a413bd-3bad-415f-865e-a55d2b92bcae",
+      "slug": "export/brain-export-dir",
+      "type": "command",
+      "title": "brain export dir",
+      "summary": "Manually add a directory to export",
+      "checksum": "188bbdce638fbb6e82bf35a4f432b8eedb0eb743a9830d2007a7359cfebf7107",
+      "size_bytes": 1333,
+      "last_modified": "2026-07-11T00:00:00Z"
+    },
+    {
+      "id": "urn:brain:doc:c79d383e-1963-495c-8ef4-cda2f16ed978",
+      "slug": "export/brain-export-code-changes",
+      "type": "command",
+      "title": "brain export code-changes",
+      "summary": "Export changed code between two git references",
+      "checksum": "51607aaab6defd01cb5d0b7d62caa58932a8c6cc299ef74aaa33e6ec5b5b1f72",
+      "size_bytes": 1676,
+      "last_modified": "2026-07-11T00:00:00Z"
+    },
+    {
+      "id": "urn:brain:doc:707fe274-8353-46bb-868a-43517330738d",
+      "slug": "export/brain-export-tree",
+      "type": "command",
+      "title": "brain export tree",
+      "summary": "Export repository tree structure into tree and JSON formats.",
+      "checksum": "d436eac60c314761a6b342855682e1c5822d4eeeb6f803b1f1962251dd989ba9",
+      "size_bytes": 1344,
+      "last_modified": "2026-07-11T00:00:00Z"
+    },
+    {
+      "id": "urn:brain:doc:dd68a726-374c-4e1b-8d0d-ee2a698c8470",
+      "slug": "testllm/brain-testllm-test",
+      "type": "command",
+      "title": "brain testllm test",
+      "summary": "Test configured LLM provider connectivity.",
+      "checksum": "c1d8b85da53fffa9a914c2e3caa7b0cf0f316f799c4e20cd5f63f0d8261685a0",
+      "size_bytes": 1167,
+      "last_modified": "2026-07-11T00:00:00Z"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "id": "urn:brain:doc:eeda2c13-f990-4b3d-8f52-d7a1ac1a2757",
+  "slug": "project/brain-project-analyze",
+  "aliases": [
+    "brain project analyze"
+  ],
+  "title": "brain project analyze",
+  "summary": "Analyze repository structure using AST parsing.",
+  "locale": "en",
+  "versioning": {
+    "introduced_in": "0.1.0",
+    "deprecated_in": null,
+    "stability": "stable"
+  },
+  "blocks": [
+    {
+      "block_id": "blk_5766041a",
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "content": "Analyze repository structure using AST parsing.\n\nExtracts:\n- files\n- functions\n- classes\n- metadata\n\nStores results inside:\n.brain/data.json\n\nExample:\n    brain project analyze ."
+        }
+      ]
+    },
+    {
+      "block_id": "blk_21ffce5b",
+      "type": "flag_table",
+      "flags": [
+        {
+          "name": "path",
+          "type": "str",
+          "required": false,
+          "default": ".",
+          "description": [
+            {
+              "block_id": "blk_param_path",
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "content": "Repository path to analyze"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "graph": {
+    "relations": []
+  },
+  "type": "command",
+  "metadata": {
+    "command_name": "brain project analyze",
+    "category": "project",
+    "is_plugin": false
+  }
+}

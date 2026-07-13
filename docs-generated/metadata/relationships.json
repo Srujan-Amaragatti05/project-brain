@@ -305,6 +305,35 @@
       "export"
     ]
   },
+  "brain export tree": {
+    "related": [
+      "brain export full-code",
+      "brain project analyze"
+    ],
+    "consumes": [
+      "repository source code"
+    ],
+    "produces": [
+      ".brain/exports/project_structure.tree",
+      ".brain/exports/project_structure.json"
+    ],
+    "prerequisites": [
+      "brain project analyze"
+    ],
+    "use_cases": [
+      "Project Overview",
+      "Repository Mapping"
+    ],
+    "personas": [
+      "developer",
+      "architect"
+    ],
+    "tags": [
+      "export",
+      "structure",
+      "repository"
+    ]
+  },
   "brain testllm test": {
     "related": [
       "brain diff review"

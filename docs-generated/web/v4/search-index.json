@@ -1,0 +1,121 @@
+{
+  "entries": [
+    {
+      "document_id": "urn:brain:doc:1f105a58-577e-4a11-807d-53e46b0d99ed",
+      "title": "brain project init",
+      "keywords": [
+        "brain project init"
+      ],
+      "headings": [],
+      "snippet": "Initialize project-brain in the current directory"
+    },
+    {
+      "document_id": "urn:brain:doc:eeda2c13-f990-4b3d-8f52-d7a1ac1a2757",
+      "title": "brain project analyze",
+      "keywords": [
+        "brain project analyze"
+      ],
+      "headings": [],
+      "snippet": "Analyze repository structure using AST parsing."
+    },
+    {
+      "document_id": "urn:brain:doc:c03c45d2-d528-401b-8634-106a88bf8c8a",
+      "title": "brain project summary",
+      "keywords": [
+        "brain project summary"
+      ],
+      "headings": [],
+      "snippet": "Summarize the analyzed data"
+    },
+    {
+      "document_id": "urn:brain:doc:82cb54ec-67fc-49aa-859f-9f19df23a38e",
+      "title": "brain project doctor",
+      "keywords": [
+        "brain project doctor"
+      ],
+      "headings": [],
+      "snippet": "Repository diagnostics and environment health checks."
+    },
+    {
+      "document_id": "urn:brain:doc:70105d09-9906-409a-8277-437a83d07c89",
+      "title": "brain diff show",
+      "keywords": [
+        "brain diff show"
+      ],
+      "headings": [],
+      "snippet": "Show semantic git differences between references."
+    },
+    {
+      "document_id": "urn:brain:doc:74bc952f-9992-4426-8b4b-f4f35c9a1fc4",
+      "title": "brain diff review",
+      "keywords": [
+        "brain diff review"
+      ],
+      "headings": [],
+      "snippet": "Explain code changes using LLM"
+    },
+    {
+      "document_id": "urn:brain:doc:f2c24e08-bb25-410f-84d9-8602afcd5b4f",
+      "title": "brain diff explain",
+      "keywords": [
+        "brain diff explain"
+      ],
+      "headings": [],
+      "snippet": "Explain a file or function"
+    },
+    {
+      "document_id": "urn:brain:doc:5ac18de9-17fd-46c8-83f8-e212c2af0a1c",
+      "title": "brain export full-code",
+      "keywords": [
+        "brain export full-code"
+      ],
+      "headings": [],
+      "snippet": "Export entire codebase into structured file"
+    },
+    {
+      "document_id": "urn:brain:doc:b490d0f3-41d0-4013-8a69-eff2338f1942",
+      "title": "brain export file",
+      "keywords": [
+        "brain export file"
+      ],
+      "headings": [],
+      "snippet": "Manually add a single file to export"
+    },
+    {
+      "document_id": "urn:brain:doc:27a413bd-3bad-415f-865e-a55d2b92bcae",
+      "title": "brain export dir",
+      "keywords": [
+        "brain export dir"
+      ],
+      "headings": [],
+      "snippet": "Manually add a directory to export"
+    },
+    {
+      "document_id": "urn:brain:doc:c79d383e-1963-495c-8ef4-cda2f16ed978",
+      "title": "brain export code-changes",
+      "keywords": [
+        "brain export code-changes"
+      ],
+      "headings": [],
+      "snippet": "Export changed code between two git references"
+    },
+    {
+      "document_id": "urn:brain:doc:707fe274-8353-46bb-868a-43517330738d",
+      "title": "brain export tree",
+      "keywords": [
+        "brain export tree"
+      ],
+      "headings": [],
+      "snippet": "Export repository tree structure into tree and JSON formats."
+    },
+    {
+      "document_id": "urn:brain:doc:dd68a726-374c-4e1b-8d0d-ee2a698c8470",
+      "title": "brain testllm test",
+      "keywords": [
+        "brain testllm test"
+      ],
+      "headings": [],
+      "snippet": "Test configured LLM provider connectivity."
+    }
+  ]
+}

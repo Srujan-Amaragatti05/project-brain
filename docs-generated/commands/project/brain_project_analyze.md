@@ -99,33 +99,34 @@ brain project analyze ./src
 
 ### When would I use this?
 
-Use `brain project analyze` when you need to gain a deep, machine-readable understanding of a codebase's structural architecture. This is ideal for generating documentation, identifying architectural bottlenecks, mapping dependency graphs, or onboarding team members to an unfamiliar repository.
+Use `brain project analyze` when you need to gain a structured understanding of a codebase’s architecture, including its classes, functions, and file hierarchy. It is ideal for onboarding into a new project, performing impact analysis before refactoring, or generating metadata for documentation tools.
 
 ### How it fits in the workflow
 
-1. **Initialization:** Run the command at the root of a project to index its entire structure.
-2. **Data Persistence:** The tool parses files, classes, and functions via AST (Abstract Syntax Tree), saving the result into `.brain/data.json`.
-3. **Integration:** Use the generated JSON as a source of truth for other development tools, IDE plugins, or custom automation scripts that require programmatic access to the project's symbols and metadata.
+This command acts as the initial ingestion step in your development workflow. By executing it against your source code, you generate a comprehensive `data.json` file inside the `.brain/` directory. Subsequent tools in the suite consume this structured output to provide summaries, dependency graphs, or diagnostic reports without re-parsing the source code each time.
 
 ### Practical tips
 
-* **Target specific directories:** If you only need to analyze a sub-module, pass the path directly (e.g., `brain project analyze ./src/services`) to reduce processing time.
-* **Continuous Integration:** Trigger this command in your CI pipeline to track architectural drift or symbol complexity over time.
-* **Keep the index clean:** Regularly check `.brain/data.json` into your workflow to ensure team members are referencing the same structural analysis.
+*   **Target specific modules:** If you are working on a massive repository, run the command on sub-directories (e.g., `brain project analyze ./src/api`) to speed up processing.
+*   **Version control:** Ensure your `.brain/` directory is added to your `.gitignore` to prevent tracking generated metadata in your repository.
+*   **Automate in CI/CD:** Run this command in your pre-commit hooks or CI pipeline to ensure the stored metadata stays synchronized with your latest code changes.
 
 ### Common failure causes
 
-* **`NOT_GIT_REPO`:** The command requires the target directory to be initialized as a Git repository; ensure `git init` has been executed.
-* **Unsupported File Types:** Since the tool relies on AST parsing, files with syntax errors or unsupported languages may result in incomplete metadata extraction.
-* **Performance Bottlenecks:** Large-scale repositories with thousands of files may significantly increase analysis time; consider analyzing individual directories if performance degrades.
+*   **NOT_GIT_REPO:** The command requires the target directory to be initialized as a git repository. Verify your path with `git status` before running the analysis.
+*   **Syntax Errors:** Because the tool uses AST parsing, malformed source code that cannot be parsed by the underlying engine will cause the analysis to fail. Ensure your project builds correctly before running the analyzer.
+*   **Permission Denied:** Ensure the user running the command has read permissions for the target directory and write permissions for the `.brain/` directory.
 
 ### FAQ
 
 **Does this command modify my source code?**
-No. The command is strictly read-only and uses AST parsing to extract information; it only writes to the local `.brain/` directory.
+No. It only reads your source files and outputs a data file into the `.brain/` directory.
 
-**Is the generated JSON human-readable?**
-Yes, `data.json` is formatted for structured data access, but it is structured clearly enough for developers to review specific class or function metadata manually if necessary.
+**How do I handle very large repositories?**
+The tool uses AST parsing, which can be resource-intensive. If analysis takes too long, try targeting specific sub-folders rather than the root directory.
 
-**Why does it take a long time to run?**
-The tool performs a deep parse of the source code to build the AST. Large repositories require more compute cycles to map the relationships between classes and functions.
+**Where is the analysis stored?**
+All extracted metadata is saved to `.brain/data.json`.
+
+**What information is extracted?**
+The command extracts high-level metadata, including file paths, class definitions, and function signatures.

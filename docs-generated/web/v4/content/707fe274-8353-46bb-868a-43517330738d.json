@@ -1,0 +1,36 @@
+{
+  "id": "urn:brain:doc:707fe274-8353-46bb-868a-43517330738d",
+  "slug": "export/brain-export-tree",
+  "aliases": [
+    "brain export tree"
+  ],
+  "title": "brain export tree",
+  "summary": "Export repository tree structure into tree and JSON formats.",
+  "locale": "en",
+  "versioning": {
+    "introduced_in": "1.2.0",
+    "deprecated_in": null,
+    "stability": "stable"
+  },
+  "blocks": [
+    {
+      "block_id": "blk_1ac77022",
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "content": "Export repository tree structure into tree and JSON formats."
+        }
+      ]
+    }
+  ],
+  "graph": {
+    "relations": []
+  },
+  "type": "command",
+  "metadata": {
+    "command_name": "brain export tree",
+    "category": "export",
+    "is_plugin": false
+  }
+}

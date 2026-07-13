@@ -2,7 +2,7 @@
 
 ## Statistics
 
-- Total Commands: 12
+- Total Commands: 13
 - Providers: 5
 - Error Codes: 3
 - Config Keys: 18
@@ -23,6 +23,7 @@
 - `brain export dir`
 - `brain export file`
 - `brain export full-code`
+- `brain export tree`
 
 ### Project
 

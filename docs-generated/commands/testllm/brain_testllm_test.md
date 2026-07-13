@@ -81,33 +81,31 @@ _None_
 
 ### When would I use this?
 
-Use this command to verify that your environment is correctly connected to the configured Large Language Model (LLM) provider. It is the primary diagnostic step to ensure that API keys, network settings, and provider availability are functioning as expected before running resource-intensive operations.
+Use this command to verify that your environment is correctly connected to the configured Large Language Model (LLM) provider. This is essential after performing initial setup, modifying provider credentials, or when troubleshooting unexpected errors during LLM-based operations.
 
 ### How it fits in the workflow
 
-1. **Configuration**: Edit `brain.yaml` to define your LLM provider and credentials.
-2. **Verification**: Execute `brain testllm test` to confirm the handshake with the provider.
-3. **Execution**: Proceed to use features like `brain diff review` once the connectivity report confirms a successful status.
+The `brain testllm test` command acts as a diagnostic gateway. It should be executed after updating your `brain.yaml` file to ensure the configuration is valid before attempting complex tasks like code reviews or documentation generation. It confirms the handshake between the local application and the remote API before you consume credits or process data.
 
 ### Practical tips
 
-*   Run this command immediately after updating your `brain.yaml` file to validate syntax and credential integrity.
-*   If you are switching between different LLM providers, use this command to ensure the new configuration is active and responsive.
-*   Integrate this into your local environment setup script to ensure all dependencies are reachable for team members.
+*   **Pre-execution check:** Always ensure that `brain.yaml` contains the correct API keys and endpoint configurations before running this command.
+*   **Environment isolation:** If you have multiple environments, ensure you are running this command within the correct context to verify the specific provider settings for that deployment.
+*   **Dependency validation:** Run this command following any network environment changes (e.g., enabling a corporate VPN or proxy) to ensure the provider connectivity remains intact.
 
 ### Common failure causes
 
-*   **LLM_PROVIDER_FAILURE**: The configured provider is returning an error (e.g., 401 Unauthorized, 429 Too Many Requests, or 503 Service Unavailable).
-*   **Missing Configuration**: The `brain.yaml` file is missing the required provider settings or is incorrectly formatted.
-*   **Network Restrictions**: Corporate firewalls or proxy settings are blocking the outbound connection to the LLM API endpoints.
+*   **LLM_PROVIDER_FAILURE:** This error typically indicates that the API key is invalid, expired, or has insufficient permissions to perform the requested operations.
+*   **Missing Configuration:** The provider settings are absent or malformed within `brain.yaml`.
+*   **Network Restrictions:** The local environment is unable to reach the provider's API endpoints due to firewall settings or lack of internet connectivity.
 
 ### FAQ
 
 **Does this command send data to the LLM?**
-No, it only performs a lightweight handshake to test connectivity.
+No, it performs a lightweight connectivity check to verify that the provider is reachable and the credentials are valid; it does not process task-specific data.
+
+**Do I need to restart the application after updating the configuration?**
+Yes, ensure the updated `brain.yaml` is saved and the application state is refreshed before running the test to ensure the command reads the latest configuration.
 
 **What should I do if the test fails?**
-Check your `brain.yaml` file for valid API keys and ensure your network environment allows traffic to the LLM provider's API.
-
-**Do I need an internet connection to run this?**
-Yes, the command requires an active connection to reach the external LLM provider service.
+First, check your `brain.yaml` file for typos in the configuration. Second, verify your internet connection. If those are correct, verify that your API key is still active in your provider's dashboard.

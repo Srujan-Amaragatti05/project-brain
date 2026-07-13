@@ -35,7 +35,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           PYTHONPATH: src
         run: |
-          python scripts/build_docs.py
+          python scripts/build_docs.py --shadow
           
       - name: Setup Pages
         uses: actions/configure-pages@v4

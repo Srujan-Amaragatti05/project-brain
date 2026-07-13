@@ -1,0 +1,51 @@
+{
+  "schema_version": "4.0.0",
+  "build_id": "build_fake_uuid",
+  "build_metadata": {
+    "generated_at": "2026-07-11T00:00:00Z",
+    "generator_version": "4.0",
+    "cli_version": "1.2.0",
+    "git_commit": "unknown",
+    "build_duration_ms": 100
+  },
+  "statistics": {
+    "total_documents": 13,
+    "total_assets": 14
+  },
+  "integrity": {
+    "documents": "0010980931218c84cb52f0a17543eed5f3c820213f85ac756e54c70372589f4f",
+    "navigation": "40732d0dbdbcfe2e90260d8f830ab551ff89e61cfa44f15eb8cd2e8c2b92b416",
+    "assets": "aed11156f848da83b787eaa11a3f2996ba3abf7d3f98257fc48078ff29ea1ffa",
+    "search": "998dc76d836523bebe9b4cd7c3db03241d9df13e8daac255b082f42c1da9ae5d"
+  },
+  "capabilities": {
+    "supported_document_types": [
+      "command",
+      "guide"
+    ],
+    "supported_block_types": [
+      "paragraph",
+      "heading",
+      "code",
+      "terminal",
+      "flag_table"
+    ],
+    "supported_inline_types": [
+      "text",
+      "bold",
+      "doc_link"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "endpoints": {
+    "documents": "documents.json",
+    "navigation": "navigation.json",
+    "assets": "assets.json",
+    "search": "search-index.json",
+    "redirects": "redirects.json",
+    "capabilities": "capabilities.json",
+    "content_base": "content/"
+  }
+}

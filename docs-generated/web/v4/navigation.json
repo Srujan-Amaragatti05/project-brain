@@ -1,0 +1,146 @@
+{
+  "sidebar": [
+    {
+      "id": "cat_project",
+      "label": "project",
+      "icon": null,
+      "target_id": null,
+      "external_url": null,
+      "children": [
+        {
+          "id": "urn:brain:doc:1f105a58-577e-4a11-807d-53e46b0d99ed",
+          "label": "brain project init",
+          "icon": null,
+          "target_id": "urn:brain:doc:1f105a58-577e-4a11-807d-53e46b0d99ed",
+          "external_url": null,
+          "children": null
+        },
+        {
+          "id": "urn:brain:doc:eeda2c13-f990-4b3d-8f52-d7a1ac1a2757",
+          "label": "brain project analyze",
+          "icon": null,
+          "target_id": "urn:brain:doc:eeda2c13-f990-4b3d-8f52-d7a1ac1a2757",
+          "external_url": null,
+          "children": null
+        },
+        {
+          "id": "urn:brain:doc:c03c45d2-d528-401b-8634-106a88bf8c8a",
+          "label": "brain project summary",
+          "icon": null,
+          "target_id": "urn:brain:doc:c03c45d2-d528-401b-8634-106a88bf8c8a",
+          "external_url": null,
+          "children": null
+        },
+        {
+          "id": "urn:brain:doc:82cb54ec-67fc-49aa-859f-9f19df23a38e",
+          "label": "brain project doctor",
+          "icon": null,
+          "target_id": "urn:brain:doc:82cb54ec-67fc-49aa-859f-9f19df23a38e",
+          "external_url": null,
+          "children": null
+        }
+      ]
+    },
+    {
+      "id": "cat_diff",
+      "label": "diff",
+      "icon": null,
+      "target_id": null,
+      "external_url": null,
+      "children": [
+        {
+          "id": "urn:brain:doc:70105d09-9906-409a-8277-437a83d07c89",
+          "label": "brain diff show",
+          "icon": null,
+          "target_id": "urn:brain:doc:70105d09-9906-409a-8277-437a83d07c89",
+          "external_url": null,
+          "children": null
+        },
+        {
+          "id": "urn:brain:doc:74bc952f-9992-4426-8b4b-f4f35c9a1fc4",
+          "label": "brain diff review",
+          "icon": null,
+          "target_id": "urn:brain:doc:74bc952f-9992-4426-8b4b-f4f35c9a1fc4",
+          "external_url": null,
+          "children": null
+        },
+        {
+          "id": "urn:brain:doc:f2c24e08-bb25-410f-84d9-8602afcd5b4f",
+          "label": "brain diff explain",
+          "icon": null,
+          "target_id": "urn:brain:doc:f2c24e08-bb25-410f-84d9-8602afcd5b4f",
+          "external_url": null,
+          "children": null
+        }
+      ]
+    },
+    {
+      "id": "cat_export",
+      "label": "export",
+      "icon": null,
+      "target_id": null,
+      "external_url": null,
+      "children": [
+        {
+          "id": "urn:brain:doc:5ac18de9-17fd-46c8-83f8-e212c2af0a1c",
+          "label": "brain export full-code",
+          "icon": null,
+          "target_id": "urn:brain:doc:5ac18de9-17fd-46c8-83f8-e212c2af0a1c",
+          "external_url": null,
+          "children": null
+        },
+        {
+          "id": "urn:brain:doc:b490d0f3-41d0-4013-8a69-eff2338f1942",
+          "label": "brain export file",
+          "icon": null,
+          "target_id": "urn:brain:doc:b490d0f3-41d0-4013-8a69-eff2338f1942",
+          "external_url": null,
+          "children": null
+        },
+        {
+          "id": "urn:brain:doc:27a413bd-3bad-415f-865e-a55d2b92bcae",
+          "label": "brain export dir",
+          "icon": null,
+          "target_id": "urn:brain:doc:27a413bd-3bad-415f-865e-a55d2b92bcae",
+          "external_url": null,
+          "children": null
+        },
+        {
+          "id": "urn:brain:doc:c79d383e-1963-495c-8ef4-cda2f16ed978",
+          "label": "brain export code-changes",
+          "icon": null,
+          "target_id": "urn:brain:doc:c79d383e-1963-495c-8ef4-cda2f16ed978",
+          "external_url": null,
+          "children": null
+        },
+        {
+          "id": "urn:brain:doc:707fe274-8353-46bb-868a-43517330738d",
+          "label": "brain export tree",
+          "icon": null,
+          "target_id": "urn:brain:doc:707fe274-8353-46bb-868a-43517330738d",
+          "external_url": null,
+          "children": null
+        }
+      ]
+    },
+    {
+      "id": "cat_testllm",
+      "label": "testllm",
+      "icon": null,
+      "target_id": null,
+      "external_url": null,
+      "children": [
+        {
+          "id": "urn:brain:doc:dd68a726-374c-4e1b-8d0d-ee2a698c8470",
+          "label": "brain testllm test",
+          "icon": null,
+          "target_id": "urn:brain:doc:dd68a726-374c-4e1b-8d0d-ee2a698c8470",
+          "external_url": null,
+          "children": null
+        }
+      ]
+    }
+  ],
+  "topbar": [],
+  "footer": []
+}

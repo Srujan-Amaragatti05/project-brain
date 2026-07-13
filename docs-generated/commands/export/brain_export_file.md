@@ -82,34 +82,34 @@ _None_
 
 ### When would I use this?
 
-Use this command when you need to selectively include a specific source file in your project export bundle without including the entire directory or repository. This is ideal for isolating specific modules, configuration files, or documentation pieces for targeted review or sharing.
+Use this command when you need to selectively include a specific file in an export bundle rather than exporting an entire directory or the full codebase. It is ideal for sharing individual components, configuration files, or documentation pieces that are critical for an external review.
 
 ### How it fits in the workflow
 
-This command acts as a granular control mechanism within the `brain export` ecosystem. After identifying specific files that require external analysis or backup, you run `brain export file` to add them to the `.brain/exports/manual_export.txt` manifest. It functions as a precise alternative to `brain export full-code` or `brain export dir`, allowing you to curate the final export contents incrementally.
+The command functions as a surgical tool during the export phase of your project. By running `brain export file <path>`, you populate the `.brain/exports/manual_export.txt` manifest. This workflow allows you to curate exactly which files are bundled for transport or backup, ensuring that only necessary single files are staged for the final output.
 
 ### Practical tips
 
-*   **Verify paths:** Ensure the path provided is relative to the project root to maintain consistency in your manifest.
-*   **Incremental addition:** You can run the command multiple times to build a customized export list; each execution appends the specified file to `manual_export.txt`.
-*   **Manifest review:** Always inspect the contents of `.brain/exports/manual_export.txt` after using this command to confirm that the expected files have been correctly registered.
+*   **Verify path accuracy:** Use tab-completion or check your current working directory with `ls` before executing to ensure the path is correct.
+*   **Sequential additions:** You can run the command multiple times to append multiple individual files to the `manual_export.txt` manifest.
+*   **Pre-export staging:** Run this command while building your export bundle to keep your manifest clean and minimal.
 
 ### Common failure causes
 
-*   **Non-existent files:** The command will fail if the provided file path does not point to an existing file in the current working directory.
-*   **Permissions:** Lack of write access to the `.brain/exports/` directory will prevent the command from updating the manifest.
-*   **Typographical errors:** Incorrect file paths will result in a failure to locate the resource, preventing it from being consumed by the export process.
+*   **Non-existent file:** The command will fail if the provided path does not point to an existing file on the local filesystem.
+*   **Permission errors:** Lack of read access to the target file will prevent it from being added to the export bundle.
+*   **Typographical errors:** Incorrect relative paths or missing extensions will result in a failure to locate the intended resource.
 
 ### FAQ
 
+**Does this command overwrite existing exports?**
+No, it appends the file to the current `manual_export.txt` manifest.
+
 **Can I export multiple files at once?**
-No, this command is designed to add one file at a time. To include multiple files, execute the command sequentially for each file path.
+The command is designed for a single file path at a time. To add multiple files, execute the command sequentially for each file.
 
-**Where does the file information go?**
-The command tracks your selections by updating the `.brain/exports/manual_export.txt` file, which serves as the registry for your manual export bundle.
+**Where does the file go?**
+The file reference is added to `.brain/exports/manual_export.txt`.
 
-**What happens if I run the command twice on the same file?**
-The system will attempt to register the file again. Depending on the implementation of the manifest writer, it may either ignore the duplicate or create redundant entries; ensure your workflow accounts for unique file selections.
-
-**Does this command move the file?**
-No, this command only registers the file path within the export system's manifest. It does not alter, move, or duplicate the actual source file until the final export process is triggered.
+**What happens if I enter an invalid path?**
+The system will return an error indicating that the file must exist for the export process to proceed.

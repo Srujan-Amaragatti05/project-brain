@@ -84,31 +84,31 @@ _None_
 
 ### When would I use this?
 
-Use `brain diff explain` when you need to understand the logic, intent, or structural changes within a specific file or a designated function. It is ideal for onboarding into a new codebase, performing code reviews, or troubleshooting logic errors where the implementation details are complex or ambiguous.
+Use `brain diff explain` when you need to understand the logic, intent, or structural changes within a specific file or a designated function. It is ideal for onboarding into a new codebase, reviewing complex legacy logic, or verifying that a code segment performs as intended after refactoring.
 
 ### How it fits in the workflow
 
-This command acts as an analytical bridge between raw source code and developer comprehension. It is typically utilized after a code change is identified via version control tools but before a formal code review or refactoring effort begins. By parsing the `source code`, it provides a `terminal explanation` that contextualizes the implementation, allowing you to verify that the functional logic aligns with the intended requirements before committing or deploying changes.
+This command acts as a diagnostic bridge between raw source code and developer comprehension. It integrates into your development loop after identifying a code area of interest through a `diff` or version control check. It serves as a pre-review tool to generate natural language insights before committing changes or initiating a formal code review with `brain diff review`.
 
 ### Practical tips
 
-*   **Target specific blocks:** Use the `file:function` syntax to narrow the explanation scope, which prevents information overload and focuses the output on relevant logic.
-*   **Sequential analysis:** Execute the command on individual functions within a module to build a mental map of complex file architectures.
-*   **Integrate with reviews:** Use the output as a reference point when discussing architectural choices in pull requests.
+*   **Target specific units:** Use the `file:function` syntax to avoid cognitive overload. By scoping the analysis to a single function, the output remains focused on immediate logic rather than file-wide context.
+*   **Iterate during refactoring:** Run the command before and after making logic changes to ensure the "explanation" aligns with your intended architectural updates.
+*   **Use with version control:** Pipe the output into documentation files or PR comments when you need to explain complex implementation details to other team members.
 
 ### Common failure causes
 
-*   **Invalid Target:** Providing a path that does not exist or a function name that is not present within the specified file will prevent the command from generating an explanation.
-*   **Malformed Syntax:** Neglecting the `file:function` format when targeting a specific function results in a failure to locate the code block.
-*   **Empty Files:** Attempting to explain a file with no executable source code or an empty function body will result in no meaningful output.
+*   **Invalid Target Path:** Providing a file path that does not exist or is inaccessible by the current environment.
+*   **Missing Function Scope:** Referencing a function name that is not present or is misspelled within the specified file.
+*   **Non-parseable Source:** Attempting to explain binary files, non-source assets, or code written in unsupported languages where the internal parser cannot build a symbol tree.
 
 ### FAQ
 
-**Does this command modify my source code?**
-No. It only consumes the source code to produce a textual explanation in the terminal.
+**Can I run this on multiple files at once?**
+No, the command accepts a single `target` parameter at a time. Run the command sequentially for each file or function of interest.
 
-**Can I use this for non-Python files?**
-Yes, the command supports any file format that the underlying engine can parse, provided the target syntax is valid.
+**Does this modify my source code?**
+No, the command only consumes the source code and produces a text-based explanation in your terminal.
 
-**How does this differ from `brain diff review`?**
-While `explain` focuses on summarizing logic and functionality, `review` evaluates the code for quality, potential bugs, and adherence to best practices.
+**What happens if the function is nested?**
+The command expects a standard `file:function` format. If the function is deeply nested within a class, ensure the syntax aligns with the specific parser’s requirements for identifier resolution.

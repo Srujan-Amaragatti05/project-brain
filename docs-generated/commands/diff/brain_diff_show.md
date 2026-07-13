@@ -92,31 +92,33 @@ _None_
 
 ### When would I use this?
 
-Use `brain diff show` to identify semantic changes between two git references. It is ideal for code reviews, auditing logic shifts, or summarizing modifications between branches, commits, or tags.
+Use `brain diff show` to identify semantic changes between two git references. It is ideal for code reviews, auditing logic transformations between commits, or comparing the state of two branches to understand functional shifts beyond simple line-based diffs.
 
 ### How it fits in the workflow
 
-This command consumes the `git repository` and `git history` to generate a `terminal diff report`. It acts as an intermediary step during development cycles, positioned between initial code modification and final review, helping developers isolate logic changes rather than just raw character differences.
+1.  **Consumes**: Git repository and git history.
+2.  **Processing**: The command analyzes code structure and semantic intent across the specified references.
+3.  **Produces**: A terminal diff report detailing the functional changes, which can then be passed to `brain diff review` for deeper analysis or exported via `brain export code-changes`.
 
 ### Practical tips
 
-*   **Compare recent progress:** Use `brain diff show HEAD~3 HEAD` to review the last three commits for a quick pulse check on your current feature branch.
-*   **Branch validation:** Use `brain diff show main dev` to see exactly what logic has drifted between your development and production branches before merging.
-*   **Targeted analysis:** Utilize the file-level or function-level modes to filter noise and focus specifically on high-impact areas of the codebase.
+*   **Scoped Analysis**: Use `brain diff show HEAD~3 HEAD` to quickly assess the functional impact of your last three local commits before pushing.
+*   **Branch Comparison**: Compare two branches using `brain diff show main dev` to prepare a summary of changes for a pull request.
+*   **Granularity**: Leverage the tool's ability to switch between file-level and function-level modes to focus on specific blocks of logic rather than broad syntax changes.
 
 ### Common failure causes
 
-*   **NOT_GIT_REPO:** Executing the command outside of a directory initialized with git.
-*   **INVALID_GIT_REF:** Providing reference strings (such as commit hashes, branch names, or tags) that do not exist or are malformed within the current history.
-*   **Insufficient history:** Attempting to diff references that do not share a common ancestor or exist in a shallow clone where history has been truncated.
+*   **NOT_GIT_REPO**: Executing the command outside of a directory initialized as a git repository.
+*   **INVALID_GIT_REF**: Providing branch names, tags, or commit hashes that do not exist or are mistyped.
+*   **Missing History**: Attempting to run the command on a repository that lacks sufficient git history to perform a meaningful comparison.
 
 ### FAQ
 
-**Does this command show raw line changes or semantic changes?**
-The command focuses on semantic differences, meaning it identifies changes in code structure, function logic, and behavioral patterns rather than simple character-based line additions or deletions.
+**Does this command show line-by-line git diffs?**
+No, it focuses on semantic differences. For raw line-by-line changes, standard git tooling is recommended, while this command highlights functional shifts.
 
-**Can I use this without arguments?**
-Yes, running `brain diff show` without parameters defaults to standard reference comparisons, typically between the last commit and the current working state.
+**What happens if I don't provide any arguments?**
+The command will default to a comparison based on the current working state of your repository.
 
-**Does this produce permanent side effects?**
-No, this is a read-only operation. It only produces a `terminal diff report` and does not modify the git repository or state.
+**Can I use this on non-code files?**
+The tool is optimized for code analysis. Performance and accuracy may vary significantly when used on binary files or non-code documentation formats.

@@ -1,4 +1,5 @@
 {
+  "version": "1.2.0",
   "commands": [
     {
       "command": "brain project init",
@@ -224,7 +225,7 @@
           "diagnostics"
         ],
         "stability": "stable",
-        "introduced": "0.1.0",
+        "introduced": "0.2.2",
         "gifs": [
           "doctor.gif"
         ],
@@ -706,7 +707,7 @@
           "export"
         ],
         "stability": "stable",
-        "introduced": "0.1.0",
+        "introduced": "0.2.0",
         "gifs": [
           "code_changes.gif"
         ],
@@ -722,6 +723,66 @@
         "workflow": [
           "brain diff show",
           "brain export code-changes"
+        ]
+      }
+    },
+    {
+      "command": "brain export tree",
+      "help": "Export repository tree structure into tree and JSON formats.",
+      "parameters": [],
+      "metadata": {
+        "command": "brain export tree",
+        "category": "export",
+        "examples": [
+          "brain export tree"
+        ],
+        "related": [
+          "brain export full-code",
+          "brain project analyze"
+        ],
+        "outputs": [
+          ".brain/exports/project_structure.tree",
+          ".brain/exports/project_structure.json"
+        ],
+        "consumes": [
+          "repository source code"
+        ],
+        "produces": [
+          ".brain/exports/project_structure.tree",
+          ".brain/exports/project_structure.json"
+        ],
+        "prerequisites": [
+          "brain project analyze"
+        ],
+        "use_cases": [
+          "Project Overview",
+          "Repository Mapping"
+        ],
+        "personas": [
+          "developer",
+          "architect"
+        ],
+        "tags": [
+          "export",
+          "structure",
+          "repository"
+        ],
+        "stability": "stable",
+        "introduced": "1.2.0",
+        "gifs": [
+          "tree.gif"
+        ],
+        "errors": [],
+        "notes": [
+          "Exports repository folder structure.",
+          "Generates both tree and JSON formats."
+        ],
+        "edge_cases": [
+          "Large repositories generate large JSON output."
+        ],
+        "workflow": [
+          "brain project analyze",
+          "brain export tree"
         ]
       }
     },
@@ -763,7 +824,7 @@
           "diagnostics"
         ],
         "stability": "stable",
-        "introduced": "0.1.0",
+        "introduced": "0.2.2",
         "gifs": [
           "testllm.gif"
         ],

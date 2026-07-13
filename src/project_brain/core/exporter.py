@@ -323,8 +323,8 @@ def export_code_changes(root: Path, from_ref: str, to_ref: str):
 def build_project_tree(root: Path):
     """
     Export project structure as:
-    - structure.tree
-    - structure.json
+    - project_structure.tree
+    - project_structure.json
 
     Returns:
         (tree_file, json_file)
@@ -336,8 +336,8 @@ def build_project_tree(root: Path):
         exist_ok=True,
     )
 
-    tree_file = exports_dir / "structure.tree"
-    json_file = exports_dir / "structure.json"
+    tree_file = exports_dir / "project_structure.tree"
+    json_file = exports_dir / "project_structure.json"
 
     tree_text = [f"{root.name}/"] + _build_tree_lines(root)
     tree_file.write_text(

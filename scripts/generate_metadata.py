@@ -6,6 +6,7 @@ from pathlib import Path
 from lib.cli_introspector import generate_command_graph
 from project_brain.docs.errors import ERROR_REGISTRY
 from lib.atomic_write import safe_write
+from project_brain import __version__
 
 OUTPUT_DIR = Path("docs-generated/metadata")
 
@@ -19,7 +20,7 @@ def main() -> None:
     commands = generate_command_graph()
 
     success = True
-    if not _write_json("commands.json", {"commands": commands}):
+    if not _write_json("commands.json", {"version": __version__, "commands": commands}):
         success = False
 
     sidebar: dict[str, list] = {}

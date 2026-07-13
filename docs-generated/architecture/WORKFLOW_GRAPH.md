@@ -21,6 +21,8 @@ graph TD
     brain_export_dir["brain export dir"]
     brain_export_code_changes["brain export code-changes"]
     brain_diff_show --> brain_export_code_changes
+    brain_export_tree["brain export tree"]
+    brain_project_analyze --> brain_export_tree
     brain_testllm_test["brain testllm test"]
     brain_testllm_test --> brain_diff_review
 ```

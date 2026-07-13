@@ -87,6 +87,14 @@
     "gifs": true,
     "errors": true
   },
+  "brain export tree": {
+    "examples": true,
+    "workflow": true,
+    "personas": true,
+    "use_cases": true,
+    "gifs": true,
+    "errors": false
+  },
   "brain testllm test": {
     "examples": true,
     "workflow": true,

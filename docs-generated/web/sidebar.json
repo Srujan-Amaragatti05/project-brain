@@ -47,6 +47,10 @@
     {
       "title": "brain export code-changes",
       "slug": "export/brain_export_code-changes"
+    },
+    {
+      "title": "brain export tree",
+      "slug": "export/brain_export_tree"
     }
   ],
   "testllm": [

@@ -13,4 +13,5 @@
 | `brain export file` | export | developer | Targeted Export, File Sharing |
 | `brain export dir` | export | developer | Targeted Export, Folder Sharing |
 | `brain export code-changes` | export | developer, reviewer | PR Export, Change Review, LLM Review |
+| `brain export tree` | export | developer, architect | Project Overview, Repository Mapping |
 | `brain testllm test` | testllm | developer | LLM Setup, Provider Validation, Environment Verification |

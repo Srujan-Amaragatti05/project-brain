@@ -12,39 +12,38 @@
 * Validate modifications
 
 **Workflow:**
-* brain diff show
-* brain diff review
+* `brain diff show`
+* `brain diff review`
 
 **Commands:**
-* brain project analyze
-* brain diff show
-* brain diff review
-* brain diff explain
-* brain export code-changes
+* `brain project analyze`
+* `brain diff show`
+* `brain diff review`
+* `brain diff explain`
+* `brain export code-changes`
 
 ## Typical Responsibilities
 
-* Thoroughly examining code diffs to ensure adherence to established coding standards.
-* Identifying potential security vulnerabilities, performance bottlenecks, and logic errors.
-* Ensuring that proposed changes align with the project's architectural principles.
-* Providing constructive, actionable feedback to developers to improve code quality.
-* Verifying that the logic implemented matches the intended requirements.
+* Evaluating code quality, readability, and adherence to established style guides.
+* Detecting potential logic errors, security vulnerabilities, and performance bottlenecks.
+* Ensuring that proposed changes align with project requirements and architectural standards.
+* Facilitating constructive feedback loops with contributors to improve code maintainability.
+* Verifying that adequate test coverage is provided for new features or bug fixes.
 
 ## Recommended Approach
 
-1.  **Analyze Context:** Use `brain project analyze` to understand the scope and existing codebase structure before diving into specific changes.
-2.  **Inspect Diffs:** Execute `brain diff show` to get a clear, categorized view of the modified files and lines.
-3.  **Synthesize Understanding:** Utilize `brain diff explain` to clarify the intent behind complex or ambiguous code modifications.
-4.  **Perform Evaluation:** Apply `brain diff review` to flag issues, suggest improvements, and validate the overall implementation.
-5.  **Document and Export:** Use `brain export code-changes` to maintain a record of the review feedback and approved modifications.
+* **Contextual Analysis:** Utilize `brain project analyze` to understand the broader impact of the changes before inspecting specific diffs.
+* **Granular Review:** Use `brain diff show` to perform line-by-line inspection, followed by `brain diff explain` for complex logic blocks.
+* **Risk Assessment:** Prioritize identifying edge cases and potential regressions.
+* **Documentation:** Ensure all modifications are documented through concise and actionable feedback.
+* **Consistency:** Maintain a standard checklist for every review to ensure uniformity across the codebase.
 
 ## Common Scenarios
 
-* **Pull Request Review:** Assessing incoming feature branch code to ensure it is production-ready and free of regressions.
-* **Security Auditing:** Scanning recent modifications for sensitive data exposure or unsafe function calls.
-* **Refactoring Verification:** Validating that large-scale code restructures maintain functional parity and do not introduce unintended side effects.
-* **Bug Fix Validation:** Confirming that a patch effectively addresses a reported issue without introducing new vulnerabilities.
-* **Onboarding/Knowledge Transfer:** Using `brain diff explain` to walk through previous changes for team members unfamiliar with specific modules.
+* **Pull Request Audit:** Performing a comprehensive review of a feature branch before merging into the main codebase.
+* **Security Hotfix Review:** Validating urgent patches to ensure they fix the vulnerability without introducing new risks.
+* **Refactoring Validation:** Assessing whether code cleanup efforts maintain original functionality while improving system efficiency.
+* **Onboarding Guidance:** Using `brain diff review` to mentor contributors on project-specific coding patterns and best practices.
 
 ---
 

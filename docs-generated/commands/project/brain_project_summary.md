@@ -79,32 +79,33 @@ _None_
 
 ### When would I use this?
 
-Use this command when you need to view a concise, high-level overview of a project's repository analysis. It is intended to provide immediate insights after the data has been processed by the analysis engine.
+Use this command when you need to view a concise, high-level overview of the data collected during a repository analysis. It is intended for quick verification of project states, trends, or metrics after the analysis phase is complete.
 
 ### How it fits in the workflow
 
-1. Execute `brain project analyze` to process the repository and generate the required data file.
-2. Run `brain project summary` to parse the `.brain/data.json` file and display the distilled findings in the terminal.
+1.  **Analyze**: Run `brain project analyze` to scan the codebase and populate `.brain/data.json`.
+2.  **Summarize**: Execute `brain project summary` to parse the generated JSON file and output the human-readable terminal report.
+3.  **Action**: Use the summary output to inform decision-making, track project health, or identify areas requiring further investigation.
 
 ### Practical tips
 
-* Ensure you have performed a fresh analysis before running the summary to reflect the most recent state of the codebase.
-* Use the terminal output to quickly identify key metrics or bottlenecks without manually inspecting large JSON files.
-* Pipe the output to other terminal utilities (e.g., `grep` or `less`) if the summary exceeds the visible buffer length.
+*   Always run the `brain project analyze` command immediately before requesting a summary to ensure the report reflects the most current state of the repository.
+*   Pipe the terminal output to a text file (e.g., `brain project summary > report.txt`) if you need to share the summary with team members who do not have access to the terminal.
+*   Use the summary to quickly spot discrepancies in file structures or coding patterns before diving into deeper manual analysis.
 
 ### Common failure causes
 
-* **Missing Data:** Attempting to run the command before `brain project analyze` has successfully created the `.brain/data.json` file.
-* **Corrupted Cache:** The underlying `.brain/data.json` file has been modified or corrupted by an external process, preventing the parser from reading it.
-* **Insufficient Permissions:** The user lacks read access to the `.brain/` directory or the data file within it.
+*   **Missing Analysis Data**: The command will fail if `.brain/data.json` has not been generated or if it has been deleted since the last analysis.
+*   **Corrupted Data**: If the previous `brain project analyze` process was interrupted, the resulting JSON file may be malformed, causing the summary generator to return an error.
+*   **Permission Denied**: The command may fail if the current user lacks read access to the `.brain/` directory or write access to generate terminal output.
 
 ### FAQ
 
-**Does this command modify my source code?**
-No, it is a read-only operation that accesses the JSON data generated during the analysis phase.
+**Q: Can I customize the format of the summary output?**
+A: No, the output is strictly defined by the tool's internal template and is designed for standard terminal display.
 
-**Can I export this summary to a file?**
-The command produces a terminal summary; however, you can redirect the output to a text file using standard shell operators (e.g., `brain project summary > summary.txt`).
+**Q: Does this command modify my project files?**
+A: No, the command only consumes data from `.brain/data.json` and does not perform any write operations on your source code or project structure.
 
-**Why is the output empty?**
-If the command executes without returning information, verify that the `brain project analyze` process completed successfully and that `.brain/data.json` is not empty.
+**Q: Why is my summary empty or blank?**
+A: This typically occurs if the `.brain/data.json` file exists but contains no data, which may happen if the analysis phase did not successfully target any files. Ensure your project is correctly configured for analysis.

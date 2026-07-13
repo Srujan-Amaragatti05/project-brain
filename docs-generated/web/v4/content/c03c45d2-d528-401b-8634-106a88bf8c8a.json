@@ -1,0 +1,36 @@
+{
+  "id": "urn:brain:doc:c03c45d2-d528-401b-8634-106a88bf8c8a",
+  "slug": "project/brain-project-summary",
+  "aliases": [
+    "brain project summary"
+  ],
+  "title": "brain project summary",
+  "summary": "Summarize the analyzed data",
+  "locale": "en",
+  "versioning": {
+    "introduced_in": "0.1.0",
+    "deprecated_in": null,
+    "stability": "stable"
+  },
+  "blocks": [
+    {
+      "block_id": "blk_55588864",
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "content": "Summarize the analyzed data"
+        }
+      ]
+    }
+  ],
+  "graph": {
+    "relations": []
+  },
+  "type": "command",
+  "metadata": {
+    "command_name": "brain project summary",
+    "category": "project",
+    "is_plugin": false
+  }
+}

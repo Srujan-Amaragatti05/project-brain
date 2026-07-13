@@ -311,7 +311,7 @@ brain.yaml
 # Example Configuration
 
 ```yaml id="g8r7wq"
-version: "1.1.0"
+version: "1.2.0"
 
 llm:
   provider: none

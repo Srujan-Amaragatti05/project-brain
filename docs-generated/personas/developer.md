@@ -11,28 +11,47 @@
 * Debug issues
 * Understand code
 
+**Workflow:**
+* `brain project analyze`
+* `brain diff explain`
+* `brain diff review`
+
+**Commands:**
+* `brain project init`
+* `brain project analyze`
+* `brain project summary`
+* `brain project doctor`
+* `brain diff show`
+* `brain diff review`
+* `brain diff explain`
+* `brain export full-code`
+* `brain export file`
+* `brain export dir`
+* `brain export code-changes`
+* `brain export tree`
+* `brain testllm test`
+
 ## Typical Responsibilities
 
 * Writing, testing, and maintaining clean, efficient, and scalable code.
-* Analyzing existing codebases to identify technical debt, bugs, or performance bottlenecks.
-* Reviewing code changes to ensure architectural integrity and adherence to project standards.
-* Documenting system functionality and logic for team knowledge sharing.
-* Integrating new libraries, frameworks, or APIs into existing projects.
+* Analyzing existing codebases to identify technical debt or performance bottlenecks.
+* Debugging production and development issues through root-cause analysis.
+* Collaborating with stakeholders to translate requirements into technical implementations.
+* Performing code reviews to ensure quality standards and security best practices.
 
 ## Recommended Approach
 
-* **Analyze First:** Utilize `brain project analyze` to gain a comprehensive understanding of the existing codebase and architecture before making modifications.
-* **Iterative Development:** Leverage `brain project summary` to maintain context across sessions and ensure project goals remain aligned.
-* **Proactive Debugging:** Run `brain project doctor` to identify potential configuration issues or environment inconsistencies early.
-* **Contextual Reviews:** Always use `brain diff explain` and `brain diff review` to ensure changes are verified and clearly documented before integration.
-* **Knowledge Retention:** Export relevant project artifacts using the `brain export` commands to maintain external documentation or perform offline audits.
+* **Contextual Analysis:** Always begin by using `brain project analyze` to gain a comprehensive understanding of the project architecture and dependencies before proposing changes.
+* **Incremental Development:** Use `brain diff` commands to isolate changes, ensuring that small, testable chunks are reviewed and explained before merging.
+* **Documentation First:** Utilize `brain export` commands to generate documentation or summaries of the current state, keeping the development process transparent and reproducible.
+* **Proactive Maintenance:** Regularly execute `brain project doctor` to identify potential configuration issues or environment drifts before they escalate into bugs.
 
 ## Common Scenarios
 
-* **Onboarding to a new project:** Use `brain project init` and `brain project analyze` to map out the codebase structure and dependencies.
-* **Implementing a new feature:** Begin by analyzing the related modules, drafting the logic, and using `brain diff explain` to validate the proposed implementation path.
-* **Troubleshooting a production bug:** Run `brain project doctor` to check for environment issues, then use `brain diff show` to isolate changes that might have introduced the regression.
-* **Code Refactoring:** Use `brain export full-code` for offline review, followed by iterative diff reviews to ensure refactoring does not break existing business logic.
+* **Onboarding to a New Repository:** Execute `brain project init` and `brain project summary` to quickly grasp the project structure, language, and core logic.
+* **Implementing a New Feature:** Analyze the existing code path with `brain project analyze`, draft the implementation, and use `brain diff explain` to verify the logic matches the project's design patterns.
+* **Troubleshooting Regressions:** Run `brain diff show` on recent commits and use `brain diff review` to identify where logic diverged from expected behavior.
+* **Code Audit/Review:** Export specific segments of the codebase using `brain export dir` or `brain export file` to prepare documentation or share context for external peer reviews.
 
 ---
 
@@ -42,7 +61,7 @@ Builds and modifies application code.
 
 ## Statistics
 
-- Recommended Commands: 12
+- Recommended Commands: 13
 - Workflow Steps: 3
 
 ## Typical Goals
@@ -68,6 +87,7 @@ Builds and modifies application code.
 | `brain export dir` | Manually add a directory to export |
 | `brain export file` | Manually add a single file to export |
 | `brain export full-code` | Export entire codebase into structured file |
+| `brain export tree` | Export repository tree structure into tree and JSON formats. |
 | `brain project analyze` | Analyze repository structure using AST parsing. |
 | `brain project doctor` | Repository diagnostics and environment health checks. |
 | `brain project init` | Initialize project-brain in the current directory |
@@ -77,5 +97,5 @@ Builds and modifies application code.
 ## Related Personas
 
 - Reviewer
-- Maintainer
 - Architect
+- Maintainer

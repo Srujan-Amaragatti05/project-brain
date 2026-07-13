@@ -81,29 +81,30 @@ _None_
 
 ### When would I use this?
 
-Use `brain project init` to bootstrap the `project-brain` configuration within your current directory. It is the primary entry point for setting up your project environment to enable subsequent analysis and diagnostic tooling.
+Use `brain project init` to bootstrap a new workspace when starting a project that requires local intelligence indexing, dependency tracking, or metadata management. This command establishes the foundational directory structure required for subsequent analysis and project health monitoring.
 
 ### How it fits in the workflow
 
-This command serves as the foundational step in the project lifecycle. After initializing the environment, you would typically run `brain project analyze` to scan your codebase or `brain project doctor` to verify configuration integrity and environment health.
+This command is the entry point for project-brain. Executing it generates the `.brain/` configuration directory and the `brain.yaml` file, which serve as the foundation for the `brain project analyze` and `brain project doctor` commands. By initializing the project early, you enable the system to track data and state as you build.
 
 ### Practical tips
 
-*   **Idempotency:** The command is safe to rerun at any time. If you have modified your project structure or need to reset internal configurations, executing this command again will align your local directory with the standard `project-brain` requirements.
-*   **Non-Destructive:** You do not need to worry about losing work; existing files within your project are strictly preserved during the initialization process.
+* **Run early:** Execute this command immediately after cloning or creating a project directory to ensure all metadata is tracked from the start.
+* **Safe execution:** Because the command is idempotent, it is safe to rerun if you suspect your configuration files have been deleted or corrupted; existing files are preserved during the process.
+* **Version control:** It is recommended to add `brain.yaml` to your version control system, while keeping the contents of the `.brain/` directory (specifically `.brain/cache/`) in your `.gitignore` to avoid bloating the repository.
 
 ### Common failure causes
 
-*   **Insufficient Permissions:** Lacking write access to the current directory will prevent the creation of necessary configuration files.
-*   **Path Conflicts:** Attempting to run the command in a read-only filesystem or a directory with restricted system locks.
+* **Permission issues:** If the current user lacks write access to the target directory, the command will fail to create the `.brain/` folder or the `brain.yaml` file.
+* **Directory conflicts:** Although the command preserves existing files, a file or directory already existing with the name `.brain` that is not a directory or is locked by another process may prevent initialization.
 
 ### FAQ
 
-**Will this command overwrite my existing source code?**
-No. Existing files are preserved during the initialization process.
+**Does running this command overwrite my existing work?**
+No. The initialization process is designed to be safe; existing files are preserved.
 
-**Can I run this command multiple times?**
-Yes. It is safe to rerun if configurations need to be refreshed or validated.
+**What specific files are created by this command?**
+The command produces the `.brain/` directory, the `.brain/cache/` directory, `data.json`, `index.json`, and the `brain.yaml` configuration file.
 
-**Do I need to run this before analyzing my project?**
-Yes, initialization is required to establish the necessary environment state before running `brain project analyze` or `brain project doctor`.
+**Can I move the .brain directory after initialization?**
+It is not recommended, as the CLI expects the configuration to reside in the root of the initialized directory to maintain internal indexing.

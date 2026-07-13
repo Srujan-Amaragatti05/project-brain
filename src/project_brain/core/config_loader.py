@@ -6,7 +6,7 @@ import yaml
 from project_brain.core.logger import log_warning
 
 DEFAULT_CONFIG = {
-    "version": "1.1.0",
+    "version": "1.2.0",
     "llm": {
         "provider": "none",
         "model": "",

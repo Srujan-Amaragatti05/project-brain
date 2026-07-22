@@ -14,16 +14,6 @@
   },
   "blocks": [
     {
-      "block_id": "blk_7f00867b",
-      "type": "paragraph",
-      "children": [
-        {
-          "type": "text",
-          "content": "Explain a file or function"
-        }
-      ]
-    },
-    {
       "block_id": "blk_21ffce5b",
       "type": "flag_table",
       "flags": [
@@ -55,6 +45,52 @@
   "metadata": {
     "command_name": "brain diff explain",
     "category": "diff",
-    "is_plugin": false
+    "is_plugin": false,
+    "examples": [
+      "brain diff explain src/main.py",
+      "brain diff explain src/main.py:function_name"
+    ],
+    "related": [
+      "brain diff review"
+    ],
+    "outputs": [],
+    "consumes": [
+      "source code"
+    ],
+    "produces": [
+      "terminal explanation"
+    ],
+    "prerequisites": [
+      "brain testllm test"
+    ],
+    "use_cases": [
+      "Code Understanding",
+      "Developer Onboarding",
+      "Function Investigation"
+    ],
+    "personas": [
+      "developer",
+      "new contributor",
+      "reviewer"
+    ],
+    "tags": [
+      "llm",
+      "explanation",
+      "code"
+    ],
+    "gifs": [
+      "urn:brain:asset:8ea05f9250c7"
+    ],
+    "errors": [],
+    "notes": [
+      "Supports file-level and function-level explanation."
+    ],
+    "edge_cases": [
+      "Function name must exist in file."
+    ],
+    "workflow": [
+      "brain project analyze",
+      "brain diff explain"
+    ]
   }
 }

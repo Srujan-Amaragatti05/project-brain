@@ -11,6 +11,18 @@ class BasePublisher(PublisherStage):
         self.publish(ctx)
 
     def publish(self, ctx: CompilationContext):
+        # Load previous registry to determine what changed before overwriting it
+        prev_registry_path = self.output_dir / "documents.json"
+        prev_checksums = {}
+        if prev_registry_path.exists():
+            try:
+                prev_data = json.loads(prev_registry_path.read_text())
+                if isinstance(prev_data, dict) and "documents" in prev_data:
+                    for doc in prev_data["documents"]:
+                        prev_checksums[doc["id"]] = doc.get("checksum")
+            except Exception:
+                pass # Proceed with full rebuild if corrupted
+
         # 1. Write the registries
         if ctx.manifest:
             (self.output_dir / "manifest.json").write_text(ctx.manifest.model_dump_json(indent=2))
@@ -33,18 +45,6 @@ class BasePublisher(PublisherStage):
         # 2. Write the content payload incrementally
         content_dir = self.output_dir / "content"
         content_dir.mkdir(exist_ok=True)
-        
-        # Load previous registry to determine what changed
-        prev_registry_path = self.output_dir / "documents.json"
-        prev_checksums = {}
-        if prev_registry_path.exists():
-            try:
-                prev_data = json.loads(prev_registry_path.read_text())
-                if isinstance(prev_data, dict) and "documents" in prev_data:
-                    for doc in prev_data["documents"]:
-                        prev_checksums[doc["id"]] = doc.get("checksum")
-            except Exception:
-                pass # Proceed with full rebuild if corrupted
         
         skipped_count = 0
         written_count = 0

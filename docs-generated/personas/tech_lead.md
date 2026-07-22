@@ -22,24 +22,24 @@
 ## Typical Responsibilities
 
 * Setting technical standards and ensuring code quality across the codebase.
-* Overseeing architectural design and evaluating trade-offs for new features.
-* Mentoring developers and facilitating technical growth within the team.
-* Resolving complex technical blockers and coordinating cross-functional requirements.
-* Ensuring the alignment of technical implementations with long-term product roadmaps.
+* Facilitating architectural discussions to ensure scalability and maintainability.
+* Mentoring engineers and providing constructive feedback during code reviews.
+* Balancing feature velocity with technical debt reduction.
+* Bridging the gap between high-level product requirements and low-level technical execution.
 
 ## Recommended Approach
 
-* **Analyze First:** Utilize `brain project analyze` to gain a comprehensive understanding of the current codebase structure and technical debt before proposing changes.
-* **Review Rigorously:** Use `brain diff review` to evaluate incoming pull requests, focusing on scalability, security, and maintainability.
-* **Iterative Guidance:** Provide actionable feedback during reviews to foster team learning rather than just identifying errors.
-* **Synthesize Changes:** Leverage `brain export code-changes` to consolidate architectural adjustments and ensure all stakeholders are aligned with the new implementation strategy.
+* **Context-First:** Utilize `brain project analyze` before making decisions to understand the existing architectural patterns and legacy constraints.
+* **Rigorous Review:** Use `brain diff review` to enforce design patterns and performance standards before merging changes.
+* **Evidence-Based Guidance:** Provide clear, actionable feedback linked to specific code sections to foster team growth.
+* **Iterative Refinement:** Rely on `brain export code-changes` to document and apply structural refactors consistently.
 
 ## Common Scenarios
 
-* **Legacy Code Refactoring:** Assessing a module for refactoring and utilizing analysis tools to identify high-risk areas.
-* **Code Review Bottlenecks:** Managing high-volume pull requests by prioritizing critical architectural changes and delegating routine syntax checks.
-* **Architectural Shifts:** Transitioning a service-oriented architecture or upgrading core dependencies while maintaining feature parity.
-* **Technical Onboarding:** Reviewing a new feature implementation to ensure it adheres to established team design patterns and coding standards.
+* **Code Review Bottleneck:** Analyzing a large pull request to ensure it aligns with the project's long-term architectural goals rather than just syntax correctness.
+* **Technical Debt Assessment:** Running `brain project analyze` to identify clusters of high-complexity code that require immediate refactoring.
+* **Onboarding New Features:** Coordinating cross-team efforts by reviewing implementation plans and diffs to prevent regression in critical paths.
+* **System Design Shifts:** Transitioning a module to a new pattern by defining the changes and exporting them as standardized templates for the team to follow.
 
 ---
 

@@ -10,24 +10,24 @@
 
 ## Typical Responsibilities
 
-*   **Contextual Analysis:** Interpreting entire project structures and dependencies provided via the `brain export full-code` command.
-*   **Codebase Synthesis:** Summarizing complex logic, architectural patterns, and inter-module interactions across multiple files.
-*   **Quality Assurance:** Performing automated peer reviews, identifying potential bugs, and suggesting optimizations based on repository-wide standards.
-*   **Documentation:** Generating technical documentation, README files, and inline comments based on the analyzed codebase.
+*   **Context Synthesis:** Processing structured repository exports to gain a holistic understanding of the codebase structure, dependencies, and logic.
+*   **Code Analysis:** Identifying patterns, potential bugs, architectural bottlenecks, and areas for refactoring based on the provided context.
+*   **Documentation:** Generating high-quality technical explanations, docstrings, and README updates to ensure code maintainability.
+*   **Quality Assurance:** Conducting comprehensive reviews of pull requests or proposed changes to verify adherence to project standards and logic consistency.
 
 ## Recommended Approach
 
-1.  **Initialization:** Execute `brain export full-code` to load the current state and structure of the repository.
-2.  **Indexing:** Parse the imported data to map class hierarchies, dependency chains, and project-specific conventions.
-3.  **Analysis:** Apply analytical models to evaluate the requested code segments against the broader context of the project.
-4.  **Reporting:** Provide concise, actionable feedback or code refinements that respect existing architectural constraints and stylistic guidelines.
+1.  **Initialization:** Execute `brain export full-code` to ingest the necessary state of the repository.
+2.  **Indexing:** Map the file hierarchy and resolve cross-reference dependencies to ensure accurate cross-file analysis.
+3.  **Iterative Analysis:** Apply targeted logic checks, focusing on the specific modules or functions relevant to the user’s query.
+4.  **Feedback Loop:** Present findings clearly, offering actionable suggestions for code improvement or debugging steps.
 
 ## Common Scenarios
 
-*   **Onboarding:** Helping a developer understand a new codebase by explaining the purpose and implementation of specific components.
-*   **Refactoring Assistance:** Proposing structural changes that remain consistent with the existing patterns found in the repository context.
-*   **Debugging:** Tracing cross-file errors by correlating the full-code data to isolate the root cause of a runtime failure.
-*   **Feature Extension:** Suggesting implementation strategies for new functionality that align with current repository standards and existing helper functions.
+*   **Onboarding:** Providing a high-level summary of a complex repository for a new developer.
+*   **Debugging:** Tracing data flow across multiple files to identify the root cause of an unexpected behavior.
+*   **Feature Implementation:** Analyzing existing architectural patterns to ensure new code remains consistent with the current implementation style.
+*   **Refactoring:** Suggesting modularization strategies based on redundant logic detected during the `full-code` analysis.
 
 ---
 

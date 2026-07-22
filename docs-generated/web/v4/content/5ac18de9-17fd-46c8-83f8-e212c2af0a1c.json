@@ -12,18 +12,7 @@
     "deprecated_in": null,
     "stability": "stable"
   },
-  "blocks": [
-    {
-      "block_id": "blk_6267728c",
-      "type": "paragraph",
-      "children": [
-        {
-          "type": "text",
-          "content": "Export entire codebase into structured file"
-        }
-      ]
-    }
-  ],
+  "blocks": [],
   "graph": {
     "relations": []
   },
@@ -31,6 +20,52 @@
   "metadata": {
     "command_name": "brain export full-code",
     "category": "export",
-    "is_plugin": false
+    "is_plugin": false,
+    "examples": [
+      "brain export full-code"
+    ],
+    "related": [
+      "brain export file",
+      "brain export dir"
+    ],
+    "outputs": [
+      ".brain/exports/full_code.txt"
+    ],
+    "consumes": [
+      "repository source code"
+    ],
+    "produces": [
+      ".brain/exports/full_code.txt"
+    ],
+    "prerequisites": [],
+    "use_cases": [
+      "LLM Context Export",
+      "Repository Sharing",
+      "AI Analysis"
+    ],
+    "personas": [
+      "developer",
+      "architect",
+      "ai assistant"
+    ],
+    "tags": [
+      "export",
+      "repository",
+      "llm"
+    ],
+    "gifs": [
+      "urn:brain:asset:046380dcd3ae"
+    ],
+    "errors": [],
+    "notes": [
+      "Exports repository into AI-friendly format."
+    ],
+    "edge_cases": [
+      "Large repositories generate large export files."
+    ],
+    "workflow": [
+      "brain project analyze",
+      "brain export full-code"
+    ]
   }
 }

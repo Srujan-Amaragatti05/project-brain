@@ -14,16 +14,6 @@
   },
   "blocks": [
     {
-      "block_id": "blk_520ce051",
-      "type": "paragraph",
-      "children": [
-        {
-          "type": "text",
-          "content": "Export changed code between two git references"
-        }
-      ]
-    },
-    {
       "block_id": "blk_21ffce5b",
       "type": "flag_table",
       "flags": [
@@ -73,6 +63,55 @@
   "metadata": {
     "command_name": "brain export code-changes",
     "category": "export",
-    "is_plugin": false
+    "is_plugin": false,
+    "examples": [
+      "brain export code-changes HEAD~1 HEAD"
+    ],
+    "related": [
+      "brain diff show",
+      "brain diff review"
+    ],
+    "outputs": [
+      ".brain/exports/code-changes.txt"
+    ],
+    "consumes": [
+      "git history"
+    ],
+    "produces": [
+      ".brain/exports/code-changes.txt"
+    ],
+    "prerequisites": [
+      "brain diff show"
+    ],
+    "use_cases": [
+      "PR Export",
+      "Change Review",
+      "LLM Review"
+    ],
+    "personas": [
+      "developer",
+      "reviewer"
+    ],
+    "tags": [
+      "git",
+      "changes",
+      "export"
+    ],
+    "gifs": [
+      "urn:brain:asset:c56a66b782e0"
+    ],
+    "errors": [
+      "INVALID_GIT_REF"
+    ],
+    "notes": [
+      "Exports changed files between git references."
+    ],
+    "edge_cases": [
+      "Requires valid git history."
+    ],
+    "workflow": [
+      "brain diff show",
+      "brain export code-changes"
+    ]
   }
 }

@@ -12,18 +12,7 @@
     "deprecated_in": null,
     "stability": "stable"
   },
-  "blocks": [
-    {
-      "block_id": "blk_ad187f88",
-      "type": "paragraph",
-      "children": [
-        {
-          "type": "text",
-          "content": "Repository diagnostics and environment health checks."
-        }
-      ]
-    }
-  ],
+  "blocks": [],
   "graph": {
     "relations": []
   },
@@ -31,6 +20,50 @@
   "metadata": {
     "command_name": "brain project doctor",
     "category": "project",
-    "is_plugin": false
+    "is_plugin": false,
+    "examples": [
+      "brain project doctor"
+    ],
+    "related": [
+      "brain project init",
+      "brain project analyze"
+    ],
+    "outputs": [
+      "terminal diagnostics"
+    ],
+    "consumes": [
+      "repository configuration"
+    ],
+    "produces": [
+      "health report"
+    ],
+    "prerequisites": [],
+    "use_cases": [
+      "Troubleshooting",
+      "Environment Validation"
+    ],
+    "personas": [
+      "developer",
+      "maintainer"
+    ],
+    "tags": [
+      "healthcheck",
+      "diagnostics"
+    ],
+    "gifs": [
+      "urn:brain:asset:c1464189c2fa"
+    ],
+    "errors": [
+      "NOT_GIT_REPO"
+    ],
+    "notes": [
+      "Runs repository and environment diagnostics."
+    ],
+    "edge_cases": [
+      "Some checks depend on internet connectivity."
+    ],
+    "workflow": [
+      "brain project doctor"
+    ]
   }
 }

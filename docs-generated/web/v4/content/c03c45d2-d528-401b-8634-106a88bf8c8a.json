@@ -12,18 +12,7 @@
     "deprecated_in": null,
     "stability": "stable"
   },
-  "blocks": [
-    {
-      "block_id": "blk_55588864",
-      "type": "paragraph",
-      "children": [
-        {
-          "type": "text",
-          "content": "Summarize the analyzed data"
-        }
-      ]
-    }
-  ],
+  "blocks": [],
   "graph": {
     "relations": []
   },
@@ -31,6 +20,50 @@
   "metadata": {
     "command_name": "brain project summary",
     "category": "project",
-    "is_plugin": false
+    "is_plugin": false,
+    "examples": [
+      "brain project summary"
+    ],
+    "related": [
+      "brain project analyze"
+    ],
+    "outputs": [
+      "terminal summary"
+    ],
+    "consumes": [
+      ".brain/data.json"
+    ],
+    "produces": [
+      "terminal summary"
+    ],
+    "prerequisites": [
+      "brain project analyze"
+    ],
+    "use_cases": [
+      "Repository Analysis",
+      "Project Onboarding"
+    ],
+    "personas": [
+      "developer",
+      "architect"
+    ],
+    "tags": [
+      "summary",
+      "analysis"
+    ],
+    "gifs": [
+      "urn:brain:asset:db89d7f23f29"
+    ],
+    "errors": [],
+    "notes": [
+      "Displays summarized repository analysis."
+    ],
+    "edge_cases": [
+      "Requires previous analysis."
+    ],
+    "workflow": [
+      "brain project analyze",
+      "brain project summary"
+    ]
   }
 }

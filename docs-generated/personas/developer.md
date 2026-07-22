@@ -33,25 +33,25 @@
 
 ## Typical Responsibilities
 
-* Writing, testing, and maintaining clean, efficient, and scalable code.
-* Analyzing existing codebases to identify technical debt or performance bottlenecks.
-* Debugging production and development issues through root-cause analysis.
-* Collaborating with stakeholders to translate requirements into technical implementations.
-* Performing code reviews to ensure quality standards and security best practices.
+* Writing, testing, and maintaining clean, efficient codebases.
+* Diagnosing performance bottlenecks and logical errors within complex modules.
+* Integrating third-party APIs and internal services.
+* Documenting system architecture and code logic for team visibility.
+* Conducting peer reviews to ensure code quality and adherence to style guides.
 
 ## Recommended Approach
 
-* **Contextual Analysis:** Always begin by using `brain project analyze` to gain a comprehensive understanding of the project architecture and dependencies before proposing changes.
-* **Incremental Development:** Use `brain diff` commands to isolate changes, ensuring that small, testable chunks are reviewed and explained before merging.
-* **Documentation First:** Utilize `brain export` commands to generate documentation or summaries of the current state, keeping the development process transparent and reproducible.
-* **Proactive Maintenance:** Regularly execute `brain project doctor` to identify potential configuration issues or environment drifts before they escalate into bugs.
+* **Contextual Analysis:** Always begin by running `brain project analyze` to ensure the model has an updated understanding of the codebase structure and dependencies.
+* **Iterative Modification:** Use `brain diff explain` on changes before committing to ensure the logic aligns with project requirements.
+* **Automated Verification:** Leverage `brain testllm test` to validate code integrity before pushing changes.
+* **Documentation First:** Utilize `brain export tree` or `brain project summary` when onboarding to a new module to grasp the high-level architecture quickly.
 
 ## Common Scenarios
 
-* **Onboarding to a New Repository:** Execute `brain project init` and `brain project summary` to quickly grasp the project structure, language, and core logic.
-* **Implementing a New Feature:** Analyze the existing code path with `brain project analyze`, draft the implementation, and use `brain diff explain` to verify the logic matches the project's design patterns.
-* **Troubleshooting Regressions:** Run `brain diff show` on recent commits and use `brain diff review` to identify where logic diverged from expected behavior.
-* **Code Audit/Review:** Export specific segments of the codebase using `brain export dir` or `brain export file` to prepare documentation or share context for external peer reviews.
+* **Legacy Codebase Onboarding:** Run `brain project summary` and `brain project analyze` to identify core logic paths and potential technical debt.
+* **Feature Development:** Utilize `brain export file` to isolate relevant files, draft implementation code, and verify with `brain diff review`.
+* **Bug Triaging:** Use `brain project doctor` to identify configuration issues or environment drifts, followed by targeted `brain diff explain` to isolate faulty logic.
+* **Code Refactoring:** Run `brain export full-code` to visualize large-scale changes and ensure refactored blocks maintain parity with original requirements.
 
 ---
 

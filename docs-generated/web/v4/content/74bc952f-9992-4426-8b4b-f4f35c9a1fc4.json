@@ -14,16 +14,6 @@
   },
   "blocks": [
     {
-      "block_id": "blk_f394841b",
-      "type": "paragraph",
-      "children": [
-        {
-          "type": "text",
-          "content": "Explain code changes using LLM"
-        }
-      ]
-    },
-    {
       "block_id": "blk_21ffce5b",
       "type": "flag_table",
       "flags": [
@@ -73,6 +63,61 @@
   "metadata": {
     "command_name": "brain diff review",
     "category": "diff",
-    "is_plugin": false
+    "is_plugin": false,
+    "examples": [
+      "brain diff review",
+      "brain diff review HEAD~1 HEAD"
+    ],
+    "related": [
+      "brain diff show",
+      "brain export code-changes"
+    ],
+    "outputs": [
+      ".brain/reports/*.json",
+      ".brain/reports/*.html"
+    ],
+    "consumes": [
+      "git history"
+    ],
+    "produces": [
+      ".brain/reports/*.json",
+      ".brain/reports/*.html"
+    ],
+    "prerequisites": [
+      "brain testllm test"
+    ],
+    "use_cases": [
+      "AI Code Review",
+      "Pull Request Review",
+      "Code Change Explanation"
+    ],
+    "personas": [
+      "developer",
+      "reviewer",
+      "tech lead"
+    ],
+    "tags": [
+      "llm",
+      "git",
+      "review",
+      "changes"
+    ],
+    "gifs": [
+      "urn:brain:asset:737a51e9c658"
+    ],
+    "errors": [
+      "INVALID_GIT_REF",
+      "LLM_PROVIDER_FAILURE"
+    ],
+    "notes": [
+      "Uses configured LLM provider to explain changes."
+    ],
+    "edge_cases": [
+      "Large diffs may increase LLM response time."
+    ],
+    "workflow": [
+      "brain diff show",
+      "brain diff review"
+    ]
   }
 }

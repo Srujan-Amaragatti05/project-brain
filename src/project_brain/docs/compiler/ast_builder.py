@@ -26,12 +26,17 @@ class LegacyASTBuilderStage(ASTBuilderStage):
                 
                 blocks = []
                 
-                # 1. Help text block
+                # 1. Help text block (only if it contains more than the summary)
                 help_text = raw_cmd.get("help", "")
-                blocks.append(ParagraphBlock(
-                    block_id=f"blk_{hashlib.md5(help_text.encode()).hexdigest()[:8]}",
-                    children=[TextNode(content=help_text)]
-                ))
+                summary = help_text.split('\n')[0] if help_text else ""
+                
+                # Check if there is more text beyond the summary
+                additional_help = help_text[len(summary):].strip()
+                if additional_help:
+                    blocks.append(ParagraphBlock(
+                        block_id=f"blk_{hashlib.md5(additional_help.encode()).hexdigest()[:8]}",
+                        children=[TextNode(content=additional_help)]
+                    ))
                 
                 # 2. Parameters block
                 params = raw_cmd.get("parameters", [])
@@ -53,13 +58,22 @@ class LegacyASTBuilderStage(ASTBuilderStage):
                         flags=flags
                     ))
                 
+                gifs_urns = []
+                for gif in meta.get("gifs", []):
+                    gif_path = __import__("pathlib").Path("demo/gifs") / gif
+                    if gif_path.exists():
+                        checksum = hashlib.sha256(gif_path.read_bytes()).hexdigest()
+                        gifs_urns.append(f"urn:brain:asset:{checksum[:12]}")
+                    else:
+                        gifs_urns.append(f"urn:brain:asset:{gif}")
+
                 doc = CommandDocument(
                     id=doc_urn,
                     type="command",
                     slug=category + "/" + raw_cmd["command"].replace(" ", "-"),
                     aliases=[raw_cmd["command"]],
                     title=raw_cmd["command"],
-                    summary=help_text.split('\n')[0] if help_text else "",
+                    summary=summary,
                     locale="en",
                     versioning=VersioningInfo(
                         introduced_in=meta.get("introduced", "0.1.0"),
@@ -79,7 +93,7 @@ class LegacyASTBuilderStage(ASTBuilderStage):
                         use_cases=meta.get("use_cases", []),
                         personas=meta.get("personas", []),
                         tags=meta.get("tags", []),
-                        gifs=meta.get("gifs", []),
+                        gifs=gifs_urns,
                         errors=meta.get("errors", []),
                         notes=meta.get("notes", []),
                         edge_cases=meta.get("edge_cases", []),

@@ -14,16 +14,6 @@
   },
   "blocks": [
     {
-      "block_id": "blk_6b6323b9",
-      "type": "paragraph",
-      "children": [
-        {
-          "type": "text",
-          "content": "Manually add a directory to export"
-        }
-      ]
-    },
-    {
       "block_id": "blk_21ffce5b",
       "type": "flag_table",
       "flags": [
@@ -55,6 +45,47 @@
   "metadata": {
     "command_name": "brain export dir",
     "category": "export",
-    "is_plugin": false
+    "is_plugin": false,
+    "examples": [
+      "brain export dir src/"
+    ],
+    "related": [
+      "brain export full-code",
+      "brain export file"
+    ],
+    "outputs": [
+      ".brain/exports/manual_export.txt"
+    ],
+    "consumes": [
+      "directory"
+    ],
+    "produces": [
+      ".brain/exports/manual_export.txt"
+    ],
+    "prerequisites": [],
+    "use_cases": [
+      "Targeted Export",
+      "Folder Sharing"
+    ],
+    "personas": [
+      "developer"
+    ],
+    "tags": [
+      "export",
+      "directory"
+    ],
+    "gifs": [
+      "urn:brain:asset:04e5a04c5c65"
+    ],
+    "errors": [],
+    "notes": [
+      "Adds directory recursively into export bundle."
+    ],
+    "edge_cases": [
+      "Large directories increase export size."
+    ],
+    "workflow": [
+      "brain export dir"
+    ]
   }
 }

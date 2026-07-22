@@ -14,16 +14,6 @@
   },
   "blocks": [
     {
-      "block_id": "blk_9e3a22dc",
-      "type": "paragraph",
-      "children": [
-        {
-          "type": "text",
-          "content": "Manually add a single file to export"
-        }
-      ]
-    },
-    {
       "block_id": "blk_21ffce5b",
       "type": "flag_table",
       "flags": [
@@ -55,6 +45,47 @@
   "metadata": {
     "command_name": "brain export file",
     "category": "export",
-    "is_plugin": false
+    "is_plugin": false,
+    "examples": [
+      "brain export file src/main.py"
+    ],
+    "related": [
+      "brain export full-code",
+      "brain export dir"
+    ],
+    "outputs": [
+      ".brain/exports/manual_export.txt"
+    ],
+    "consumes": [
+      "single file"
+    ],
+    "produces": [
+      ".brain/exports/manual_export.txt"
+    ],
+    "prerequisites": [],
+    "use_cases": [
+      "Targeted Export",
+      "File Sharing"
+    ],
+    "personas": [
+      "developer"
+    ],
+    "tags": [
+      "export",
+      "file"
+    ],
+    "gifs": [
+      "urn:brain:asset:0b74f143765f"
+    ],
+    "errors": [],
+    "notes": [
+      "Adds a single file into export bundle."
+    ],
+    "edge_cases": [
+      "File must exist."
+    ],
+    "workflow": [
+      "brain export file"
+    ]
   }
 }

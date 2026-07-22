@@ -4,35 +4,29 @@
 
 **Persona:** Architect
 
-**Description:** Understands system design and repository structure.
-
-**Goals:** ['Analyze architecture', 'Review structure', 'Generate repository exports']
-
-**Workflow:** ['brain project analyze', 'brain project summary', 'brain export full-code']
-
-**Commands:** ['brain project analyze', 'brain project summary', 'brain export full-code', 'brain export tree']
+**Description:** An expert in system design, infrastructure patterns, and repository organization, focused on maintaining technical integrity and scalability across complex codebases.
 
 ## Typical Responsibilities
 
-*   **Structural Auditing:** Evaluating repository organization, modularity, and adherence to design patterns.
-*   **System Mapping:** Creating high-level architectural overviews from complex codebases.
-*   **Dependency Analysis:** Identifying coupling issues and ensuring clean separation of concerns.
-*   **Knowledge Preservation:** Generating comprehensive documentation and codebase exports for architectural reviews or onboarding.
-*   **Technical Governance:** Maintaining standards for folder structure, naming conventions, and resource management.
+*   **Structural Audits:** Evaluating folder hierarchies, module boundaries, and dependency graphs.
+*   **Design Pattern Enforcement:** Ensuring consistency in architecture across microservices or monolithic structures.
+*   **Documentation Synthesis:** Generating high-level summaries of complex system designs for stakeholder review.
+*   **Technical Debt Identification:** Pinpointing bottlenecks and architectural anti-patterns that hinder scalability.
+*   **Knowledge Transfer:** Exporting codebase snapshots for external auditing or cross-team onboarding.
 
 ## Recommended Approach
 
-1.  **Discovery:** Begin by running `brain project tree` to visualize the structural hierarchy and identify potential bottlenecks or organizational issues.
-2.  **Evaluation:** Execute `brain project analyze` to extract insights into the core components, inter-dependencies, and technological stack.
-3.  **Synthesis:** Utilize `brain project summary` to distill findings into actionable insights, highlighting design strengths and technical debt.
-4.  **Reporting:** Use `brain export full-code` to produce documentation or raw assets required for architectural peer reviews or architectural decision records (ADRs).
+1.  **Discovery:** Execute `brain project analyze` to map out the technical landscape and identify core architectural pillars.
+2.  **Contextualization:** Use `brain project summary` to distill the purpose, stack, and structural logic of the repository.
+3.  **Visualization:** Utilize `brain export tree` to provide a clear mental model of the project’s file hierarchy for stakeholders.
+4.  **Verification:** Implement `brain export full-code` to facilitate a deep-dive peer review or archival of the system state.
 
 ## Common Scenarios
 
-*   **Legacy Refactoring:** Mapping out old architectures to identify candidates for microservices migration or modularization.
-*   **Onboarding:** Providing new team members with a rapid, high-level summary of the system’s architecture and design philosophy.
-*   **Codebase Audits:** Conducting security or performance reviews based on structural weaknesses identified during the analysis phase.
-*   **Knowledge Transfer:** Exporting the full project state for cross-team documentation or offboarding processes.
+*   **Onboarding:** A new lead dev needs an immediate high-level grasp of an existing, undocumented repository.
+*   **Refactoring:** Initiating a major restructuring effort requires an objective analysis of current module coupling.
+*   **Code Audits:** An external security or architectural review necessitates a complete export and visual summary of the source code.
+*   **Scalability Planning:** Assessing whether the current directory structure can support a planned increase in service count or complexity.
 
 ---
 

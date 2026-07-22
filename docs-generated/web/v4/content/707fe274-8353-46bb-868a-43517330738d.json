@@ -12,18 +12,7 @@
     "deprecated_in": null,
     "stability": "stable"
   },
-  "blocks": [
-    {
-      "block_id": "blk_1ac77022",
-      "type": "paragraph",
-      "children": [
-        {
-          "type": "text",
-          "content": "Export repository tree structure into tree and JSON formats."
-        }
-      ]
-    }
-  ],
+  "blocks": [],
   "graph": {
     "relations": []
   },
@@ -31,6 +20,55 @@
   "metadata": {
     "command_name": "brain export tree",
     "category": "export",
-    "is_plugin": false
+    "is_plugin": false,
+    "examples": [
+      "brain export tree"
+    ],
+    "related": [
+      "brain export full-code",
+      "brain project analyze"
+    ],
+    "outputs": [
+      ".brain/exports/project_structure.tree",
+      ".brain/exports/project_structure.json"
+    ],
+    "consumes": [
+      "repository source code"
+    ],
+    "produces": [
+      ".brain/exports/project_structure.tree",
+      ".brain/exports/project_structure.json"
+    ],
+    "prerequisites": [
+      "brain project analyze"
+    ],
+    "use_cases": [
+      "Project Overview",
+      "Repository Mapping"
+    ],
+    "personas": [
+      "developer",
+      "architect"
+    ],
+    "tags": [
+      "export",
+      "structure",
+      "repository"
+    ],
+    "gifs": [
+      "urn:brain:asset:166a9f85c1c2"
+    ],
+    "errors": [],
+    "notes": [
+      "Exports repository folder structure.",
+      "Generates both tree and JSON formats."
+    ],
+    "edge_cases": [
+      "Large repositories generate large JSON output."
+    ],
+    "workflow": [
+      "brain project analyze",
+      "brain export tree"
+    ]
   }
 }

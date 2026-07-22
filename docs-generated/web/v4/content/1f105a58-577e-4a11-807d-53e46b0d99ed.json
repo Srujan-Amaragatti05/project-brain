@@ -12,18 +12,7 @@
     "deprecated_in": null,
     "stability": "stable"
   },
-  "blocks": [
-    {
-      "block_id": "blk_03b8c930",
-      "type": "paragraph",
-      "children": [
-        {
-          "type": "text",
-          "content": "Initialize project-brain in the current directory"
-        }
-      ]
-    }
-  ],
+  "blocks": [],
   "graph": {
     "relations": []
   },
@@ -31,6 +20,54 @@
   "metadata": {
     "command_name": "brain project init",
     "category": "project",
-    "is_plugin": false
+    "is_plugin": false,
+    "examples": [
+      "brain project init"
+    ],
+    "related": [
+      "brain project analyze",
+      "brain project doctor"
+    ],
+    "outputs": [
+      ".brain/",
+      "brain.yaml"
+    ],
+    "consumes": [],
+    "produces": [
+      ".brain/",
+      ".brain/cache/",
+      ".brain/data.json",
+      ".brain/index.json",
+      "brain.yaml"
+    ],
+    "prerequisites": [],
+    "use_cases": [
+      "Project Setup",
+      "First Time Installation"
+    ],
+    "personas": [
+      "developer",
+      "maintainer"
+    ],
+    "tags": [
+      "setup",
+      "bootstrap",
+      "initialization"
+    ],
+    "gifs": [
+      "urn:brain:asset:e1842aae26a3"
+    ],
+    "errors": [],
+    "notes": [
+      "Safe to rerun."
+    ],
+    "edge_cases": [
+      "Existing files are preserved."
+    ],
+    "workflow": [
+      "brain project init",
+      "brain project analyze",
+      "brain project summary"
+    ]
   }
 }

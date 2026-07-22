@@ -32,8 +32,15 @@ class SemanticShadowValidatorStage(ValidationCompilerStage):
             
             # Check core
             expected_help = raw_cmd.get("help", "")
-            if not doc.blocks or not hasattr(doc.blocks[0], 'children') or not doc.blocks[0].children or doc.blocks[0].children[0].content != expected_help:
-                issues.append("Help text mismatch")
+            expected_summary = expected_help.split('\n')[0] if expected_help else ""
+            expected_additional = expected_help[len(expected_summary):].strip()
+            
+            if doc.summary != expected_summary:
+                issues.append("Summary text mismatch")
+                
+            if expected_additional:
+                if not doc.blocks or not hasattr(doc.blocks[0], 'children') or not doc.blocks[0].children or doc.blocks[0].children[0].content != expected_additional:
+                    issues.append("Help text mismatch")
                 
             if getattr(doc.metadata, 'category', None) != meta.get("category"):
                 issues.append("Category mismatch")
@@ -53,11 +60,16 @@ class SemanticShadowValidatorStage(ValidationCompilerStage):
                             issues.append(f"Parameter ordering mismatch at index {i}")
                             
             # Check metadata arrays
-            for list_field in ["examples", "related", "outputs", "consumes", "produces", "prerequisites", "use_cases", "personas", "tags", "gifs", "errors", "notes", "edge_cases", "workflow"]:
+            for list_field in ["examples", "related", "outputs", "consumes", "produces", "prerequisites", "use_cases", "personas", "tags", "errors", "notes", "edge_cases", "workflow"]:
                 expected = meta.get(list_field, [])
                 actual = getattr(doc.metadata, list_field, [])
                 if expected != actual:
                     issues.append(f"Metadata field '{list_field}' mismatch. Expected {len(expected)}, got {len(actual)}")
+
+            expected_gifs = meta.get("gifs", [])
+            actual_gifs = getattr(doc.metadata, "gifs", [])
+            if len(expected_gifs) != len(actual_gifs):
+                issues.append(f"Metadata field 'gifs' mismatch. Expected {len(expected_gifs)}, got {len(actual_gifs)}")
             
             # Check introduced version
             if doc.versioning.introduced_in != meta.get("introduced", "0.1.0"):

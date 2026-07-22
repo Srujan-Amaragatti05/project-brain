@@ -12,18 +12,7 @@
     "deprecated_in": null,
     "stability": "stable"
   },
-  "blocks": [
-    {
-      "block_id": "blk_a51e8a3a",
-      "type": "paragraph",
-      "children": [
-        {
-          "type": "text",
-          "content": "Test configured LLM provider connectivity."
-        }
-      ]
-    }
-  ],
+  "blocks": [],
   "graph": {
     "relations": []
   },
@@ -31,6 +20,52 @@
   "metadata": {
     "command_name": "brain testllm test",
     "category": "testllm",
-    "is_plugin": false
+    "is_plugin": false,
+    "examples": [
+      "brain testllm test"
+    ],
+    "related": [
+      "brain diff review"
+    ],
+    "outputs": [],
+    "consumes": [
+      "llm configuration"
+    ],
+    "produces": [
+      "provider connectivity report"
+    ],
+    "prerequisites": [
+      "brain project init",
+      "brain project doctor"
+    ],
+    "use_cases": [
+      "LLM Setup",
+      "Provider Validation",
+      "Environment Verification"
+    ],
+    "personas": [
+      "developer"
+    ],
+    "tags": [
+      "llm",
+      "provider",
+      "diagnostics"
+    ],
+    "gifs": [
+      "urn:brain:asset:1b41dcf5d678"
+    ],
+    "errors": [
+      "LLM_PROVIDER_FAILURE"
+    ],
+    "notes": [
+      "Verifies configured LLM provider connectivity."
+    ],
+    "edge_cases": [
+      "Provider must be configured in brain.yaml."
+    ],
+    "workflow": [
+      "brain testllm test",
+      "brain diff review"
+    ]
   }
 }

@@ -221,13 +221,13 @@
         "urn:brain:doc:1f105a58-577e-4a11-807d-53e46b0d99ed"
       ]
     },
-    "urn:brain:asset:e3b0c44298fc": {
-      "id": "urn:brain:asset:e3b0c44298fc",
+    "urn:brain:asset:166a9f85c1c2": {
+      "id": "urn:brain:asset:166a9f85c1c2",
       "type": "image",
       "mime": "image/gif",
       "storage_key": "tree.gif",
-      "checksum_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size_bytes": 0,
+      "checksum_sha256": "166a9f85c1c26f839e2351f8845111e6e12274eb5986a3e3eaf953f02ae786f1",
+      "size_bytes": 1176264,
       "dimensions": {
         "width": 800,
         "height": 600

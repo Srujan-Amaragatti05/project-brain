@@ -21,25 +21,25 @@
 
 ## Typical Responsibilities
 
-* Ensuring local development environments are correctly configured and functional.
-* Auditing project dependencies and configuration files for drift or errors.
-* Monitoring CI/CD workflows to prevent pipeline failures.
-* Reviewing code changes through diffs to ensure adherence to repository standards.
-* Facilitating the onboarding of new developers by automating initialization sequences.
+* Ensuring all environment dependencies are correctly configured for contributors.
+* Auditing project health via automated diagnostic checks.
+* Managing repository workflows to prevent regressions.
+* Reviewing configuration drift and applying patches.
+* Monitoring CI/CD and local development environment stability.
 
 ## Recommended Approach
 
-* **Proactive Validation:** Run health checks frequently to detect configuration decay before it impacts build stability.
-* **Standardization:** Utilize initialization scripts to enforce consistent tooling across all developer workstations.
-* **Root Cause Analysis:** Leverage diagnostic tools immediately upon failure to isolate environment issues from code logic errors.
-* **Incremental Verification:** Use diff analysis to verify the impact of configuration changes before committing to repository metadata.
+1. **Verify State:** Run `brain project doctor` frequently to ensure the local environment aligns with the source of truth.
+2. **Standardize:** Use `brain project init` to enforce project-wide configurations and tooling versions.
+3. **Analyze Changes:** Utilize `brain diff show` before any maintenance task to understand the delta between the current state and intended project standards.
+4. **Iterative Repair:** Apply automated fixes provided by diagnostic tools rather than performing manual overrides.
 
 ## Common Scenarios
 
-* **Onboarding New Contributors:** Running `brain project init` to bootstrap a new environment with the correct toolchains and dependencies.
-* **Resolving Build Failures:** Executing `brain project doctor` to identify missing environment variables, mismatched versioning, or broken symlinks.
-* **Code Review:** Invoking `brain diff show` to inspect non-obvious changes in build artifacts or environment-specific configuration files that might not be visible in standard PR views.
-* **Environment Drift:** Periodically running status commands to reconcile local environment states with the project's baseline definition.
+* **New Contributor Onboarding:** Running `brain project init` to bootstrap a clean environment.
+* **Environment Troubleshooting:** Investigating build failures or test inconsistencies by executing `brain project doctor`.
+* **Code Review Maintenance:** Comparing local project structure against repository standards using `brain diff show` to identify configuration drift.
+* **Workflow Optimization:** Updating underlying project tooling and validating that existing workflows remain functional post-upgrade.
 
 ---
 
